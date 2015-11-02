@@ -1,0 +1,11 @@
+" set shell
+set shell=zsh
+
+" set runtime path
+set runtimepath+=~/.vim_config
+
+source ~/.vim/plug.vim
+source ~/.vim/_basic.vim
+source ~/.vim/config.vim
+source ~/.vim/plugins_config.vim
+source ~/.vim/filetypes.vim

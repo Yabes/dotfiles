@@ -1,0 +1,34 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd beep notify
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/developer/.zshrc'
+
+autoload -Uz compinit
+compinit
+#End of lines added by compinstall
+
+### Personal stuff
+
+# Load personal configs
+. ~/.dotfiles/zsh/prompt.zsh
+. ~/.dotfiles/zsh/aliases.zsh
+. ~/.dotfiles/zsh/errors.zsh
+. ~/.dotfiles/zsh/functions.zsh
+. ~/.dotfiles/git/git-aliases.zsh
+
+source ~/.dotfiles/zsh/fx_combo.zsh
+
+# Set editor
+if [[ -z "$EDITOR" ]]; then
+    export EDITOR=vim
+fi
+
+#autoload -Uz add-zsh-hook
+#add-zsh-hook precmd "dynPrompt $?"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

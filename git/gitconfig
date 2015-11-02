@@ -1,0 +1,35 @@
+[core]
+    trustctime = false
+    editor = vim
+    filemode = false
+    autocrlf = input
+    safecrlf = false
+[color]
+    ui = true
+[alias]
+    co = checkout
+    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(cyan)%d %Creset%s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
+    st = status
+    s = status -s
+    ci = commit -v
+    go = "!f() { git checkout -b \"\" 2> /dev/null || git checkout \"\"; }; f"
+    tags = tag -l
+    branches = branch -a
+    unstage = reset HEAD
+    untrack = update-index --assume-unchanged
+[mergetool]
+    keepBackup = false
+    tool = meld
+[push]
+    default = simple
+[pull]
+    rebase = true
+[grep]
+    lineNumber = true
+[rerere]
+    enabled = true
+[help]
+    autocorrect = 1
+[user]
+    name = Matthis LEMAITRE--COSQUER
+    email = matthis.lemaitre-cosquer@niji.fr
