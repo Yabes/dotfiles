@@ -46,6 +46,7 @@ alias cafe="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 # - Vagrant -
 alias vv="vagrant up && vagrant ssh"
 alias vh="vagrant halt"
+alias vs="vagrant ssh"
 
 # - GVim -
 #Discard error
