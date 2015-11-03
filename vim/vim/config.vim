@@ -7,7 +7,7 @@ set spelllang=en,fr
 set spell
 
 " Disable scrollbars (real hackers don't use scrollbars for navigation!)
-set guioptions-=rRlLmT
+set guioptions=
 
 " Number display
 set number
