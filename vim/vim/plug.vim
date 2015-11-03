@@ -127,5 +127,6 @@ Plug 'ktonga/vim-follow-my-lead'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'scrooloose/nerdcommenter'
 " Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/YankRing.vim'
 
 call plug#end()
