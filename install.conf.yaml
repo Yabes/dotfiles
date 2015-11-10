@@ -1,6 +1,7 @@
 - clean: ['~']
 
 - link:
+    ~/.zshrc: zsh/zshrc
     ~/.vim: vim/vim/
     ~/.vimrc: vim/vimrc
     ~/.gitconfig: git/gitconfig

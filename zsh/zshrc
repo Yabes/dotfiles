@@ -17,11 +17,11 @@ compinit
 # Load personal configs
 . ~/.dotfiles/zsh/prompt.zsh
 . ~/.dotfiles/zsh/aliases.zsh
-. ~/.dotfiles/zsh/errors.zsh
+. ~/.dotfiles/zsh/error.zsh
 . ~/.dotfiles/zsh/functions.zsh
 . ~/.dotfiles/git/git-aliases.zsh
 
-source ~/.dotfiles/zsh/fx_combo.zsh
+source ~/.dotfiles/zsh/combo.zsh
 
 # Set editor
 if [[ -z "$EDITOR" ]]; then
