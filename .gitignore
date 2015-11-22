@@ -1,3 +1,6 @@
+# Mac
+.DS_Store
+
 # Vim
 vim/vim/plugged/
 vim/vim/spell/
