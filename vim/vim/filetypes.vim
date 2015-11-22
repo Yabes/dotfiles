@@ -13,7 +13,6 @@ au FileType python map <buffer> F :set foldmethod=indent<cr>
 """"""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""
-au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
 
@@ -31,6 +30,7 @@ function! JavaScriptFold()
     setl foldtext=FoldText()
 endfunction
 
+au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 
 """"""""""""""""""""""""""""""
 " => CoffeeScript section

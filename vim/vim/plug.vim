@@ -15,6 +15,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
+Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
