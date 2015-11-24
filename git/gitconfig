@@ -7,27 +7,52 @@
 [color]
     ui = true
 [alias]
-    co = checkout
-    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(cyan)%d %Creset%s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative
-    st = status
+	co = checkout
+	lg = log --color --graph --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status -s
     s = status -s
-    ci = commit -v
-    go = "!f() { git checkout -b \"\" 2> /dev/null || git checkout \"\"; }; f"
-    tags = tag -l
-    branches = branch -a
+	ci = commit
+	go = "!f() { git checkout -b \"\" 2> /dev/null || git checkout \"\"; }; f"
+	tags = tag -l
+	branches = branch -a
     unstage = reset HEAD
     untrack = update-index --assume-unchanged
+	amend = commit --amend
+	br = branch
+	cl = clone
+	cp = cherry-pick
+	current-branch-name = ! git branch | grep '*' | sed 's/* //'
+	dc = diff --cached
+	df = diff --color
+	l = log --graph --pretty=format:'%C(yellow)%h%Creset%C(red)%d%Creset %C(white bold)%s%Creset %C(white dim)(by %an %ar)%Creset'
+	lasttag = describe --tags --abbrev=0
+	ld = !git l --date-order
+	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+	ll = !git l --all
+	lld = !git ll --date-order
+	lt = describe --tags --abbrev=0
+	pl = pull
+	r = reset
+	r1 = reset HEAD^
+	r2 = reset HEAD^^
+	rh = reset --hard
+	rh1 = reset HEAD^ --hard
+	rh2 = reset HEAD^^ --hard
+	sa = stash apply
+	sl = stash list
+	ss = stash save
+	undo = git reset --soft HEAD^
 [mergetool]
-    keepBackup = false
-    tool = meld
+	keepBackup = false
+	tool = meld
 [push]
-    default = simple
+	default = matching
 [pull]
     rebase = true
 [grep]
     lineNumber = true
 [rerere]
-    enabled = true
+	enabled = true
 [help]
     autocorrect = 1
 [user]
