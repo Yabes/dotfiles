@@ -129,5 +129,6 @@ Plug 'arecarn/fold-cycle.vim'
 Plug 'scrooloose/nerdcommenter'
 " Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'junegunn/vim-peekaboo'
 
 call plug#end()
