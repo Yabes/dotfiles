@@ -130,5 +130,6 @@ Plug 'scrooloose/nerdcommenter'
 " Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
+Plug 'wellle/visual-split.vim'
 
 call plug#end()
