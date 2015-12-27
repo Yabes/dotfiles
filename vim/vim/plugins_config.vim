@@ -219,3 +219,5 @@ let g:stack_filter = "top"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <leader>y :YRShow<CR>
 
+" Easy align interactive
+vnoremap <silent> <Enter> :EasyAlign<cr>

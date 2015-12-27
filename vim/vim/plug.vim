@@ -131,5 +131,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim'
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
