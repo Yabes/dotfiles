@@ -10,7 +10,7 @@ Plug 'tpope/vim-surround'
 " JavaScript
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'moll/vim-node', { 'for': 'javascript' }
-Plug 'elzr/vim-json', { 'for': 'javascript' }
+Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
