@@ -10,4 +10,3 @@ source ~/.vim/config.vim
 source ~/.vim/plugins_config.vim
 source ~/.vim/filetypes.vim
 source ~/.vim/abbr.vim
-

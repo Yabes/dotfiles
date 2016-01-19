@@ -24,11 +24,8 @@ set guifont=Bitstream\ Vera\ Sans\ Mono\ PNFT\ M\ 10
 
 " unified theme
 
-if has("gui_running")
-    colorscheme flatcolor
-else
-    colorscheme desert
-endif
+colorscheme flatcolor
+set background=dark
 
 let g:airline_theme="luna"
 
@@ -68,8 +65,8 @@ autocmd FileType c,cpp,python,ruby,java,javascript,php,vim autocmd BufWritePre <
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>e :e! ~/.vim/vim_config/config.vim<cr>
-autocmd! bufwritepost vimrc source ~/.vim/vim_config/config.vim
+map <leader>e :e! ~/.vim/config.vim<cr>
+autocmd! bufwritepost vimrc source ~/.vim/config.vim
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
