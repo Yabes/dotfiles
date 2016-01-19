@@ -4,5 +4,6 @@
 # Vim
 vim/vim/plugged/
 vim/vim/spell/
+vim/vim/autoload/
 
 .netrwhist
