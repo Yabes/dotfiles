@@ -8,14 +8,19 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
 
 " JavaScript
+Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
+Plug '1995eaton/vim-better-javascript-completion' , { 'for': 'javascript' }
+Plug 'othree/jspc.vim' , { 'for': 'javascript' }
+Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
 Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
+Plug 'othree/jsdoc-syntax.vim', { 'for': 'javaScript' }
+Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
@@ -110,13 +115,19 @@ Plug 'mattn/vim-textobj-url'
 
 
 """"""""""""""""""""""""""""""
+" => Git Plugins
+""""""""""""""""""""""""""""""
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+
+
+""""""""""""""""""""""""""""""
 " => Utils Plugins
 """"""""""""""""""""""""""""""
 Plug 'Shougo/vimproc.vim', { 'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make' }
 Plug 'osyo-manga/vim-over'
 Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 Plug 'terryma/vim-multiple-cursors'

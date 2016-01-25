@@ -19,15 +19,25 @@ set noshowmode
 " No wrap words
 set nowrap
 
+" Disable Syntax Highlighting after 200 char
+set synmaxcol=200
+
 " Patched font with icon
-set guifont=Bitstream\ Vera\ Sans\ Mono\ PNFT\ M\ 10
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin"
+    set guifont=Bitstream Vera Sans Mono Plus Nerd File Types Mono Plus Font Awesome Plus Octicons Plus Pomicons Windows Compatible:h10
+  else
+    set guifont=Bitstream\ Vera\ Sans\ Mono\ PNFT\ M\ 10
+  endif
+endif
 
 " unified theme
-
 colorscheme flatcolor
 set background=dark
 
-let g:airline_theme="luna"
+
+let g:airline_theme="lucius"
 
 " Timeout
 set ttimeout
@@ -35,15 +45,7 @@ set ttimeoutlen=100
 
 set cursorline
 
-" Placeholder img
-function! s:PlaceholderImgTag(size)
-  let url = 'http://dummyimage.com/' . a:size . '/000000/555555'
-  let [width,height] = split(a:size, 'x')
-  execute "normal a<img src=\"".url."\" width=\"".width."\" height=\"".height."\" />"
-endfunction
-command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
-
-" Split
+" Config Split
 set splitright
 set splitbelow
 

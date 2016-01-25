@@ -177,6 +177,7 @@ function! s:goyo_enter()
     set linespace=7
     set lines=41
     set columns=141
+    set nocursorline
     Limelight
     NERDTreeClose
 endfunction
@@ -184,6 +185,7 @@ endfunction
 function! s:goyo_leave()
     set background=dark
     set linespace=0
+    set cursorline
     Limelight!
     NERDTree
 endfunction
