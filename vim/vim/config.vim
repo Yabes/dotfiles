@@ -28,7 +28,7 @@ if has("unix")
   if s:uname == "Darwin"
     set guifont=Bitstream Vera Sans Mono Plus Nerd File Types Mono Plus Font Awesome Plus Octicons Plus Pomicons Windows Compatible:h10
   else
-    set guifont=Bitstream\ Vera\ Sans\ Mono\ PNFT\ M\ 10
+    set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
   endif
 endif
 

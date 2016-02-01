@@ -93,6 +93,8 @@ let g:multi_cursor_next_key="\<C-s>"
 " => vim-airline config (force color)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme="lucius"
+let g:airline_right_sep="\ue0ba"
+let g:airline_left_sep="\ue0b8"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimroom
