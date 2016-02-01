@@ -42,6 +42,7 @@
     sl = stash list
     ss = stash save
     undo = git reset --soft HEAD^
+    home = rev-parse --show-toplevel
 [mergetool]
 	keepBackup = false
 	tool = meld
