@@ -36,9 +36,6 @@ endif
 colorscheme flatcolor
 set background=dark
 
-
-let g:airline_theme="lucius"
-
 " Timeout
 set ttimeout
 set ttimeoutlen=100
