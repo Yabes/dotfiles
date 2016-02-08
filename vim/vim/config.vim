@@ -24,9 +24,9 @@ set synmaxcol=200
 
 " Patched font with icon
 if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin"
-    set guifont=Bitstream Vera Sans Mono Plus Nerd File Types Mono Plus Font Awesome Plus Octicons Plus Pomicons Windows Compatible:h10
+  if has("macunix")
+    set macligatures
+    set guifont=FiraCode-Regular:h11
   else
     set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
   endif
