@@ -147,4 +147,8 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim'
 Plug 'junegunn/vim-easy-align'
 
+" Flash on yanking
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
+
 call plug#end()
