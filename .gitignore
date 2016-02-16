@@ -5,5 +5,8 @@
 vim/vim/plugged/
 vim/vim/spell/
 vim/vim/autoload/
-
+vim/vim/undo/*
 .netrwhist
+
+# Do not ignore .gitkeep
+!vim/vim/undo/.gitkeep
