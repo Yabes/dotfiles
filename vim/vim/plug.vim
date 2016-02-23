@@ -132,7 +132,7 @@ Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'danro/rename.vim', { 'on': 'Rename' }
