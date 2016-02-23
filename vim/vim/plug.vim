@@ -136,7 +136,8 @@ Plug 'tpope/vim-repeat'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'danro/rename.vim', { 'on': 'Rename' }
-Plug 'majutsushi/tagbar'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
 Plug 'ktonga/vim-follow-my-lead'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'scrooloose/nerdcommenter'
