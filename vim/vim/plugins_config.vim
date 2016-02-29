@@ -117,7 +117,7 @@ let g:syntastic_python_checkers=['pyflakes']
 let g:ycm_key_list_select_completion   = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
