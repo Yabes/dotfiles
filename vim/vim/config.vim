@@ -19,8 +19,8 @@ set noshowmode
 " No wrap words
 set nowrap
 
-" Disable Syntax Highlighting after 200 char
-set synmaxcol=200
+" Disable Syntax Highlighting after 500 char
+set synmaxcol=500
 
 " Patched font with icon
 if has("unix")
