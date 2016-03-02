@@ -24,9 +24,9 @@ set synmaxcol=500
 
 " Patched font with icon
 if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin"
-    set guifont=Bitstream Vera Sans Mono Plus Nerd File Types Mono Plus Font Awesome Plus Octicons Plus Pomicons Windows Compatible:h10
+  if has("macunix")
+    set macligatures
+    set guifont=FiraCode-Regular:h11
   else
     set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
   endif
@@ -115,3 +115,11 @@ map <silent> <leader>V "+P
 map <silent> <C-Left> :tabp<CR>
 map <silent> <C-Right> :tabn<CR>
 
+" Execute macro over visual range
+" https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction

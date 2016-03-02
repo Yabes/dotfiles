@@ -62,6 +62,7 @@ Plug 'SirVer/ultisnips'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
 " Plug 'mru.vim'
 
 
@@ -146,5 +147,9 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim'
 Plug 'junegunn/vim-easy-align'
+
+" Flash on yanking
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
 
 call plug#end()
