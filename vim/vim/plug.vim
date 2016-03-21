@@ -91,7 +91,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 " Plug 'junegunn/vim-emoji'
 Plug 'haya14busa/incsearch.vim'
-
+Plug 'mhinz/vim-startify'
 
 """"""""""""""""""""""""""""""
 " => Colors Plugins

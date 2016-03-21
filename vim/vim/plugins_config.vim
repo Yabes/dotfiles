@@ -48,6 +48,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_open_multiple_files = 't'
 
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard || ls']
 
 """"""""""""""""""""""""""""""
 " => Emmet
@@ -242,5 +243,23 @@ map g/ <Plug>(incsearch-stay)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <leader>y :YRShow<CR>
 
-" Easy align interactive
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => EasyAlign
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap <silent> <Enter> :EasyAlign<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Startify
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:startify_custom_header = [
+      \ '                              ',
+      \ '            __                ',
+      \ '    __  __ /\_\    ___ ___    ',
+      \ '   /\ \/\ \\/\ \ /'' __` __`\ ',
+      \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \ ',
+      \ '    \ \___/  \ \_\ \_\ \_\ \_\',
+      \ '     \/__/    \/_/\/_/\/_/\/_/',
+      \ ]
