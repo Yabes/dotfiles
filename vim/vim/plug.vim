@@ -39,6 +39,7 @@ Plug 'evidens/vim-twig', { 'for': 'twig' }
 
 " Other
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 Plug 'vitalk/vim-shebang'
 Plug 'james9909/stackanswers.vim', { 'dir': '~', 'do': 'sudo pip install requests' }
 
