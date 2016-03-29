@@ -79,7 +79,7 @@ command! -nargs=* InsertLatestCommitMessage call InsertLatestCommitMessage(<f-ar
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>e :e! ~/.vim/config.vim<cr>
-autocmd! bufwritepost vimrc source ~/.vim/config.vim
+autocmd! bufwritepost *.vim source ~/.vimrc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
