@@ -56,6 +56,8 @@
 	enabled = true
 [help]
     autocorrect = 1
+[commit]
+    template = ~/.git_commit_msg.txt
 [user]
     name = Matthis LEMAITRE--COSQUER
     email = matthis.lemaitre-cosquer@niji.fr

@@ -5,6 +5,7 @@
     ~/.vim: vim/vim/
     ~/.vimrc: vim/vimrc
     ~/.gitconfig: git/gitconfig
+    ~/.git_commit_msg.txt: git/git_commit_msg.txt
     ~/.ssh/config: 
         create: true
         path: ssh/config
