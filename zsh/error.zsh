@@ -93,6 +93,12 @@ function err_handle() {
         "You could die tomorrow, and no one would care."
         "Were your parents related? Like before they were married?"
         "You're not very good at this, are you?"
+        "I can explain it to you, but I can't understand it for you"
+        "Your family tree must be a circle"
+        "Everyone who's ever loved you was wrong"
+        "Do you realize that peaple just tolerate you?"
+        "Well I would agree with you but then we'd both be wrong"
+        "This is why people talk about you when you're not around"
     )
 
 	echo -e "\n\033[0;31m${err_msg[$RANDOM%${#err_msg[@]}]}\e[0m"
