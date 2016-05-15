@@ -25,8 +25,11 @@ set synmaxcol=500
 " Patched font with icon
 if has("unix")
   if has("macunix")
-    set macligatures
     set guifont=FiraCode-Regular:h11
+
+    if has("gui_running")
+      set macligatures
+    endif
   else
     set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
   endif
