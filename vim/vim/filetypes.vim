@@ -30,6 +30,7 @@ function! JavaScriptFold()
     setl foldtext=FoldText()
 endfunction
 
+let g:syntastic_javascript_checkers = ['eslint']
 au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 
 """"""""""""""""""""""""""""""
