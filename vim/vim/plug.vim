@@ -22,6 +22,7 @@ Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 Plug 'othree/jsdoc-syntax.vim', { 'for': 'javaScript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
