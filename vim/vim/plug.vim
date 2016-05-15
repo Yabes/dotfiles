@@ -98,7 +98,7 @@ Plug 'mhinz/vim-startify'
 " => Colors Plugins
 """"""""""""""""""""""""""""""
 Plug 'MaxSt/FlatColor'
-
+Plug 'NLKNguyen/papercolor-theme'
 
 """"""""""""""""""""""""""""""
 " => Motion Plugins
