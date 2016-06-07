@@ -149,7 +149,7 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim'
 Plug 'junegunn/vim-easy-align'
-
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " Flash on yanking
