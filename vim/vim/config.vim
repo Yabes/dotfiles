@@ -78,6 +78,14 @@ function! InsertLatestCommitMessage(...)
 endfunction
 command! -nargs=* InsertLatestCommitMessage call InsertLatestCommitMessage(<f-args>)
 
+function! OpenQuickFixFile()
+    let line=split(expand("<cWORD>"), "|")
+    wincmd k
+    execute "e +".line[1]." ".line[0]
+endfunction
+command! -nargs=* OpenQuickFixFile call OpenQuickFixFile(<f-args>)
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> :OpenQuickFixFile<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
