@@ -33,6 +33,11 @@ endif
 
 
 """"""""""""""""""""""""""""""
+" => Fugitive
+""""""""""""""""""""""""""""""
+command! -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
+
+""""""""""""""""""""""""""""""
 " => CTRL-P
 """"""""""""""""""""""""""""""
 let g:ctrlp_working_path_mode = 0
