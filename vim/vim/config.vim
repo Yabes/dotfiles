@@ -102,8 +102,6 @@ map <silent> <C-Up> Vdkkp
 map <silent> <C-Down> Vdp
 
 " Delete buffer
-" map <silent> <C-w> :bd<CR>
-map <silent> <S-w> :bd<CR>
 " New tab
 map <silent> <C-t> :tabnew<CR>
 " Save
@@ -111,15 +109,11 @@ map <silent> <C-s> :w<CR>
 
 " Copy/Cut/Paste
 map <silent> <C-c> "+y
-map <silent> <S-c> "+y
 map <silent> <leader>c "+y
 
 map <silent> <C-x> "+x
-map <silent> <S-x> "+x
 map <silent> <leader>x "+x
 
-"map <silent> <C-v> "+p
-"map <silent> <S-v> "+p
 map <silent> <leader>v "+p
 map <silent> <leader>V "+P
 
