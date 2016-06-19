@@ -49,6 +49,9 @@ set cursorline
 set splitright
 set splitbelow
 
+" Set gf suffix
+set suffixesadd+=.js
+
 " Insert blank line in normal mode with <CR>
 " nmap <CR> o<Esc>
 
