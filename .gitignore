@@ -6,6 +6,7 @@ vim/vim/plugged/
 vim/vim/spell/
 vim/vim/autoload/
 vim/vim/undo/*
+vim/vim/session/
 .netrwhist
 
 # Do not ignore .gitkeep
