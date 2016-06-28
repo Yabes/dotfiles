@@ -120,8 +120,8 @@ let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YouCompleteMe
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_key_list_select_completion   = ['<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_semantic_triggers =  {
@@ -146,11 +146,17 @@ let g:tern_show_signature_in_pum=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => SuperTab
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UtilSnip
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<right>"
+let g:UltiSnipsJumpBackwardTrigger="<left>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

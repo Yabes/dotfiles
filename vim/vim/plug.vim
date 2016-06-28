@@ -48,6 +48,7 @@ Plug 'james9909/stackanswers.vim', { 'dir': '~', 'do': 'sudo pip install request
 " => Completion
 """"""""""""""""""""""""""""""
 Plug 'jiangmiao/auto-pairs'
+Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'yes \| ./install.py' }
 
 
