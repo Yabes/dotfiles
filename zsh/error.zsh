@@ -101,8 +101,12 @@ function err_handle() {
         "This is why people talk about you when you're not around"
     )
 
-	echo -e "\n\033[0;31m${err_msg[$RANDOM%${#err_msg[@]}]}\e[0m"
-
+    rand=$(od -N 4 -t uL -An /dev/urandom | tr -d " ")
+    echo -e "\n\033[0;31m${err_msg[$rand%${#err_msg[@]}]}\e[0m"
 }
 
-trap 'err_handle' ERR
+#trap 'err_handle' ERR
+function command_not_found_handler() {
+    err_handle
+    return 1
+}

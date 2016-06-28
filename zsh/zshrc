@@ -15,13 +15,13 @@ compinit
 ### Personal stuff
 
 # Load personal configs
+source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/prompt.zsh
 . ~/.dotfiles/zsh/aliases.zsh
 . ~/.dotfiles/zsh/error.zsh
 . ~/.dotfiles/zsh/functions.zsh
 . ~/.dotfiles/git/git-aliases.zsh
 
-source ~/.dotfiles/zsh/combo.zsh
 
 # Set editor
 if [[ -z "$EDITOR" ]]; then
