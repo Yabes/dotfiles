@@ -33,6 +33,10 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# AutoSuggest 
+[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=7
+
 # Autojump
 [ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
 
