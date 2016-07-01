@@ -33,4 +33,7 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Autojump
+[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
+
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
