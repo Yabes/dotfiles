@@ -155,6 +155,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'AndrewRadev/sideways.vim'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 " Flash on yanking
 Plug 'kana/vim-operator-user'
