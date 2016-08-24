@@ -155,9 +155,9 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UtilSnip
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<right>"
-let g:UltiSnipsJumpBackwardTrigger="<left>"
+let g:UltiSnipsExpandTrigger="<c-b>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
