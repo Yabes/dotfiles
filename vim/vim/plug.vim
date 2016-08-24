@@ -156,6 +156,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'henrik/vim-indexed-search'
 
 " Flash on yanking
 Plug 'kana/vim-operator-user'
