@@ -24,6 +24,7 @@ Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'magarcia/vim-angular2-snippets', { 'for': 'typescript' }
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
