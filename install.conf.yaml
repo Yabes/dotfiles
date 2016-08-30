@@ -10,4 +10,7 @@
     ~/.ssh/config: 
         create: true
         path: ssh/config
+    ~/.config/terminator/config:
+        create: true
+        path: terminator/config
 
