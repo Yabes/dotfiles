@@ -8,7 +8,7 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
 
 " JavaScript
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
+"Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
 Plug '1995eaton/vim-better-javascript-completion' , { 'for': 'javascript' }
 "Plug 'othree/jspc.vim' , { 'for': 'javascript' }
 Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
