@@ -101,28 +101,23 @@ autocmd! bufwritepost *.vim source ~/.vimrc
 " => Editor-like shortcuts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Move line up/down
-map <silent> <C-Up> Vdkkp
-map <silent> <C-Down> Vdp
+noremap <silent> <C-Up> Vdkkp
+noremap <silent> <C-Down> Vdp
 
-" Delete buffer
 " New tab
-map <silent> <C-t> :tabnew<CR>
-" Save
-map <silent> <C-s> :w<CR>
+noremap <silent> <C-t> :tabnew<CR>
 
 " Copy/Cut/Paste
-map <silent> <C-c> "+y
-map <silent> <leader>c "+y
+noremap <silent> <leader>c "+y
 
-map <silent> <C-x> "+x
-map <silent> <leader>x "+x
+noremap <silent> <leader>x "+x
 
-map <silent> <leader>v "+p
-map <silent> <leader>V "+P
+noremap <silent> <leader>v "+p
+noremap <silent> <leader>V "+P
 
 " Move to next/prev Tab page
-map <silent> <C-Left> :tabp<CR>
-map <silent> <C-Right> :tabn<CR>
+noremap <silent> <C-Left> :tabp<CR>
+noremap <silent> <C-Right> :tabn<CR>
 
 nnoremap <silent> <ESC><ESC> :noh<CR>
 
