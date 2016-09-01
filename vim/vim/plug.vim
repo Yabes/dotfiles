@@ -158,7 +158,8 @@ Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
-Plug  'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
+Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
+Plug 'lifepillar/vim-cheat40'
 
 " Flash on yanking
 Plug 'kana/vim-operator-user'
