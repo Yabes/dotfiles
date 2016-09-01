@@ -59,6 +59,7 @@ Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'y
 """"""""""""""""""""""""""""""
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
+Plug 'matthewsimo/angular-vim-snippets'
 
 
 """"""""""""""""""""""""""""""
