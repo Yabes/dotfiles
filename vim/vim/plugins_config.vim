@@ -30,7 +30,9 @@ let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_open_multiple_files = 't'
 
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard || ls']
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -oc --exclude-standard', 'find %s -type f']
+let g:ctrlp_working_path_mode = 'ra'
+
 
 """"""""""""""""""""""""""""""
 " => Emmet
