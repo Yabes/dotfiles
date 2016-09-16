@@ -1,0 +1,38 @@
+snippet ngcomponent "Angular 1.5 component" b
+@Component({
+	selector: $1${2:,
+	bindings: {
+		$3
+	}}${4:,
+	templateUrl: $5}
+})
+export class ${1:Component} {
+	/** @ngInject */
+  constructor ($6) {$7}
+}
+endsnippet
+
+snippet uistate "UI Router state" b
+.state('$1', {
+  url: '$2',
+	templateUrl: '$3',
+	controller: '$4',
+	controllerAs: '$5',
+	data: {
+    $6
+	},
+	resolve: {
+		$7
+	}
+})
+endsnippet
+
+snippet import "Import from" b
+import ${1:{ ${2:name} }} from '$3';
+endsnippet
+
+snippet interface "TS inter" b
+interface I$1 {
+  $2
+}
+endsnippet
