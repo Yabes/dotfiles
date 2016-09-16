@@ -144,7 +144,7 @@ let g:tagbar_singleclick = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:colorizer_auto_filetype='css,html'
+let g:colorizer_auto_filetype='scss,css,html'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -245,7 +245,14 @@ let g:jsdoc_allow_input_prompt = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim-JsDoc
+" => vim-javascript
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim-Sideways
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <c-h> :SidewaysLeft<cr>
 nnoremap <c-l> :SidewaysRight<cr>
