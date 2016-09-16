@@ -25,6 +25,7 @@ Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'magarcia/vim-angular2-snippets', { 'for': 'typescript' }
+Plug 'KabbAmine/gulp-vim'
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
@@ -45,6 +46,7 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 Plug 'vitalk/vim-shebang'
 Plug 'james9909/stackanswers.vim', { 'dir': '~/.vim/plugged/stackanswers.vim', 'do': 'sudo pip install requests && sudo pip install beautifulsoup4' }
+
 
 """"""""""""""""""""""""""""""
 " => Completion
@@ -146,7 +148,6 @@ Plug 'arecarn/fold-cycle.vim'
 Plug 'danro/rename.vim', { 'on': 'Rename' }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
-Plug 'ktonga/vim-follow-my-lead'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'scrooloose/nerdcommenter'
 " Plug 'tpope/vim-commentary'
@@ -160,7 +161,10 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
+
+" Cheatsheet & help
 Plug 'lifepillar/vim-cheat40'
+Plug 'ktonga/vim-follow-my-lead'
 
 " Flash on yanking
 Plug 'kana/vim-operator-user'
