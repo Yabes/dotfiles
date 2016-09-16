@@ -128,9 +128,10 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UtilSnip
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<c-b>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-x>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+autocmd FileType js UltiSnipsAddFiletypes javascript-angular
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
