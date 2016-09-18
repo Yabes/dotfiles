@@ -126,6 +126,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger="<c-x>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 autocmd FileType js UltiSnipsAddFiletypes javascript-angular
 
 
