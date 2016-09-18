@@ -160,6 +160,7 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
+Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 
 " Cheatsheet & help
 Plug 'lifepillar/vim-cheat40'
