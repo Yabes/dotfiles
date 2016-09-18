@@ -170,6 +170,11 @@ Plug 'ktonga/vim-follow-my-lead'
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Optimization
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'itchyny/vim-parenmatch'
+
 " Should be loaded last
 Plug 'ryanoasis/vim-devicons'
 
