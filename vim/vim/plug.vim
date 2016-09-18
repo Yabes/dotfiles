@@ -96,7 +96,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
 " Plug 'junegunn/vim-emoji'
 Plug 'haya14busa/incsearch.vim'
 Plug 'mhinz/vim-startify'
@@ -169,5 +168,8 @@ Plug 'ktonga/vim-follow-my-lead'
 " Flash on yanking
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
+
+" Should be loaded last
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
