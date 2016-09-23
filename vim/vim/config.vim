@@ -31,7 +31,7 @@ if has("unix")
       set macligatures
     endif
   else
-    set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+    set guifont=FuraCode\ Nerd\ Font\ 10
   endif
 endif
 
