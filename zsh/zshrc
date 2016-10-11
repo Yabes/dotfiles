@@ -31,6 +31,11 @@ fi
 #autoload -Uz add-zsh-hook
 #add-zsh-hook precmd "dynPrompt $?"
 
+# Add v command on normal mode to edit current line with $EDITOR
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+# FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # AutoSuggest 
