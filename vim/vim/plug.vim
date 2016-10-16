@@ -25,6 +25,8 @@ Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'magarcia/vim-angular2-snippets', { 'for': 'typescript' }
+Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
+Plug 'epilande/vim-react-snippets', { 'for': 'jsx' }
 Plug 'KabbAmine/gulp-vim'
 
 " HTML/CSS
