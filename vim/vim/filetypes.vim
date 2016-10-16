@@ -34,18 +34,6 @@ let g:syntastic_javascript_checkers = ['eslint']
 au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 
 """"""""""""""""""""""""""""""
-" => CoffeeScript section
-"""""""""""""""""""""""""""""""
-function! CoffeeScriptFold()
-    setl foldmethod=indent
-    setl foldlevelstart=1
-endfunction
-au FileType coffee call CoffeeScriptFold()
-
-au FileType gitcommit call setpos('.', [0, 1, 1, 0])
-
-
-""""""""""""""""""""""""""""""
 " => HTML section
 """""""""""""""""""""""""""""""
 " Conceal HTML entities
