@@ -162,16 +162,20 @@ function! s:goyo_enter()
     set lines=41
     set columns=141
     set nocursorline
+    colorscheme PaperColor
     Limelight
-    NERDTreeClose
+    set guifont=FiraCode-Regular:h16
+    set wrap
 endfunction
 
 function! s:goyo_leave()
     set background=dark
     set linespace=0
     set cursorline
+    colorscheme flatcolor
     Limelight!
-    NERDTree
+    set guifont=FiraCode-Regular:h11
+    set nowrap
 endfunction
 
 
@@ -264,6 +268,11 @@ xmap ia <Plug>SidewaysArgumentTextobjI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:peekaboo_delay = 750
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => auto-pairs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Parenmatch

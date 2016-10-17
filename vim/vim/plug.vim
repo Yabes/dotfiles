@@ -8,9 +8,7 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
 
 " JavaScript
-"Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
 Plug '1995eaton/vim-better-javascript-completion' , { 'for': 'javascript' }
-"Plug 'othree/jspc.vim' , { 'for': 'javascript' }
 Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }
 Plug 'moll/vim-node', { 'for': 'javascript' }
@@ -24,7 +22,8 @@ Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'magarcia/vim-angular2-snippets', { 'for': 'typescript' }
+Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
+Plug 'epilande/vim-react-snippets', { 'for': 'jsx' }
 Plug 'KabbAmine/gulp-vim'
 
 " HTML/CSS
@@ -141,7 +140,6 @@ Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
-"Plug 'terryma/vim-multiple-cursors'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'danro/rename.vim', { 'on': 'Rename' }
