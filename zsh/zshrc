@@ -28,6 +28,10 @@ if [[ -z "$EDITOR" ]]; then
     export EDITOR=vim
 fi
 
+#Locale
+LANG="fr_FR.UTF-8"
+LC_ALL="fr_FR.UTF-8"
+
 #autoload -Uz add-zsh-hook
 #add-zsh-hook precmd "dynPrompt $?"
 
@@ -50,3 +54,10 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # N
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+# If ag or pt is present adapt fzf default command, with a preference for pt
+command -v ag >/dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore custom_plugins -g ""'
+command -v pt >/dev/null 2>&1 && export FZF_DEFAULT_COMMAND='pt --hidden -g=""'
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
