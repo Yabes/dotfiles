@@ -81,9 +81,12 @@ nnoremap <silent> <leader>z :Goyo<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic (syntax checker)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_python_checkers=['pyflakes']
-let g:syntastic_typescript_checkers=['tslint']
-let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
+if exists("SyntasticInfo")
+  let g:syntastic_typescript_checkers=['tslint']
+  let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
+  let g:syntastic_javascript_checkers = ['eslint']
+  au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YouCompleteMe
