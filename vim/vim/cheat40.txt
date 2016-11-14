@@ -1,0 +1,9 @@
+Find & Replace {{{1
+Grep pattern to replace  :grep ‹P›     N
+Replace everywhere       :cfdo %s//‹P›/g
+
+Find word to replace     /‹P›‹CR›      N
+Replace it               cgn‹P›        N
+Repeat                   .             N
+}}}
+
