@@ -160,6 +160,10 @@ Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 
+if has('job')
+    Plug 'chrisbra/vim-autoread'
+endif
+
 " Cheatsheet & help
 Plug 'lifepillar/vim-cheat40'
 Plug 'ktonga/vim-follow-my-lead'
