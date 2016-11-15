@@ -161,6 +161,7 @@ Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 Plug 'tpope/vim-speeddating'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'brooth/far.vim', { 'on': 'Far' }
 
 if has('job')
     Plug 'chrisbra/vim-autoread'
