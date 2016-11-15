@@ -159,6 +159,8 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
+Plug 'tpope/vim-speeddating'
+Plug 'jceb/vim-orgmode', { 'for': 'org' }
 
 if has('job')
     Plug 'chrisbra/vim-autoread'
