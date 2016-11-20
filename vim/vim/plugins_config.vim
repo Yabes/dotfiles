@@ -81,7 +81,7 @@ nnoremap <silent> <leader>z :Goyo<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic (syntax checker)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if exists("SyntasticInfo")
+if exists(":SyntasticInfo")
   let g:syntastic_typescript_checkers=['tslint']
   let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
   let g:syntastic_javascript_checkers = ['eslint']
