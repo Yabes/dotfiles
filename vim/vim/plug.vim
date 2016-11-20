@@ -45,6 +45,7 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 Plug 'vitalk/vim-shebang'
 Plug 'james9909/stackanswers.vim', { 'dir': '~/.vim/plugged/stackanswers.vim', 'do': 'sudo pip install requests && sudo pip install beautifulsoup4' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 
 """"""""""""""""""""""""""""""
