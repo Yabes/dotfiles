@@ -20,6 +20,7 @@ source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/aliases.zsh
 . ~/.dotfiles/zsh/error.zsh
 . ~/.dotfiles/zsh/functions.zsh
+. ~/.dotfiles/zsh/completion.zsh
 . ~/.dotfiles/git/git-aliases.zsh
 
 
