@@ -69,8 +69,6 @@ Plug 'matthewsimo/angular-vim-snippets'
 """"""""""""""""""""""""""""""
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'mileszs/ack.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
 Plug 'eiginn/netrw'
 " Plug 'mru.vim'
 
@@ -183,5 +181,10 @@ Plug 'itchyny/vim-parenmatch'
 
 " Should be loaded last
 Plug 'ryanoasis/vim-devicons'
+
+" No Name error if loaded before vim-devicons
+" https://github.com/ctrlpvim/ctrlp.vim/pull/285
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
 
 call plug#end()
