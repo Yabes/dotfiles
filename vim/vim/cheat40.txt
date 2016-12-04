@@ -2,8 +2,17 @@ Find & Replace {{{1
 Grep pattern to replace  :grep ‹P›     N
 Replace everywhere       :cfdo %s//‹P›/g
 
-Find word to replace     /‹P›‹CR›      N
+Find word to replace     /‹P›«CR»      N
 Replace it               cgn‹P›        N
 Repeat                   .             N
 }}}
-
+Macros {{{1
+Apply Macro over visual  :norm! @‹r›   N
+}}}
+Far {{{1
+File & Replace word across files like
+an IDE.
+‹FileMask› can be **/*.js
+               :Far ‹P› ‹P› ‹FileMask› N
+               :Fardo                  N
+}}}
