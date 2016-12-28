@@ -1,0 +1,13 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser"
+  ],
+  "plugins": {
+    "node": false,
+    "webpack": false,
+    "es_modules": {},
+    "doc_comment": {},
+    "angular": {}
+  }
+}

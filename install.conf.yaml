@@ -9,6 +9,7 @@
     ~/.editorconfig: editorconfig
     ~/.ptconfig.toml: pt/ptconfig.toml
     ~/.npmrc: npm/npmrc
+    ~/.tern-config: tern/tern-config.json
     ~/.ssh/config: 
         create: true
         path: ssh/config
