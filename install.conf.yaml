@@ -8,6 +8,7 @@
     ~/.git_commit_msg.txt: git/git_commit_msg.txt
     ~/.editorconfig: editorconfig
     ~/.ptconfig.toml: pt/ptconfig.toml
+    ~/.npmrc: npm/npmrc
     ~/.ssh/config: 
         create: true
         path: ssh/config
