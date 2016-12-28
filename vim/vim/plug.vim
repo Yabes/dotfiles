@@ -161,6 +161,7 @@ Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 Plug 'tpope/vim-speeddating'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
+Plug 'yabes/vim-complete-commit-type'
 
 if has('job')
     Plug 'chrisbra/vim-autoread'
