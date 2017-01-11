@@ -159,7 +159,7 @@ Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 Plug 'tpope/vim-speeddating'
-Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
 Plug 'yabes/vim-complete-commit-type'
 
