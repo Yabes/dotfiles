@@ -3,3 +3,33 @@ snippet svg "SVG" b
   <use xlink:href="#$2" />
 </svg>
 endsnippet
+
+snippet html5 "Basic HTML5 template" b
+<!doctype html>
+
+<html lang="${1:fr}">
+<head>
+  <meta charset="${2:utf-8}">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+
+  <base href="/">
+
+  <title>$3</title>
+  <meta name="description" content="$4">
+
+  <meta property="og:title" content="$4" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="$5" />
+  <meta property="og:image" content="$6" />
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+
+</body>
+</html>
+endsnippet
