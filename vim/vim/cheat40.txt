@@ -16,3 +16,6 @@ an IDE.
                :Far ‹P› ‹P› ‹FileMask› N
                :Fardo                  N
 }}}
+Other {{{1
+Word under cursor           «C-R»«C-W» N
+}}}
