@@ -61,3 +61,9 @@
 [user]
     name = Matthis LEMAITRE--COSQUER
     email = matthis.lemaitre-cosquer@niji.fr
+[commit]
+  verbose = true
+[rebase]
+  autostash = true
+[diff]
+  indentHeuristic = true
