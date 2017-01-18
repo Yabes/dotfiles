@@ -187,5 +187,6 @@ Plug 'ryanoasis/vim-devicons'
 " https://github.com/ctrlpvim/ctrlp.vim/pull/285
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
+Plug 'tracyone/ctrlp-leader-guide'
 
 call plug#end()
