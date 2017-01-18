@@ -33,6 +33,8 @@ let g:ctrlp_open_multiple_files = 't'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -oc --exclude-standard', 'find %s -type f']
 let g:ctrlp_working_path_mode = 'ra'
 
+let g:ctrlp_extensions = [ 'funky' ]
+
 
 """"""""""""""""""""""""""""""
 " => Emmet
