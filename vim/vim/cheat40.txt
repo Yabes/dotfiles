@@ -16,6 +16,15 @@ an IDE.
                :Far ‹P› ‹P› ‹FileMask› N
                :Fardo                  N
 }}}
+FZF {{{1
+Search for files         :Files        N
+Search in buffers        :Buffers      N
+Change color scheme      :Colors       N
+Insert snippet           :Snippets     N
+Search normal mappings   :Maps         N
+Change filetype          :Filetypes    N
+}}}
+
 Other {{{1
 Word under cursor           «C-R»«C-W» N
 }}}

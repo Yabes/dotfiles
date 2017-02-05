@@ -68,6 +68,7 @@ Plug 'matthewsimo/angular-vim-snippets'
 " => File Plugins
 """"""""""""""""""""""""""""""
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'eiginn/netrw'
 " Plug 'mru.vim'
