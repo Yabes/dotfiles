@@ -4,7 +4,12 @@ Replace everywhere       :cfdo %s//‹P›/g
 
 Find word to replace     /‹P›«CR»      N
 Replace it               cgn‹P›        N
-Repeat                   .             N
+Repeat with .
+
+Replace last search      cn           VN
+Repeat with .
+Replace with a macro     cq           VN
+Repeat with @@ or «CR»
 }}}
 Macros {{{1
 Apply Macro over visual  :norm! @‹r›   N
