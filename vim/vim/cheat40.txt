@@ -1,3 +1,4 @@
+Personal cheatsheet
 Find & Replace {{{1
 Grep pattern to replace  :grep ‹P›     N
 Replace everywhere       :cfdo %s//‹P›/g
@@ -11,12 +12,14 @@ Repeat with .
 Replace with a macro     cq           VN
 Repeat with @@ or «CR»
 }}}
+
 Macros {{{1
 Apply Macro over visual  :norm! @‹r›   N
 }}}
+
 Far {{{1
-File & Replace word across files like
-an IDE.
+File & Replace word
+across files like an IDE
 ‹FileMask› can be **/*.js
                :Far ‹P› ‹P› ‹FileMask› N
                :Fardo                  N
@@ -31,5 +34,8 @@ Change filetype          :Filetypes    N
 }}}
 
 Other {{{1
-Word under cursor           «C-R»«C-W» N
+Word under cursor        «C-R»«C-W»    C
+Paste in insert mode     «C-R»"        I
+Yank one char            yl            N
+                         y«Spc»        N
 }}}

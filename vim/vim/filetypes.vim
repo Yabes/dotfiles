@@ -93,3 +93,5 @@ function! OpenQuickFixFile()
   execute "e +".line[1]." ".line[0]
 endfunction
 command! -nargs=* OpenQuickFixFile call OpenQuickFixFile(<f-args>)
+
+autocmd BufNewFile,BufRead cheat40* set filetype=cheat40
