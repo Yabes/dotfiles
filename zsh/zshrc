@@ -26,6 +26,8 @@ source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/fzf.zsh
 . ~/.dotfiles/git/git-aliases.zsh
 
+# Disable r command
+disable r
 
 # Set editor
 if [[ -z "$EDITOR" ]]; then
