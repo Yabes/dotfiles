@@ -83,12 +83,21 @@ nnoremap <silent> <leader>z :Goyo<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic (syntax checker)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if exists(":SyntasticInfo")
-  let g:syntastic_typescript_checkers=['tslint']
-  let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
-  let g:syntastic_javascript_checkers = ['eslint']
-  au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
-endif
+let g:syntastic_typescript_checkers=['tslint']
+let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
+let g:syntastic_javascript_checkers = ['eslint']
+au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ale (syntax checker for vim8)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters = {
+  \   'javascript': ['eslint'],
+  \   'typescript': ['tslint'],
+  \ }
+
+let g:ale_echo_msg_format = '[%linter%] %s'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YouCompleteMe

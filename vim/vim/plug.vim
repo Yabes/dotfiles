@@ -4,7 +4,12 @@ call plug#begin()
 " => Syntax Plugins
 """"""""""""""""""""""""""""""
 " Multi-purpose plugins
-Plug 'scrooloose/syntastic'
+if has('job')
+  Plug 'w0rp/ale'
+else
+  Plug 'scrooloose/syntastic'
+endif
+
 Plug 'tpope/vim-surround'
 
 " JavaScript
