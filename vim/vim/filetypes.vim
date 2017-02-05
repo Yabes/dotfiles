@@ -19,6 +19,8 @@ au FileType javascript setl nocindent
 au FileType javascript imap <c-t> $log();<esc>hi
 au FileType javascript imap <c-a> alert();<esc>hi
 
+au FileType javascript set suffixesadd+=.js
+
 function! JavaScriptFold()
     setl foldmethod=syntax
     setl foldlevelstart=1
@@ -29,6 +31,13 @@ function! JavaScriptFold()
     endfunction
     setl foldtext=FoldText()
 endfunction
+
+au BufNewFile,BufRead .eslintrc set ft=json
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Typescript section
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au FileType typescript set suffixesadd+=.ts
 
 """"""""""""""""""""""""""""""
 " => HTML section

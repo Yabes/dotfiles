@@ -150,9 +150,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Set gf suffix
-set suffixesadd+=.js
-
 " A buffer becomes hidden when it is abandoned
 set hidden
 
