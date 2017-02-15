@@ -151,8 +151,7 @@ Plug 'danro/rename.vim', { 'on': 'Rename' }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
 Plug 'arecarn/fold-cycle.vim'
-Plug 'scrooloose/nerdcommenter'
-" Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim'
