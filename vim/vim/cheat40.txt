@@ -33,6 +33,16 @@ Search normal mappings   :Maps         N
 Change filetype          :Filetypes    N
 }}}
 
+vim-abolish{{{1
+               :S/di{e,ce}/spinner{,s}/g
+snake_case               crs
+MixedCase                crm
+camelCase                crc
+UPPER_CASE               cru
+dash-case                cr-
+dot.case                 cr.
+space case               cr«Spc»
+}}}
 Other {{{1
 Word under cursor        «C-R»«C-W»    C
 Paste in insert mode     «C-R»"        I

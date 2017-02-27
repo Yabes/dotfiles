@@ -145,6 +145,7 @@ Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'danro/rename.vim', { 'on': 'Rename' }
@@ -192,6 +193,6 @@ Plug 'ryanoasis/vim-devicons'
 " https://github.com/ctrlpvim/ctrlp.vim/pull/285
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
-Plug 'tracyone/ctrlp-leader-guide'
+" Plug 'tracyone/ctrlp-leader-guide'
 
 call plug#end()
