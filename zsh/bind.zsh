@@ -1,5 +1,9 @@
 fzf-git-add() {
-local file=$(git status --short|grep -v "^[^? ]"|fzf --multi --reverse --preview "git diff --color {2}"|awk '{ print $2 }'|tr '\n' ' ')
+  local file="$(git status --short | \
+    grep -v "^[^? ]" | \
+    fzf --multi --reverse --preview 'git diff --color {2}' | \
+    awk '{ print $2 }' | \
+    tr '\n' ' ')"
   local ret=$?
   LBUFFER="${LBUFFER}${file}"
   zle redisplay
