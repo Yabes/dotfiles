@@ -96,6 +96,7 @@ au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 let g:ale_linters = {
   \   'javascript': ['eslint'],
   \   'typescript': ['tslint'],
+  \   'php': [ 'php -l', 'phpmd' ]
   \ }
 
 let g:ale_echo_msg_format = '[%linter%] %s'
