@@ -2,7 +2,7 @@
 # - LS -
 
 if [ "$(uname)" == "Darwin" ]; then
-  alais ls="ls -G"
+  alias ls="ls -G"
 else
   alias ls="ls --color"
 fi

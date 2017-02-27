@@ -26,6 +26,9 @@ source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/fzf.zsh
 . ~/.dotfiles/git/git-aliases.zsh
 
+# Disable = command
+unsetopt EQUALS
+
 # Disable r command
 disable r
 
