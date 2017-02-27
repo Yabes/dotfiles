@@ -1,6 +1,12 @@
 # ======= MOTHER FUCKING ALIAS =======
 # - LS -
-alias ls="ls -G"
+
+if [ "$(uname)" == "Darwin" ]; then
+  alais ls="ls -G"
+else
+  alias ls="ls --color"
+fi
+
 alias l="ls"
 alias ll="ls -lh"
 alias la="ls -a"
