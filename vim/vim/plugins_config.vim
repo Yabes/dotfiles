@@ -94,13 +94,18 @@ au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 " => Ale (syntax checker for vim8)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
-  \   'javascript': ['eslint'],
+  \   'javascript': ['xo', 'eslint'],
   \   'typescript': ['tslint'],
-  \   'php': [ 'php -l', 'phpmd' ]
+  \   'php': [ 'php -l', 'phpmd' ],
+  \   'dockerfile': ['hadolint'],
+  \   'vim': ['vint'],
+  \   'sass': ['sass-lint']
   \ }
 
 let g:ale_echo_msg_format = '[%linter%] %s'
 
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YouCompleteMe
