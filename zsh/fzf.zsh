@@ -40,7 +40,7 @@ fshow() {
   local out shas sha q k
   while out=$(
       git log --graph --color=always \
-          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+          --format="%C(auto)%h%d %s %C(black)%C(bold)%cn %cr" "$@" |
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
           --bind "?:toggle-preview"  --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color $sha1' \
           --print-query --expect=ctrl-d,enter); do
