@@ -15,6 +15,9 @@ compinit
 
 ### Personal stuff
 
+# Disable = command
+unsetopt EQUALS
+
 # Load personal configs
 source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/prompt.zsh
@@ -25,9 +28,6 @@ source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/bind.zsh
 . ~/.dotfiles/zsh/fzf.zsh
 . ~/.dotfiles/git/git-aliases.zsh
-
-# Disable = command
-unsetopt EQUALS
 
 # Disable r command
 disable r
