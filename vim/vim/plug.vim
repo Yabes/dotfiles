@@ -168,6 +168,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
 Plug 'yabes/vim-complete-commit-type'
+Plug 'sbdchd/neoformat'
 
 if has('job')
     Plug 'chrisbra/vim-autoread'
