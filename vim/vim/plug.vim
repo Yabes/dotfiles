@@ -13,23 +13,23 @@ endif
 Plug 'tpope/vim-surround'
 
 " JavaScript
-Plug '1995eaton/vim-better-javascript-completion' , { 'for': 'javascript' }
-Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
-Plug 'burnettk/vim-angular', { 'for': 'javascript' }
-Plug 'moll/vim-node', { 'for': 'javascript' }
+" Plug '1995eaton/vim-better-javascript-completion' , { 'for': 'javascript' }
+" Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
+" Plug 'burnettk/vim-angular', { 'for': 'javascript' }
+" Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
+" Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
-Plug 'othree/jsdoc-syntax.vim', { 'for': 'javaScript' }
-Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
-Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
-Plug 'isRuslan/vim-es6'
+" Plug 'othree/jsdoc-syntax.vim', { 'for': 'javaScript' }
+" Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
+" Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
+" Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
+" Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
 Plug 'epilande/vim-react-snippets', { 'for': 'jsx' }
 Plug 'KabbAmine/gulp-vim'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
