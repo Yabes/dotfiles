@@ -84,3 +84,23 @@ endfunction
 command! -nargs=* OpenQuickFixFile call OpenQuickFixFile(<f-args>)
 
 autocmd BufNewFile,BufRead cheat40* set filetype=cheat40
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => TeX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! WrapLines()
+  set wrap
+  set linebreak
+endfunction
+
+augroup texSyntaxOverride
+  autocmd!
+  autocmd FileType tex call WrapLines()
+augroup END
+
+augroup vimwikiSyntaxOverrid
+  autocmd!
+  autocmd FileType vimwiki call WrapLines()
+augroup END
+
+
