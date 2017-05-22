@@ -13,26 +13,15 @@ au FileType python map <buffer> F :set foldmethod=indent<cr>
 """"""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""
-au FileType javascript setl fen
-au FileType javascript setl nocindent
 
-au FileType javascript imap <c-t> $log();<esc>hi
-au FileType javascript imap <c-a> alert();<esc>hi
-
-au FileType javascript set suffixesadd+=.js
-
-function! JavaScriptFold()
-    setl foldmethod=syntax
-    setl foldlevelstart=1
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-
-    function! FoldText()
-        return substitute(getline(v:foldstart), '{.*', '{...}', '')
-    endfunction
-    setl foldtext=FoldText()
-endfunction
-
-au BufNewFile,BufRead .eslintrc set ft=json
+augroup jsSyntax
+  autocmd!
+  autocmd FileType javascript setl nocindent
+  autocmd FileType javascript set suffixesadd+=.js
+  autocmd FileType javascript setl formatprg=prettier\ --stdin\ --single-quote
+  autocmd BufWritePre *.js Neoformat
+  autocmd BufNewFile,BufRead .eslintrc set ft=json
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Typescript section
