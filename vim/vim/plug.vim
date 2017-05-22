@@ -32,7 +32,7 @@ Plug 'KabbAmine/gulp-vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " HTML/CSS
-Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig' ] }
+Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig', 'javascript', 'jsx' ] }
 Plug 'othree/html5.vim', { 'for': [ 'html', 'twig' ] }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['css', 'scss'] }
