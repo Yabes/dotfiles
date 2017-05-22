@@ -48,4 +48,6 @@ Word under cursor        «C-R»«C-W»    C
 Paste in insert mode     «C-R»"        I
 Yank one char            yl            N
                          y«Spc»        N
+Insert previously
+inserted text            «C-R»         I
 }}}
