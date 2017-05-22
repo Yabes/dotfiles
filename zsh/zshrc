@@ -55,6 +55,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=7
 # Autojump
 [ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
 
+export PATH="$(yarn global bin):$PATH"
+
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
