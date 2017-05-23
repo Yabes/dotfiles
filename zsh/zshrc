@@ -38,8 +38,8 @@ if [[ -z "$EDITOR" ]]; then
 fi
 
 #Locale
-LANG="fr_FR.UTF-8"
-LC_ALL="fr_FR.UTF-8"
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
 
 #autoload -Uz add-zsh-hook
 #add-zsh-hook precmd "dynPrompt $?"
@@ -55,7 +55,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=7
 # Autojump
 [ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
 
-export PATH="$(yarn global bin):$PATH"
+command -v yarn >/dev/null 2>&1 && export PATH="$(yarn global bin):$PATH"
 
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
