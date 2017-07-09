@@ -327,3 +327,10 @@ let g:startify_custom_header = [
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:neoformat_try_formatprg = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => FZF
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('macunix')
+    let g:fzf_launcher = '~/.dotfiles/vim/vim/fzfMacVim.zsh %s'
+endif
+
