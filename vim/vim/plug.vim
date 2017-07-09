@@ -50,7 +50,7 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 Plug 'vitalk/vim-shebang'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex'] }
 
 """"""""""""""""""""""""""""""
 " => Completion
@@ -88,13 +88,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 " => Look & Feel Plugins
 """"""""""""""""""""""""""""""
 Plug 'chrisbra/Colorizer'
-" Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
 Plug 'gregsexton/MatchTag'
 Plug 'airblade/vim-gitgutter'
 Plug 'amix/vim-zenroom2'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'haya14busa/incsearch.vim'
@@ -130,14 +129,14 @@ Plug 'mattn/vim-textobj-url'
 " => Git Plugins
 """"""""""""""""""""""""""""""
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 
 """"""""""""""""""""""""""""""
 " => Utils Plugins
 """"""""""""""""""""""""""""""
 Plug 'Shougo/vimproc.vim', { 'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make' }
-Plug 'osyo-manga/vim-over'
+Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
 Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
@@ -152,11 +151,11 @@ Plug 'arecarn/fold-cycle.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
-Plug 'wellle/visual-split.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'AndrewRadev/splitjoin.vim'
+Plug 'wellle/visual-split.vim', { 'on': ['VSSplit', 'VSSplitAbove', 'VSSplitBelow', 'VSResize'] }
+Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
+Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] }
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
-Plug 'AndrewRadev/sideways.vim'
+Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewaysLeft', 'SidewaysRight'] }
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
@@ -164,14 +163,14 @@ Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 Plug 'tpope/vim-speeddating'
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
-Plug 'yabes/vim-complete-commit-type'
-Plug 'sbdchd/neoformat'
+Plug 'yabes/vim-complete-commit-type', { 'for': 'gitcommit' }
+Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
 
 if has('job')
-    Plug 'chrisbra/vim-autoread'
+    Plug 'chrisbra/vim-autoread', { 'on': 'AutoRead' }
 endif
 
-" Cheatsheet & help
+" Cheat sheet & help
 Plug 'lifepillar/vim-cheat40'
 Plug 'ktonga/vim-follow-my-lead'
 
