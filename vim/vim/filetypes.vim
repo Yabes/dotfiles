@@ -18,8 +18,11 @@ augroup jsSyntax
   autocmd!
   autocmd FileType javascript setl nocindent
   autocmd FileType javascript set suffixesadd+=.js
+  autocmd FileType javascript.jsx set suffixesadd+=.jsx
   autocmd FileType javascript setl formatprg=prettier\ --stdin\ --single-quote
+  autocmd FileType javascript.jsx setl formatprg=prettier\ --stdin\ --single-quote
   autocmd BufWritePre *.js Neoformat
+  autocmd BufWritePre *.jsx Neoformat
   autocmd BufNewFile,BufRead .eslintrc set ft=json
 augroup END
 
