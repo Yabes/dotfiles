@@ -341,3 +341,14 @@ if has('macunix')
     let g:fzf_launcher = '~/.dotfiles/vim/vim/fzfMacVim.zsh %s'
 endif
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editor config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if executable('editorconfig')
+    let g:EditorConfig_core_mode = 'external_command'
+    let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+else
+    let g:EditorConfig_core_mode = 'python_external'
+endif
+
