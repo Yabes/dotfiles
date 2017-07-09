@@ -49,7 +49,6 @@ Plug 'evidens/vim-twig', { 'for': 'twig' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 Plug 'vitalk/vim-shebang'
-Plug 'james9909/stackanswers.vim', { 'dir': '~/.vim/plugged/stackanswers.vim', 'do': 'sudo pip install requests && sudo pip install beautifulsoup4' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'lervag/vimtex'
 
@@ -66,7 +65,6 @@ Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'y
 """"""""""""""""""""""""""""""
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'matthewsimo/angular-vim-snippets'
 
 
 """"""""""""""""""""""""""""""
@@ -83,7 +81,6 @@ Plug 'eiginn/netrw'
 " => NerdTree Plugins
 """"""""""""""""""""""""""""""
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" Plug 'jistr/vim-nerdtree-tabs', { 'on' : 'NERDTreeTabsToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
 
@@ -100,7 +97,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'junegunn/vim-emoji'
 Plug 'haya14busa/incsearch.vim'
 Plug 'mhinz/vim-startify'
 
