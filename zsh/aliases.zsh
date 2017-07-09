@@ -57,4 +57,4 @@ alias vs="vagrant ssh"
 # - GVim -
 #Discard error
 alias gvim="gvim 2>/dev/null"
-
+alias mem='mvim "+VimwikiIndex" "+VimwikiGoto Mémoire" "+VimwikiGoto Plan" "+Goyo" "+set nospell"'
