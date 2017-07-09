@@ -21,7 +21,7 @@ set wildmode=full
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
+if has('win16') || has('win32')
   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
   set wildignore+=.git\*,.hg\*,.svn\*
@@ -51,20 +51,20 @@ set magic
 " Show matching brackets when text indicator is over them
 set showmatch
 " How many tenths of a second to blink when matching brackets
-set mat=2
+set matchtime=2
 
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
-set vb t_vb=
-set tm=500
+set visualbell t_vb=
+set timeoutlen=500
 
 " Add a bit extra margin to the left
 set foldcolumn=1
 
 " Set extra options when running in GUI mode
-if has("gui_running")
+if has('gui_running')
   set t_Co=256
   set guitablabel=%M\ %t
   " Disable scrollbars
@@ -97,11 +97,11 @@ set laststatus=2
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Patched font with icon
-if has("unix")
-  if has("macunix")
+if has('unix')
+  if has('macunix')
     set guifont=FiraCode-Regular:h11
 
-    if has("gui_running")
+    if has('gui_running')
       set macligatures
     endif
   else
@@ -135,7 +135,7 @@ set autoread
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " Persistent undo
@@ -149,7 +149,7 @@ set undoreload=10000
 set encoding=utf8
 
 " Use Unix as the standard file type
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 
 " A buffer becomes hidden when it is abandoned
 set hidden
@@ -176,7 +176,7 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-if has("mac") || has("macunix")
+if has('mac') || has('macunix')
   nmap <D-j> <M-j>
   nmap <D-k> <M-k>
   vmap <D-j> <M-j>
@@ -218,7 +218,7 @@ nnoremap k gk
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
-  set stal=2
+  set showtabline=2
 catch
 endtry
 
@@ -291,10 +291,10 @@ nnoremap <leader>e :e! ~/.vim/config.vim<cr>
 " => Auto create directory with :e
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 fun! <SID>AutoMakeDirectory()
-  let s:directory = expand("<afile>:p:h")
+  let s:directory = expand('<afile>:p:h')
 
   if !isdirectory(s:directory)
-    call mkdir(s:directory, "p")
+    call mkdir(s:directory, 'p')
   endif
 
 endfun
