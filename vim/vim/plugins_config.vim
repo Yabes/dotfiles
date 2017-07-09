@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""
 " => YankRing
 """"""""""""""""""""""""""""""
-if has("win16") || has("win32")
+if has('win16') || has('win32')
     " Don't do anything
 else
     let g:yankring_history_dir = '~/.vim_runtime/temp_dirs/'
@@ -94,7 +94,7 @@ au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 " => Ale (syntax checker for vim8)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
-  \   'javascript': ['xo', 'eslint'],
+  \   'javascript': ['xo'],
   \   'typescript': ['tslint'],
   \   'php': [ 'php -l', 'phpmd' ],
   \   'dockerfile': ['hadolint'],
@@ -174,7 +174,6 @@ autocmd! User GoyoLeave
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Goyo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -188,6 +187,7 @@ function! s:goyo_enter()
     Limelight
     set guifont=FiraCode-Regular:h16
     set wrap
+    set breakindent
 endfunction
 
 function! s:goyo_leave()
@@ -198,6 +198,7 @@ function! s:goyo_leave()
     Limelight!
     set guifont=FiraCode-Regular:h11
     set nowrap
+    set nobreakindent
 endfunction
 
 
@@ -326,6 +327,12 @@ let g:startify_custom_header = [
 " => Neoformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:neoformat_try_formatprg = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-operator-flashy
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => FZF
