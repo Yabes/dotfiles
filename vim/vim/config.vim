@@ -93,6 +93,9 @@ set splitbelow
 " Always show the status line
 set laststatus=2
 
+" Show break if any
+set showbreak=»\ "
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,8 +170,8 @@ command! W w !sudo tee % > /dev/null
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = "\<space>"
 let g:mapleader = "\<space>"
+let g:maplocalleader = "\<space>"
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
