@@ -75,6 +75,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'eiginn/netrw'
 " Plug 'mru.vim'
+Plug 'bogado/file-line'
 
 
 """"""""""""""""""""""""""""""
