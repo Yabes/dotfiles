@@ -12,6 +12,8 @@ endif
 " => Fugitive
 """"""""""""""""""""""""""""""
 command! -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
+command! Ga execute 'Git add %'
+command! Gc execute 'Gcommit --verbose'
 
 
 """"""""""""""""""""""""""""""
