@@ -63,3 +63,13 @@ frg() {
   rg -l $1 | fzf --multi --bind "?:toggle-preview" --preview "rg --color='always' --line-number $1 {1}"
 }
 
+
+frun() {
+  cmds=$(npm run)
+  cmd=$(echo $cmds | grep "^  \w" | fzf --bind "?:toggle-preview" --preview "echo '${cmds}' | grep -A 1 '^  {1}$' | tail -1 | sed 's/  //g'" | sed 's/ //g')
+
+  if [ -n "$cmd" ]; then
+    echo "Executing 'npm run ${cmd}'"
+    npm run $cmd
+  fi
+}
