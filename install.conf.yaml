@@ -11,6 +11,9 @@
     ~/.npmrc: npm/npmrc
     ~/.tern-config: tern/tern-config.json
     ~/.eslintrc.json: lint/eslintrc.json
+    ~/.docker/config.json:
+        create: true
+        path: docker/config.json
     ~/.ssh/config: 
         create: true
         path: ssh/config
