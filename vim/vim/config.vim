@@ -191,6 +191,7 @@ nnoremap <leader>sn ]s
 nnoremap <leader>sp [s
 nnoremap <leader>sa zg
 nnoremap <leader>s? z=
+nnoremap <leader>ss :setlocal spell!<CR>
 
 " New tab
 noremap <silent> <C-t> :tabnew<CR>
