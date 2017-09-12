@@ -26,9 +26,6 @@ Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 " Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 " Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-" Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
-Plug 'epilande/vim-react-snippets', { 'for': 'jsx' }
-Plug 'KabbAmine/gulp-vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " HTML/CSS
@@ -110,8 +107,6 @@ Plug 'NLKNguyen/papercolor-theme'
 " => Motion Plugins
 """"""""""""""""""""""""""""""
 Plug 'matze/vim-move'
-" Plug 'easymotion/vim-easymotion'
-" Plug 'unblevable/quick-scope'
 
 
 """"""""""""""""""""""""""""""
@@ -174,10 +169,6 @@ endif
 " Cheat sheet & help
 Plug 'lifepillar/vim-cheat40'
 Plug 'ktonga/vim-follow-my-lead'
-
-" Flash on yanking
-Plug 'kana/vim-operator-user'
-Plug 'haya14busa/vim-operator-flashy'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Optimization
