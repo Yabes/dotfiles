@@ -101,9 +101,16 @@ augroup texSyntaxOverride
   autocmd FileType tex call WrapLines()
 augroup END
 
+augroup tex
+  autocmd!
+  " autocmd FileType tex let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
+augroup END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VimWIki
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 augroup vimwikiSyntaxOverrid
   autocmd!
   autocmd FileType vimwiki call WrapLines()
 augroup END
-
 

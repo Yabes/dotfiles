@@ -35,7 +35,14 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_open_multiple_files = 't'
 
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -oc --exclude-standard', 'find %s -type f']
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['document.tex', 'cd %s && rg --files -ttex'],
+    \ 2: ['.git', 'cd %s && git ls-files . -oc --exclude-standard'],
+    \ },
+  \ 'fallback': 'find %s -type f'
+  \ }
+
 let g:ctrlp_working_path_mode = 'ra'
 
 let g:ctrlp_extensions = ['funky', 'autoignore']
@@ -329,12 +336,6 @@ let g:startify_custom_header = [
 " => Neoformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:neoformat_try_formatprg = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-operator-flashy
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map y <Plug>(operator-flashy)
-nmap Y <Plug>(operator-flashy)$
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => FZF
