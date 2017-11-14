@@ -1,3 +1,13 @@
+# Custom FZF completion
+# TODO Add header
+_fzf_complete_lxc() {
+  _fzf_complete "-m" "$@" < <( lxc list | grep "^| \w" )
+}
+
+_fzf_complete_lxc_post() {
+  awk '{ print $2 }'
+}
+
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
