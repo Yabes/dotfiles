@@ -91,3 +91,19 @@ fstash() {
 
   git stash pop $stashName
 }
+
+# Modified from
+# http://owen.cymru/sf-a-quick-way-to-search-for-some-thing-in-bash-and-edit-it-with-vim-2/
+sf() {
+  if [ "$#" -lt 1 ]; then
+    echo "Supply string to search for!"
+    return 1
+  fi
+
+  search=$@
+
+  rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"'
+
+  files=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
+  [[ -n "$files" ]] && gvim -p $(echo ${files})
+}
