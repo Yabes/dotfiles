@@ -1,7 +1,7 @@
 # Custom FZF completion
 # TODO Add header
 _fzf_complete_lxc() {
-  _fzf_complete "-m" "$@" < <( lxc list | grep "^| \w" )
+  _fzf_complete "-m --header-lines=1" "$@" < <( lxc list | grep "^| " )
 }
 
 _fzf_complete_lxc_post() {
