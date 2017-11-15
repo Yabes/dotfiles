@@ -57,8 +57,6 @@ autocmd BufRead,BufNewFile *.css,*.scss,*.less ColorHighlight
 """"""""""""""""""""""""""""""
 " => PHP section
 """""""""""""""""""""""""""""""
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
-
 function! PhpSyntaxOverride()
   hi! def link phpDocTags  phpDefine
   hi! def link phpDocParam phpType

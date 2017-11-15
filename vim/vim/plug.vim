@@ -36,8 +36,6 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': ['css', 'scss'] }
 
 " PHP
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' }
-Plug 'vim-scripts/phpfolding.vim', { 'for': 'php' }
 Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }
 Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 Plug 'evidens/vim-twig', { 'for': 'twig' }
