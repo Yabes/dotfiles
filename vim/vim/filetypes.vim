@@ -27,6 +27,14 @@ augroup jsSyntax
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => gitcommit section
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup gitcommitSyntax
+  autocmd!
+  autocmd FileType gitcommit set formatoptions-=t
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Typescript section
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au FileType typescript set suffixesadd+=.ts

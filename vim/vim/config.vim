@@ -96,6 +96,14 @@ set laststatus=2
 " Show break if any
 set showbreak=»\ "
 
+" activate list to show trailing char
+set list
+set listchars=trail:·,nbsp:␣
+
+set formatoptions+=j
+
+set showcmd
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
