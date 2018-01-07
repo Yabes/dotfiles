@@ -50,6 +50,10 @@ let g:airline_theme="hybrid"
 let g:airline_powerline_fonts = 1
 let g:airline_right_sep="\ue0b2"
 let g:airline_left_sep="\ue0b0"
+let g:airline_highlighting_cache = 1
+let g:airline_extensions = ['branch', 'whitespace', 'ycm', 'ale']
+
+let g:airline#extensions#branch#format = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimroom
