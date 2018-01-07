@@ -14,10 +14,11 @@
     ~/.docker/config.json:
         create: true
         path: docker/config.json
-    ~/.ssh/config: 
+    ~/.ssh/config:
         create: true
         path: ssh/config
     ~/.config/terminator/config:
         create: true
         path: terminator/config
+    ~/.tmux.conf: tmux/tmux.config
 

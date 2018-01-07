@@ -9,5 +9,8 @@ vim/vim/undo/*
 vim/vim/session/
 .netrwhist
 
+# Tmux
+tmux-client-*.log
+
 # Do not ignore .gitkeep
 !vim/vim/undo/.gitkeep
