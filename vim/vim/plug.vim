@@ -13,18 +13,8 @@ endif
 Plug 'tpope/vim-surround'
 
 " JavaScript
-" Plug '1995eaton/vim-better-javascript-completion' , { 'for': 'javascript' }
-" Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
-" Plug 'burnettk/vim-angular', { 'for': 'javascript' }
-" Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
-" Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
-" Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
-" Plug 'othree/jsdoc-syntax.vim', { 'for': 'javaScript' }
-" Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
-" Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
-" Plug 'isRuslan/vim-es6'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
@@ -72,17 +62,11 @@ Plug 'eiginn/netrw'
 " Plug 'mru.vim'
 Plug 'kopischke/vim-fetch'
 
-""""""""""""""""""""""""""""""
-" => NerdTree Plugins
-""""""""""""""""""""""""""""""
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-
 
 """"""""""""""""""""""""""""""
 " => Look & Feel Plugins
 """"""""""""""""""""""""""""""
-Plug 'chrisbra/Colorizer'
+Plug 'chrisbra/Colorizer', { 'for': ['html', 'css', 'scss'] }
 Plug 'Yggdroot/indentLine'
 Plug 'gregsexton/MatchTag'
 Plug 'airblade/vim-gitgutter'
@@ -91,7 +75,6 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'haya14busa/incsearch.vim'
 Plug 'mhinz/vim-startify'
 
 """"""""""""""""""""""""""""""
@@ -115,7 +98,8 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-function'
 Plug 'glts/vim-textobj-comment'
 Plug 'mattn/vim-textobj-url'
-" Plug 'wellle/targets.vim'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'terryma/vim-expand-region'
 
 
 """"""""""""""""""""""""""""""
@@ -135,9 +119,9 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-eunuch'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'arecarn/fold-cycle.vim'
-Plug 'danro/rename.vim', { 'on': 'Rename' }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
 Plug 'arecarn/fold-cycle.vim'
@@ -146,9 +130,9 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim', { 'on': ['VSSplit', 'VSSplitAbove', 'VSSplitBelow', 'VSResize'] }
 Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
-Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] }
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
-Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewaysLeft', 'SidewaysRight'] }
+Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
@@ -158,6 +142,10 @@ Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
 Plug 'yabes/vim-complete-commit-type', { 'for': 'gitcommit' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
+Plug 'hauleth/sad.vim'
+
+" Close buffer without closing the window with `Bdelete`
+Plug 'moll/vim-bbye'
 
 if has('job')
     Plug 'chrisbra/vim-autoread', { 'on': 'AutoRead' }
@@ -174,11 +162,5 @@ Plug 'itchyny/vim-parenmatch'
 
 " Should be loaded last
 Plug 'ryanoasis/vim-devicons'
-
-" No Name error if loaded before vim-devicons
-" https://github.com/ctrlpvim/ctrlp.vim/pull/285
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-" Plug 'tracyone/ctrlp-leader-guide'
 
 call plug#end()

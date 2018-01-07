@@ -17,37 +17,6 @@ command! Gc execute 'Gcommit --verbose'
 
 
 """"""""""""""""""""""""""""""
-" => CTRL-P
-""""""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 0
-
-let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <leader>p :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
-
-let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = {
-  \ 'dir': 'node_modules\|bower_components\|.git',
-  \ 'file': '',
-  \ }
-
-let g:ctrlp_open_new_file = 't'
-let g:ctrlp_open_multiple_files = 't'
-
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['document.tex', 'cd %s && rg --files -ttex'],
-    \ 2: ['.git', 'cd %s && git ls-files . -oc --exclude-standard'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
-
-let g:ctrlp_working_path_mode = 'ra'
-
-let g:ctrlp_extensions = ['funky', 'autoignore']
-
-""""""""""""""""""""""""""""""
 " => Emmet
 """"""""""""""""""""""""""""""
 let g:user_emmet_leader_key='<C-E>'
@@ -249,14 +218,6 @@ nnoremap <F5> :UndotreeToggle<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => IncSearch
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Yank Ring
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <leader>y :YRShow<CR>
@@ -340,10 +301,10 @@ let g:neoformat_try_formatprg = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('macunix')
-    let g:fzf_launcher = '~/.dotfiles/vim/vim/fzfMacVim.zsh %s'
-endif
+nnoremap <C-f> :Files<cr>
+nnoremap <C-b> :Buffers<cr>
 
+let g:fzf_layout = { 'down': '~20%' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editor config
@@ -355,3 +316,8 @@ else
     let g:EditorConfig_core_mode = 'python_external'
 endif
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => identLine
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_faster = 1
