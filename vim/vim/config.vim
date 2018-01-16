@@ -98,7 +98,7 @@ set showbreak=»\ "
 
 " activate list to show trailing char
 set list
-set listchars=trail:·,nbsp:␣
+set listchars=tab:\ \ ,trail:·,nbsp:␣
 
 set formatoptions+=j
 

@@ -142,7 +142,7 @@ Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
 Plug 'yabes/vim-complete-commit-type', { 'for': 'gitcommit' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
-Plug 'hauleth/sad.vim'
+" Plug 'hauleth/sad.vim'
 
 " Close buffer without closing the window with `Bdelete`
 Plug 'moll/vim-bbye'
