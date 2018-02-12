@@ -4,6 +4,7 @@
     filemode = false
     autocrlf = input
     safecrlf = false
+    pager = less -r
 [color]
     ui = true
 [alias]
