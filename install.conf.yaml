@@ -22,3 +22,5 @@
         path: terminator/config
     ~/.tmux.conf: tmux/tmux.config
 
+- shell:
+  - ["git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
