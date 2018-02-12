@@ -56,7 +56,6 @@ set matchtime=2
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
 set visualbell t_vb=
 set timeoutlen=500
 
@@ -65,7 +64,6 @@ set foldcolumn=1
 
 " Set extra options when running in GUI mode
 if has('gui_running')
-  set t_Co=256
   set guitablabel=%M\ %t
   " Disable scrollbars
   set guioptions=
@@ -107,6 +105,9 @@ set showcmd
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+set term=screen-256color
+
 " Patched font with icon
 if has('unix')
   if has('macunix')

@@ -59,3 +59,5 @@ alias vs="vagrant ssh"
 alias gvim="gvim 2>/dev/null"
 alias mem='mvim "+VimwikiIndex" "+VimwikiGoto Mémoire" "+VimwikiGoto Plan" "+Goyo" "+set nospell"'
 alias redac='cd ~/CloudStation/Mémoire/Redaction && mvim document.tex'
+
+alias tmux='tmux -2'
