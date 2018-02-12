@@ -11,6 +11,8 @@ _fzf_complete_lxc_post() {
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export FZF_TMUX=1
+
 # If ag or pt is present adapt fzf default command, with a preference for rg
 command -v ag >/dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore custom_plugins -g ""'
 command -v pt >/dev/null 2>&1 && export FZF_DEFAULT_COMMAND='pt --hidden -g=""'
@@ -52,7 +54,7 @@ fshow() {
       git log --graph --color=always \
           --format="%C(auto)%h%d %s %C(black)%C(bold)%cn %cr" "$@" |
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
-          --bind "?:toggle-preview"  --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color $sha1 '"$@" \
+          --bind "?:toggle-preview"  --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color $sha1 '"$@" \
           --print-query --expect=ctrl-d,enter); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)

@@ -1,7 +1,7 @@
 fzf-git-add() {
   local file="$(git status --short | \
     grep "^.\S" | \
-    fzf --multi --reverse --preview 'git diff --color {2}' | \
+    fzf --multi --reverse --preview-window wrap --preview 'git diff HEAD --word-diff=color --color --exit-code {2} && (pygmentize {2} || cat {2})' | \
     awk '{ print $2 }' | \
     tr '\n' ' ')"
   local ret=$?
