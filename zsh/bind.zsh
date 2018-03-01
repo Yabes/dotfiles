@@ -1,7 +1,13 @@
 fzf-git-add() {
+  local gitPreview="git diff HEAD --color-words=\"[[:alnum:]_.]+|[^[:space:]]\" --color --exit-code {2}"
+  local colorPreview="pygmentize {2} 2> /dev/null"
+  local imagePreview="[[ \"\$(file -b -i {2})\" =~ \"^image/\" ]] && timg -g${COLUMNS}x${LINES} {2}"
+  local fallbackPreview="cat {2}"
+  local previewCmd="${imagePreview} || (${gitPreview} && (${colorPreview} || ${fallbackPreview}))"
+
   local file="$(git status --short | \
     grep "^.\S" | \
-    fzf --multi --reverse --preview-window wrap --preview 'git diff HEAD --word-diff=color --color --exit-code {2} && (pygmentize {2} || cat {2})' | \
+    fzf --multi --reverse --preview-window wrap --preview $previewCmd| \
     awk '{ print $2 }' | \
     tr '\n' ' ')"
   local ret=$?
