@@ -308,7 +308,15 @@ let g:neoformat_try_formatprg = 1
 nnoremap <C-f> :Files<cr>
 nnoremap <C-b> :Buffers<cr>
 
-let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_buffers_jump = 1
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \ 'rg --column --line-number --no-heading --color=always --hidden --follow --ignore-case '.shellescape(<q-args>), 1,
+  \ <bang>0 ? fzf#vim#with_preview('up:60%')
+  \         : fzf#vim#with_preview('right:50%', '?'),
+  \ <bang>0)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editor config
