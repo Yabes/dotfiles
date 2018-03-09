@@ -91,7 +91,7 @@ fstash() {
   stashLine=$(echo $stashList | fzf --bind "?:toggle-preview" --preview 'git stash show -p --color `echo {1} | tr -d ":"`')
   stashName=$(echo "$stashLine" | awk -F ':' '{ print $1 }')
 
-  if [ -z "${stashName}" ]; then
+  if [ ! -z "${stashName}" ]; then
     git stash pop $stashName
   fi
 }
