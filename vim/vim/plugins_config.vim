@@ -305,13 +305,20 @@ let g:neoformat_try_formatprg = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <C-f> :Files<cr>
+nnoremap <C-f> :GitFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_buffers_jump = 1
 
-command! -bang -nargs=* Rg
+command! -bang -nargs=* RgFiles
+  \ call fzf#vim#grep(
+  \ 'rg --files --color=always --hidden --follow '.shellescape(<q-args>).'.', 1,
+  \ <bang>0 ? fzf#vim#with_preview('up:60%')
+  \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \ <bang>0)
+
+command! -bang -nargs=* RgSearch
   \ call fzf#vim#grep(
   \ 'rg --column --line-number --no-heading --color=always --hidden --follow --ignore-case '.shellescape(<q-args>), 1,
   \ <bang>0 ? fzf#vim#with_preview('up:60%')
