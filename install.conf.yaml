@@ -23,5 +23,5 @@
     ~/.tmux.conf: tmux/tmux.config
 
 - shell:
-  - ["git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
-  - ["git clone https://github.com/zplug/zplug ~/.zplug", Installing zplug]
+  - ["[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
+  - ["[ -d ~/.zplug ] || git clone https://github.com/zplug/zplug ~/.zplug", Installing zplug]
