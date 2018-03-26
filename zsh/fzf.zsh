@@ -86,14 +86,24 @@ frun() {
   fi
 }
 
-fstash() {
-  stashList=$(git stash list)
-  stashLine=$(echo $stashList | fzf --bind "?:toggle-preview" --preview 'git stash show -p --color `echo {1} | tr -d ":"`')
-  stashName=$(echo "$stashLine" | awk -F ':' '{ print $1 }')
-
-  if [ ! -z "${stashName}" ]; then
-    git stash pop $stashName
-  fi
+# https://gist.github.com/junegunn/a563d9e3e07fd721d618562762ec619d
+gstash() {
+  local out k reflog
+  out=(
+    $(git stash list --pretty='%C(yellow)%gd %>(14)%Cgreen%cr %C(blue)%gs' |
+      fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
+          --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
+          --preview-window=down:50% --reverse \
+          --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+          --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+          --expect=ctrl-o,ctrl-y,ctrl-x))
+  k=${out[0]}
+  reflog=${out[1]}
+  [ -n "$reflog" ] && case "$k" in
+    ctrl-o) git stash pop $reflog ;;
+    ctrl-y) git stash apply $reflog ;;
+    ctrl-x) git stash drop $reflog ;;
+  esac
 }
 
 # Modified from
