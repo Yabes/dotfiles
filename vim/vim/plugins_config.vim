@@ -313,9 +313,9 @@ let g:fzf_buffers_jump = 1
 
 command! -bang -nargs=* RgFiles
   \ call fzf#vim#grep(
-  \ 'rg --files --color=always --hidden --follow '.shellescape(<q-args>).'.', 1,
-  \ <bang>0 ? fzf#vim#with_preview('up:60%')
-  \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \ 'rg --files --color=always --hidden --follow .', 1,
+  \ <bang>0 ? fzf#vim#with_preview({ 'options': ['--query', <q-args>] }, 'up:60%')
+  \         : fzf#vim#with_preview({ 'options': ['--query', <q-args>] }, 'right:50%:hidden', '?'),
   \ <bang>0)
 
 command! -bang -nargs=* RgSearch
@@ -324,6 +324,11 @@ command! -bang -nargs=* RgSearch
   \ <bang>0 ? fzf#vim#with_preview('up:60%')
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>0)
+
+nnoremap <leader>rg :RgSearch <C-r><C-w><cr>
+nnoremap <leader>rG :RgSearch <C-r>=expand("<cWORD>")<cr><cr>
+nnoremap <leader>rm :RgSearch <C-r>=expand("%:t:r")<cr>.<C-r><C-w><cr>
+nnoremap <leader>rf :RgFiles <C-r><C-w><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editor config
