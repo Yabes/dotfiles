@@ -111,12 +111,20 @@ augroup tex
   autocmd!
   " autocmd FileType tex let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VimWIki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 augroup vimwikiSyntaxOverrid
   autocmd!
   autocmd FileType vimwiki call WrapLines()
 augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fastfile
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup fastfileSyntaxOverride
+  autocmd!
+  autocmd BufRead,BufNewFile Fastfile set ft=ruby
+augroup END
