@@ -134,7 +134,7 @@ endtry
 " Pressing ,ss will toggle and untoggle spell checking
 nnoremap <leader>ss :setlocal spell!<cr>
 set spelllang=en,fr
-set spell
+set nospell
 
 " Timeout
 set ttimeout
