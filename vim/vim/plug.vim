@@ -41,8 +41,20 @@ Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex'] }
 " => Completion
 """"""""""""""""""""""""""""""
 Plug 'jiangmiao/auto-pairs'
-Plug 'ervandew/supertab'
-Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'yes \| ./install.py --tern-completer' }
+
+if has('python3')
+  Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
+  Plug 'reasonml-editor/vim-reason-plus'
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'roxma/nvim-yarp'
+else
+  Plug 'ervandew/supertab'
+  Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'yes \| ./install.py --js-completer' }
+endif
 
 
 """"""""""""""""""""""""""""""

@@ -129,6 +129,18 @@ catch
 endtry
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Libs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('python3')
+  set pyxversion=3
+
+  if has('macunix')
+    set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/3.6/Python
+    set pythonthreehome=/usr/local/Frameworks/Python.framework/Versions/3.6
+  endif
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Lang & Spelling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking

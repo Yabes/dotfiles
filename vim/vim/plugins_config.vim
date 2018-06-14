@@ -345,3 +345,29 @@ endif
 " => identLine
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indentLine_faster = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LSP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('python3')
+  let g:LanguageClient_serverCommands = {
+        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'javascript.jsx': ['javascript-typescript-stdio'],
+        \ 'reason': ['ocaml-language-server', '--stdio'],
+        \ 'ocaml': ['ocaml-language-server', '--stdio'],
+        \ 'json': ['vscode-json-languageservice'],
+        \ 'sh': ['bash-language-server', 'start'],
+        \ 'dockerfile': ['docker-langserver', '--stdio'],
+        \ 'html': ['html-languageserver', '--stdio'],
+        \ 'css': ['css-languageserver', '--stdio'],
+        \ 'scss': ['css-languageserver', '--stdio'],
+        \ }
+
+  let g:deoplete#enable_at_startup = 1
+
+  nnoremap <F4> :call LanguageClient_contextMenu()<CR>
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+endif
