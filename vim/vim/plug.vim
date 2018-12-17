@@ -14,9 +14,9 @@ Plug 'tpope/vim-surround'
 
 " JavaScript
 Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
-Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 
 " HTML/CSS
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig', 'javascript', 'jsx' ] }
