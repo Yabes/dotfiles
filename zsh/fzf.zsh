@@ -54,7 +54,7 @@ fshow() {
       git log --graph --color=always \
           --format="%C(auto)%h%d %s %C(black)%C(bold)%cn %cr" "$@" |
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
-          --bind "?:toggle-preview"  --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color $sha1 '"$@" \
+          --bind "?:toggle-preview"  --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color $sha1 '"$@"' -- ":(exclude,top).idea" ":(exclude,top)**/package-lock.json"' \
           --print-query --expect=ctrl-d,enter); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)
