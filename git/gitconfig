@@ -69,3 +69,8 @@
   autostash = true
 [diff]
   indentHeuristic = true
+[merge]
+	tool = diffconflicts
+[mergetool "diffconflicts"]
+	cmd = vim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = true

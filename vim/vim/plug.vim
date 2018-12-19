@@ -88,7 +88,7 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
+Plug 'whiteinge/diffconflicts'
 
 """"""""""""""""""""""""""""""
 " => Colors Plugins
