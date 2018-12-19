@@ -131,6 +131,24 @@ augroup fastfileSyntaxOverride
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => .env
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup envdist
+  autocmd!
+  autocmd BufRead,BufNewFile .env.dist set ft=sh
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Makefile
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup Makefile
+  autocmd!
+  autocmd BufRead,BufNewFile Makefile set noet
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => LSP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('python3')
