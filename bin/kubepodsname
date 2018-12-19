@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+NAMESPACE=$(kubectl config view | grep namespace: | awk '{ print $2  }')
+kubectl get pods -n ${NAMESPACE} | fzf --header-lines=1 --nth=1 | awk '{ print $1 }'
