@@ -31,6 +31,8 @@
     lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
     ll = !git l --all
     lld = !git ll --date-order
+    lm = !git l HEAD origin/master --not `git merge-base HEAD origin/master`^@
+    ld = !git l HEAD origin/develop --not `git merge-base HEAD origin/develop`^@
     lt = describe --tags --abbrev=0
     pl = pull
     r = reset
