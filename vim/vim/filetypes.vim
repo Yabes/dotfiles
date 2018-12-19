@@ -23,6 +23,7 @@ augroup jsSyntax
   autocmd FileType javascript.jsx setl formatprg=prettier\ --stdin\ --single-quote\ --print-width\ 120
   autocmd BufWritePre *.js Neoformat
   autocmd BufWritePre *.jsx Neoformat
+  autocmd BufRead *.js Neoformat
   autocmd BufNewFile,BufRead .eslintrc set ft=json
 augroup END
 
