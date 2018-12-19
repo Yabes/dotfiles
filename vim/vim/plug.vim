@@ -37,6 +37,7 @@ Plug 'vitalk/vim-shebang'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex'] }
 
+
 """"""""""""""""""""""""""""""
 " => Completion
 """"""""""""""""""""""""""""""
@@ -48,7 +49,7 @@ if has('python3')
         \ 'do': 'bash install.sh',
         \ }
   Plug 'reasonml-editor/vim-reason-plus'
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'tag': '4.1' }
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'roxma/nvim-yarp'
 else
@@ -80,20 +81,21 @@ Plug 'kopischke/vim-fetch'
 """"""""""""""""""""""""""""""
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'css', 'scss'] }
 Plug 'Yggdroot/indentLine'
-Plug 'gregsexton/MatchTag'
+Plug 'Valloric/MatchTagAlways'
 Plug 'airblade/vim-gitgutter'
 Plug 'amix/vim-zenroom2'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'mhinz/vim-startify'
+
 
 """"""""""""""""""""""""""""""
 " => Colors Plugins
 """"""""""""""""""""""""""""""
 Plug 'MaxSt/FlatColor'
 Plug 'NLKNguyen/papercolor-theme'
+
 
 """"""""""""""""""""""""""""""
 " => Motion Plugins
@@ -150,7 +152,6 @@ Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 Plug 'tpope/vim-speeddating'
-Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'brooth/far.vim', { 'on': 'Far' }
 Plug 'yabes/vim-complete-commit-type', { 'for': 'gitcommit' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
@@ -166,6 +167,7 @@ endif
 " Cheat sheet & help
 Plug 'lifepillar/vim-cheat40'
 Plug 'ktonga/vim-follow-my-lead'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Optimization
