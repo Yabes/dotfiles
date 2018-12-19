@@ -119,7 +119,7 @@ sf() {
   rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"'
 
   files=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
-  [[ -n "$files" ]] && gvim -p $(echo ${files})
+  [[ -n "$files" ]] && vim -p $(echo ${files})
 }
 
 # https://github.com/junegunn/fzf/wiki/Examples
