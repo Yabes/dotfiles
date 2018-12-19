@@ -25,3 +25,8 @@
 - shell:
   - ["[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
   - ["[ -d ~/.zplug ] || git clone https://github.com/zplug/zplug ~/.zplug", Installing zplug]
+  -
+    command: ./install-lsp
+    stdout: true
+    stderr: true
+    description: Install Language Servers

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sudo npm i -g javascript-typescript-langserver\
+  ocaml-language-server\
+  vscode-json-languageservice\
+  dockerfile-language-server-nodejs\
+  vscode-html-languageservice\
+  vscode-css-languageservice\
+  yaml-language-server\
+  bash-language-server
