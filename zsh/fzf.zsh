@@ -8,6 +8,30 @@ _fzf_complete_lxc_post() {
   awk '{ print $2 }'
 }
 
+_fzf_complete_kubectl() {
+  ARGS="$@"
+
+  if [[ $ARGS == *'-c'* ]]; then
+    local POD=$(echo $ARGS | awk '{ print $3 }')
+    _fzf_complete "--header-lines=1 --select-1 --exit-0" "$@" < <(
+      kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{range .spec.containers[*]}{" "}{.name}{end}{end}' | grep ${POD} | tr ' ' '\n'
+    )
+  elif [[ $ARGS == 'kubectl exec'* ]]; then
+    local NAMESPACE=$(kubectl config view | grep namespace: | awk '{ print $2  }')
+    _fzf_complete "--header-lines=1 --nth=1" "$@" < <(kubectl get pods -n ${NAMESPACE})
+  else
+    eval "zle ${fzf_default_completion:-expend-or-complete}"
+  fi
+}
+
+_fzf_complete_kubectl_notrigger() {
+  FZF_COMPLETION_TRIGGER='' _fzf_complete_kubectl
+}
+
+_fzf_complete_kubectl_post() {
+  awk '{ print $1 }'
+}
+
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -43,7 +67,7 @@ fco() {
     sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
     (echo "$tags"; echo "$branches") |
-    fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+    fzf-tmux -l50 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
@@ -130,13 +154,13 @@ cdf() {
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
-# https://github.com/junegunn/fzf/issues/997
+# https://github.com/junegunn/fzf/wiki/Examples#tmux
+# fs [FUZZY PATTERN] - Select selected tmux session
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
 fs() {
-	local -r fmt='#{session_id}:|#S|(#{session_attached} attached)'
-	{ tmux display-message -p -F "$fmt" && tmux list-sessions -F "$fmt"; } \
-		| awk '!seen[$1]++' \
-		| column -t -s'|' \
-		| fzf -q '$' --reverse --prompt 'switch session: ' -1 \
-		| cut -d':' -f1 \
-		| xargs tmux switch-client -t
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
 }
