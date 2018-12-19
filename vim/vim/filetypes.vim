@@ -129,3 +129,16 @@ augroup fastfileSyntaxOverride
   autocmd!
   autocmd BufRead,BufNewFile Fastfile set ft=ruby
 augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LSP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('python3')
+  let s:filetypes = join(keys(g:LanguageClient_serverCommands), ",")
+
+  augroup lspMappings
+    autocmd!
+    execute "autocmd FileType " . s:filetypes . " nnoremap <F4> :call LanguageClient_contextMenu()<CR>"
+    execute "autocmd FileType " . s:filetypes . " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>"
+    execute "autocmd FileType " . s:filetypes . " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>"
+endif

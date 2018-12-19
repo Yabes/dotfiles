@@ -358,16 +358,14 @@ if has('python3')
         \ 'ocaml': ['ocaml-language-server', '--stdio'],
         \ 'json': ['vscode-json-languageservice'],
         \ 'sh': ['bash-language-server', 'start'],
+        \ 'zsh': ['bash-language-server', 'start'],
         \ 'dockerfile': ['docker-langserver', '--stdio'],
         \ 'html': ['html-languageserver', '--stdio'],
         \ 'css': ['css-languageserver', '--stdio'],
         \ 'scss': ['css-languageserver', '--stdio'],
+        \ 'yml': ['yaml-language-server', '--stdio'],
+        \ 'php': ['php', '~/.config/composer/vendor/felixfbecker/language-server/bin/php-language-server.php'],
         \ }
 
   let g:deoplete#enable_at_startup = 1
-
-  nnoremap <F4> :call LanguageClient_contextMenu()<CR>
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 endif
