@@ -311,19 +311,26 @@ nnoremap <C-b> :Buffers<cr>
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_buffers_jump = 1
 
+
 command! -bang -nargs=* RgFiles
-  \ call fzf#vim#grep(
-  \ 'rg --files --color=always --hidden --follow .', 1,
-  \ <bang>0 ? fzf#vim#with_preview({ 'options': ['--query', <q-args>] }, 'up:60%')
-  \         : fzf#vim#with_preview({ 'options': ['--query', <q-args>] }, 'right:50%:hidden', '?'),
-  \ <bang>0)
+  \ call fzf#run(
+  \   fzf#wrap({
+  \     'source': 'rg --files --hidden --follow . ',
+  \     'options': '--exit-0 --select-1 --query '.shellescape(<q-args>)
+  \   }),
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0
+  \ )
 
 command! -bang -nargs=* RgSearch
   \ call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --color=always --hidden --follow --ignore-case '.shellescape(<q-args>), 1,
-  \ <bang>0 ? fzf#vim#with_preview('up:60%')
-  \         : fzf#vim#with_preview('right:50%', '?'),
-  \ <bang>0)
+  \   'rg --column --line-number --no-heading --color=always --hidden --follow --ignore-case '.shellescape(<q-args>),
+  \   1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%', '?'),
+  \   <bang>0
+  \ )
 
 nnoremap <leader>rg :RgSearch <C-r><C-w><cr>
 nnoremap <leader>rG :RgSearch <C-r>=expand("<cWORD>")<cr><cr>
