@@ -44,7 +44,7 @@
     sa = stash apply
     sl = stash list
     ss = stash save
-    undo = git reset --soft HEAD^
+    undo = reset --soft HEAD^
     home = rev-parse --show-toplevel
     standup = git log --all --author=$USER --since='9am yesterday' --format=%s
 [mergetool]
