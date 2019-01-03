@@ -5,6 +5,9 @@
 filetype plugin indent on
 syntax on
 
+" set shell
+set shell=zsh
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -29,6 +32,12 @@ endif
 
 "Always show current position
 set ruler
+
+" Always show sign column
+set signcolumn=yes
+
+" Execute local rc file if any
+set exrc
 
 " Height of the command bar
 set cmdheight=1
@@ -130,7 +139,7 @@ endif
 " theme
 set background=dark
 try
-  colorscheme flatcolor
+  colorscheme challenger_deep
 catch
 endtry
 
@@ -145,7 +154,9 @@ endif
 " => Libs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('python3')
-  set pyxversion=3
+  if !has('nvim')
+    set pyxversion=3
+  endif
 
   if has('macunix')
     set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/3.6/Python

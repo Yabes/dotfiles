@@ -3,11 +3,9 @@ call plug#begin()
 """"""""""""""""""""""""""""""
 " => Syntax Plugins
 """"""""""""""""""""""""""""""
-" Multi-purpose plugins
-if has('job')
+" Linting
+if has('job') || has('nvim')
   Plug 'w0rp/ale'
-else
-  Plug 'scrooloose/syntastic'
 endif
 
 Plug 'tpope/vim-surround'
@@ -43,7 +41,11 @@ Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex'] }
 """"""""""""""""""""""""""""""
 Plug 'jiangmiao/auto-pairs'
 
-if has('python3')
+if has('nvim')
+  Plug 'Shougo/neco-vim', { 'for': 'vim' }
+  Plug 'neoclide/coc-neco', { 'for': 'vim' }
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+elseif has('python3')
   Plug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
         \ 'do': 'bash install.sh',
@@ -52,9 +54,6 @@ if has('python3')
   Plug 'Shougo/deoplete.nvim', { 'tag': '4.1' }
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'roxma/nvim-yarp'
-else
-  Plug 'ervandew/supertab'
-  Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'yes \| ./install.py --js-completer' }
 endif
 
 
@@ -72,7 +71,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'eiginn/netrw'
-" Plug 'mru.vim'
 Plug 'kopischke/vim-fetch'
 
 
@@ -93,7 +91,8 @@ Plug 'whiteinge/diffconflicts'
 """"""""""""""""""""""""""""""
 " => Colors Plugins
 """"""""""""""""""""""""""""""
-Plug 'MaxSt/FlatColor'
+" Plug 'MaxSt/FlatColor'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'NLKNguyen/papercolor-theme'
 
 
@@ -135,17 +134,15 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-eunuch'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'arecarn/fold-cycle.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
 Plug 'arecarn/fold-cycle.vim'
 Plug 'tomtom/tcomment_vim'
-Plug 'vim-scripts/YankRing.vim'
+" Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim', { 'on': ['VSSplit', 'VSSplitAbove', 'VSSplitBelow', 'VSResize'] }
 Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
@@ -155,12 +152,13 @@ Plug 'tpope/vim-speeddating'
 Plug 'brooth/far.vim', { 'on': 'Far' }
 Plug 'yabes/vim-complete-commit-type', { 'for': 'gitcommit' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
+" Plug 'tpope/vim-unimpaired'
 " Plug 'hauleth/sad.vim'
 
 " Close buffer without closing the window with `Bdelete`
 Plug 'moll/vim-bbye'
 
-if has('job')
+if has('job') || has('nvim')
     Plug 'chrisbra/vim-autoread', { 'on': 'AutoRead' }
 endif
 

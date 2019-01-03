@@ -1,6 +1,8 @@
 """"""""""""""""""""""""""""""
 " => YankRing
 """"""""""""""""""""""""""""""
+
+let g:yankring_max_history = 10
 if has('win16') || has('win32')
     " Don't do anything
 else
@@ -31,19 +33,6 @@ set grepprg=/bin/grep\ -nH
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Nerd Tree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let NERDTreeIgnore = ['\.pyc$']
-let g:NERDTreeWinSize=35
-let g:NERDTreeWinPos = "left"
-
-map <leader>n :NERDTreeToggle<cr>
-"map <leader>nn :NERDTreeTabsToggle<cr>
-map <leader>nb :NERDTreeFromBookmark
-map <leader>nf :NERDTreeFind<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-airline config (force color)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme="hybrid"
@@ -51,7 +40,15 @@ let g:airline_powerline_fonts = 1
 let g:airline_right_sep="\ue0b2"
 let g:airline_left_sep="\ue0b0"
 let g:airline_highlighting_cache = 1
-let g:airline_extensions = ['branch', 'whitespace', 'ycm', 'ale']
+let g:airline_extensions = ['branch', 'whitespace']
+
+if has('nvim')
+  call add(g:airline_extensions, 'coc')
+endif
+
+if has('job') || has('nvim')
+  call add(g:airline_extensions, 'ale')
+endif
 
 let g:airline#extensions#branch#format = 1
 
@@ -61,16 +58,7 @@ let g:airline#extensions#branch#format = 1
 let g:goyo_width=100
 let g:goyo_margin_top = 2
 let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic (syntax checker)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_typescript_checkers=['tslint']
-let g:syntastic_typescript_tsc_args = "--experimentalDecorators"
-let g:syntastic_javascript_checkers = ['eslint']
-au FileType jsx let g:syntastic_javascript_checkers = ['jsx']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ale (syntax checker for vim8)
@@ -89,40 +77,6 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => YouCompleteMe
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'css,scss': [ 're!^\s{2,}', 're!:\s+', '!', '@' ],
-  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \             're!\[.*\]\s'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Tern
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:tern_show_argument_hints='on_move'
-let g:tern_show_signature_in_pum=1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => SuperTab
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UtilSnip
@@ -131,7 +85,6 @@ let g:UltiSnipsExpandTrigger="<c-x>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-autocmd FileType js UltiSnipsAddFiletypes javascript-angular
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -271,30 +224,11 @@ let g:peekaboo_delay = 750
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Parenmatch
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:loaded_matchparen = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim Wiki
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimwiki_list = [{'path': '~/CloudStation/wiki', 'path_html': '~/CloudStation/wiki_html/'}]
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Startify
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:startify_custom_header = [
-      \ '                              ',
-      \ '            __                ',
-      \ '    __  __ /\_\    ___ ___    ',
-      \ '   /\ \/\ \\/\ \ /'' __` __`\ ',
-      \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \ ',
-      \ '    \ \___/  \ \_\ \_\ \_\ \_\',
-      \ '     \/__/    \/_/\/_/\/_/\/_/',
-      \ ]
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -306,6 +240,7 @@ let g:neoformat_try_formatprg = 1
 " => FZF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-f> :GitFiles<cr>
+nnoremap <leader>f :Files<cr>
 nnoremap <C-b> :Buffers<cr>
 
 let g:fzf_layout = { 'down': '~30%' }
