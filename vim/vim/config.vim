@@ -102,11 +102,17 @@ set formatoptions+=j
 
 set showcmd
 
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
-set term=screen-256color
+
+if !has('nvim')
+  set term=screen-256color
+endif
 
 " Patched font with icon
 if has('unix')
@@ -128,10 +134,12 @@ try
 catch
 endtry
 
-" set Vim-specific sequences for RGB colors
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" Enable true color
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Libs
