@@ -33,24 +33,41 @@ set grepprg=/bin/grep\ -nH
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-airline config (force color)
+" => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme="hybrid"
-let g:airline_powerline_fonts = 1
-let g:airline_right_sep="\ue0b2"
-let g:airline_left_sep="\ue0b0"
-let g:airline_highlighting_cache = 1
-let g:airline_extensions = ['branch', 'whitespace']
 
-if has('nvim')
-  call add(g:airline_extensions, 'coc')
-endif
+let g:lightline = {
+      \ 'colorscheme': 'challenger_deep',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+      \              [ 'lineinfo' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ]]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ 'tabline': {
+      \   'left': [ [ 'tabs' ] ],
+      \   'right': [ ]
+      \ },
+      \ 'component_expand': {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ },
+      \ 'component_type': {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \
+      \ }
+      \ }
 
-if has('job') || has('nvim')
-  call add(g:airline_extensions, 'ale')
-endif
-
-let g:airline#extensions#branch#format = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimroom

@@ -84,9 +84,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'amix/vim-zenroom2'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'whiteinge/diffconflicts'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 
 """"""""""""""""""""""""""""""
 " => Colors Plugins
@@ -166,13 +166,6 @@ endif
 Plug 'lifepillar/vim-cheat40'
 Plug 'ktonga/vim-follow-my-lead'
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Optimization
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'itchyny/vim-parenmatch'
-
-" Should be loaded last
-Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
