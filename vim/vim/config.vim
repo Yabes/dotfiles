@@ -119,7 +119,7 @@ set shortmess+=c
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
 
-if !has('nvim')
+if !has('gui_running') && !has('nvim')
   set term=screen-256color
 endif
 
@@ -153,10 +153,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Libs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('python3')
-  if !has('nvim')
-    set pyxversion=3
-  endif
+if has('python3') && !has('nvim')
+  set pyxversion=3
 
   if has('macunix')
     set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/3.6/Python
