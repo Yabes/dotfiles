@@ -78,19 +78,9 @@ let g:goyo_margin_bottom = 2
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ale (syntax checker for vim8)
+" => ALE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters = {
-  \   'javascript': ['xo'],
-  \   'typescript': ['tslint'],
-  \   'php': [ 'php -l', 'phpmd' ],
-  \   'dockerfile': ['hadolint'],
-  \   'vim': ['vint'],
-  \   'sass': ['sass-lint']
-  \ }
-
 let g:ale_echo_msg_format = '[%linter%] %s'
-
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 
@@ -165,24 +155,6 @@ endfunction
 " => Follow my lead
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:fml_all_sources=1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => PHPComplete Extended
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:phpcomplete_index_composer_command = "php /usr/bin/composer.phar"
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Stack Answers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:stack_filter = "top"
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Tagbar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <F8> :Tagbar<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
