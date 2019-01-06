@@ -3,3 +3,15 @@ snippet plugheader "Plugin header" b
 " => $1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 endsnippet
+
+snippet ftplugin "ftplugin settings" b
+if exists('g:loaded_my${1:`!p snip.rv = snip.basename`}plugin')
+  finish
+endif
+let g:loaded_my$1plugin = 1
+
+" https://vi.stackexchange.com/questions/8056/for-an-autocmd-in-a-ftplugin-should-i-use-pattern-matching-or-buffer
+augroup $1AutocmdsBuffer
+  autocmd! * <buffer>
+augroup END
+endsnippet
