@@ -3,7 +3,7 @@ if exists('g:loaded_myvimplugin')
 endif
 let g:loaded_myvimplugin = 1
 
-let b:ale_linters = ['vinter']
+let b:ale_linters = ['vint']
 
 setlocal shiftwidth=2
 
