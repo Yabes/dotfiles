@@ -5,13 +5,7 @@ call plug#begin()
 """"""""""""""""""""""""""""""
 " Linting
 if has('job') || has('nvim')
-  Plug 'w0rp/ale', { 'on': [] }
-  "Delay ale load until we aren't doing anything
-  augroup LazyAle
-    autocmd!
-    autocmd CursorHold * :call plug#load('ale')
-    autocmd CursorHold * :autocmd! LazyAle
-  augroup END
+  Plug 'w0rp/ale'
 endif
 
 Plug 'tpope/vim-surround'
@@ -47,13 +41,8 @@ Plug 'jiangmiao/auto-pairs'
 if has('nvim')
   Plug 'Shougo/neco-vim', { 'for': 'vim' }
   Plug 'neoclide/coc-neco', { 'for': 'vim' }
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'on': [], 'do': { -> coc#util#install()}}
-	"Delay syntatic load until we aren't doing anything
-	augroup LazyCoc
-		autocmd!
-		autocmd InsertEnter * :call plug#load('coc.nvim')
-		autocmd InsertEnter * :autocmd! LazyCoc
-	augroup END
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'Shougo/echodoc.vim'
 elseif has('python3')
   Plug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
@@ -89,6 +78,7 @@ Plug 'kopischke/vim-fetch'
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'css', 'scss'] }
 Plug 'Yggdroot/indentLine'
 Plug 'Valloric/MatchTagAlways'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'amix/vim-zenroom2'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -127,12 +117,7 @@ Plug 'terryma/vim-expand-region'
 """"""""""""""""""""""""""""""
 " => Git Plugins
 """"""""""""""""""""""""""""""
-Plug 'tpope/vim-fugitive', { 'on': [] }
-augroup LazyFugitive
-    autocmd!
-    autocmd InsertEnter * :call plug#load('vim-fugitive')
-    autocmd InsertEnter * :autocmd! LazyFugitive
-augroup END
+Plug 'tpope/vim-fugitive'
 
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
@@ -152,12 +137,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
 Plug 'arecarn/fold-cycle.vim'
-Plug 'tomtom/tcomment_vim', { 'on': [] }
-augroup LazyTcomment
-    autocmd!
-    autocmd InsertEnter * :call plug#load('tcomment_vim')
-    autocmd InsertEnter * :autocmd! LazyTcomment
-augroup END
+Plug 'tomtom/tcomment_vim'
 " Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim', { 'on': ['VSSplit', 'VSSplitAbove', 'VSSplitBelow', 'VSResize'] }
