@@ -17,7 +17,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 
 " HTML/CSS
-Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig', 'javascript', 'jsx' ] }
+" Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig', 'javascript', 'jsx' ] }
 Plug 'othree/html5.vim', { 'for': [ 'html', 'twig' ] }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['css', 'scss'] }
@@ -141,7 +141,6 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim', { 'on': ['VSSplit', 'VSSplitAbove', 'VSSplitBelow', 'VSResize'] }
-Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-scripts/ReplaceWithRegister'
