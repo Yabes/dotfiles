@@ -8,6 +8,28 @@ _fzf_complete_lxc_post() {
   awk '{ print $2 }'
 }
 
+_fzf_complete_gp() {
+  ARGS="$@"
+
+  if [[ $ARGS == 'gp -u'* ]]; then
+    _fzf_complete "-m" "$@" < <(git branch -vv | cut -c 3- | awk '$3 !~/\[/ { print $1 }')
+  else
+    _fzf_complete "-m" "$@" < <(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u)
+  fi
+}
+
+_fzf_complete_g() {
+  ARGS="$@"
+
+  if [[ $ARGS == 'g co '* ]]; then
+    _fzf_complete "-m" "$@" < <(git branch --all | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u)
+  elif [[ $ARGS == 'g merge '* ]]; then
+    _fzf_complete "-m" "$@" < <(git branch --no-merged | grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sort -u)
+  else
+    eval "zle ${fzf_default_completion:-expend-or-complete}"
+  fi
+}
+
 _fzf_complete_kubectl() {
   ARGS="$@"
 
@@ -161,6 +183,6 @@ cdf() {
 fs() {
   local session
   session=$(tmux list-sessions -F "#{session_name}" | \
-    fzf --query="$1" --select-1 --exit-0) &&
+    fzf --query="$1" --select-1 --exit-0 --header='enter:switch, ctrl-x:kill' --bind='ctrl-x:execute(tmux kill-session -t {})') &&
   tmux switch-client -t "$session"
 }
