@@ -118,7 +118,6 @@ set shortmess+=c
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
-
 if !has('gui_running') && !has('nvim')
   set term=screen-256color
 endif
@@ -265,7 +264,7 @@ nnoremap k gk
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
-  set showtabline=2
+  set showtabline=1
 catch
 endtry
 
@@ -305,9 +304,6 @@ set smartindent
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Always search in very-magic mode
-nnoremap / /\v
-
 " Hide search results when pressing twice <ESC>
 nnoremap <silent> <ESC><ESC> :noh<CR>
 
@@ -478,3 +474,23 @@ function! <SID>BufcloseCloseIt()
     execute("bdelete! ".l:currentBufNum)
   endif
 endfunction
+
+function! HighlightRepeats() range
+  let lineCounts = {}
+  let lineNum = a:firstline
+  while lineNum <= a:lastline
+    let lineText = getline(lineNum)
+    if lineText != ""
+      let lineCounts[lineText] = (has_key(lineCounts, lineText) ? lineCounts[lineText] : 0) + 1
+    endif
+    let lineNum = lineNum + 1
+  endwhile
+  exe 'syn clear Repeat'
+  for lineText in keys(lineCounts)
+    if lineCounts[lineText] >= 2
+      exe 'syn match Repeat "^' . escape(lineText, '".\^$*[]') . '$"'
+    endif
+  endfor
+endfunction
+
+command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
