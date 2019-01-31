@@ -79,9 +79,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'Valloric/MatchTagAlways'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'amix/vim-zenroom2'
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'whiteinge/diffconflicts'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -136,7 +133,6 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-eunuch'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
 Plug 'arecarn/fold-cycle.vim'
 Plug 'tomtom/tcomment_vim'
 " Plug 'vim-scripts/YankRing.vim'

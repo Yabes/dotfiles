@@ -70,14 +70,6 @@ let g:lightline = {
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimroom
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ALE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_echo_msg_format = '[%linter%] %s'
@@ -86,53 +78,9 @@ let g:ale_lint_on_text_changed = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => TagBar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:tagbar_autoclose = 0
-let g:tagbar_singleclick = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:colorizer_auto_filetype='scss,css,html'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => LimeLight
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd! User GoyoEnter
-autocmd! User GoyoLeave
-
-autocmd User GoyoEnter nested call <SID>goyo_enter()
-autocmd User GoyoLeave nested call <SID>goyo_leave()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Goyo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:goyo_enter()
-    set background=light
-    set linespace=7
-    set lines=41
-    set columns=141
-    set nocursorline
-    colorscheme PaperColor
-    Limelight
-    set guifont=FiraCode-Regular:h16
-    set wrap
-    set breakindent
-endfunction
-
-function! s:goyo_leave()
-    set background=dark
-    set linespace=0
-    set cursorline
-    colorscheme flatcolor
-    Limelight!
-    set guifont=FiraCode-Regular:h11
-    set nowrap
-    set nobreakindent
-endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
