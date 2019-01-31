@@ -87,6 +87,8 @@ Plug 'whiteinge/diffconflicts'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 
+Plug 'christoomey/vim-tmux-navigator'
+
 """"""""""""""""""""""""""""""
 " => Colors Plugins
 """"""""""""""""""""""""""""""
