@@ -1,3 +1,16 @@
 {
-  "coc.preferences.diagnostic.enable": false
+  "coc.preferences.diagnostic.enable": false,
+  "coc.preferences.noselect": false,
+  "coc.preferences.acceptSuggestionOnCommitCharacter": true,
+  "coc.preferences.fixInsertedWord": true,
+  "coc.preferences.codeLens.enable": true,
+  "coc.preferences.echodocSupport": true,
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
 }
