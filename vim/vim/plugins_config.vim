@@ -86,15 +86,6 @@ let g:ale_lint_on_text_changed = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => UtilSnip
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<c-x>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => TagBar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:tagbar_autoclose = 0
@@ -309,6 +300,13 @@ if has('python3')
     execute "autocmd FileType " . s:filetypes . " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>"
   augroup END
 endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Coc.nvim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

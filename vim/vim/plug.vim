@@ -58,8 +58,7 @@ endif
 """"""""""""""""""""""""""""""
 " => Snippets
 """"""""""""""""""""""""""""""
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips', { 'for': 'snippets' }
 
 
 """"""""""""""""""""""""""""""
