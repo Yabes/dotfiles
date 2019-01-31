@@ -35,18 +35,23 @@ set grepprg=/bin/grep\ -nH
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! GetCocStatus()
+  return get(g:, 'coc_status', '')
+endfunction
 
 let g:lightline = {
       \ 'colorscheme': 'challenger_deep',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ],
-      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-      \              [ 'lineinfo' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ]]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+      \             [ 'coc' ]],
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status',
+      \   'cocstatus': 'GetCocStatus',
+      \   'coc': 'coc#status',
       \   'gitbranch': 'fugitive#head'
       \ },
       \ 'tabline': {
@@ -54,16 +59,16 @@ let g:lightline = {
       \   'right': [ ]
       \ },
       \ 'component_expand': {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok',
       \ },
       \ 'component_type': {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'left',
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'error',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'left',
       \
       \ }
       \ }
