@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -e
+
+# https://stackoverflow.com/questions/1527049/how-can-i-join-elements-of-an-array-in-bash
+function join_by { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
+
+PANE="$(tmux capture-pane -p | sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g")"
+PANE="${PANE//C-C-C-C-COMBO BREAKER/}"
+
+# https://github.com/Morantron/tmux-fingers/blob/master/scripts/config.sh
+PATTERNS_LIST=(
+  # File path
+  "(^|^\.|[[:space:]]|[[:space:]]\.|[[:space:]]\.\.|^\.\.)[[:alnum:]~_-]*/[][[:alnum:]_.#$%&+=/@-]+"
+  # Number
+  "[[:digit:]]{4,}"
+  # UUID
+  "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+  # Git SHAs
+  "[0-9a-f]{7,40}"
+  # URL
+  "(https?://|git@|git://|ssh://|ftp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&()*+-]*"
+  # IPv4 like
+  "[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}"
+  # Hexadecimal number
+  "0x[[:xdigit:]]+"
+  # Kubernetes resources
+  "(deployment.app|binding|componentstatuse|configmap|endpoint|event|limitrange|namespace|node|persistentvolumeclaim|persistentvolume|pod|podtemplate|replicationcontroller|resourcequota|secret|serviceaccount|service|mutatingwebhookconfiguration.admissionregistration.k8s.io|validatingwebhookconfiguration.admissionregistration.k8s.io|customresourcedefinition.apiextension.k8s.io|apiservice.apiregistration.k8s.io|controllerrevision.apps|daemonset.apps|deployment.apps|replicaset.apps|statefulset.apps|tokenreview.authentication.k8s.io|localsubjectaccessreview.authorization.k8s.io|selfsubjectaccessreviews.authorization.k8s.io|selfsubjectrulesreview.authorization.k8s.io|subjectaccessreview.authorization.k8s.io|horizontalpodautoscaler.autoscaling|cronjob.batch|job.batch|certificatesigningrequest.certificates.k8s.io|events.events.k8s.io|daemonset.extensions|deployment.extensions|ingress.extensions|networkpolicies.extensions|podsecuritypolicies.extensions|replicaset.extensions|networkpolicie.networking.k8s.io|poddisruptionbudget.policy|clusterrolebinding.rbac.authorization.k8s.io|clusterrole.rbac.authorization.k8s.io|rolebinding.rbac.authorization.k8s.io|role.rbac.authorization.k8s.io|storageclasse.storage.k8s.io)[[:alnum:]_#$%&+=/@-]+"
+  # Command parameters
+  "(?<=[[:blank:]])(\-[[:alnum:]]|\-\-[[:alnum:]][[:graph:]-]*)([[:blank:]][[:alnum:]][[:graph:]-]*)?"
+)
+
+REGEXP="($(join_by ')|(' ${PATTERNS_LIST[@]}))"
+# Remove colors from text
+
+echo "$PANE" | \
+  # Grep matching patterns
+  grep -P "$REGEXP" --color --only-matching | \
+  # Reverse line order
+  tac | \
+  # Filter duplicate without sorting
+  awk '!x[$0]++' | \
+  # fuzzy find
+  fzf-tmux --reverse -d 15 --multi --preview-window wrap --preview "grep --color=always -3 -F -e {} <<< '$PANE'" | \
+  # remove line-breaks
+  tr '\n' ' '

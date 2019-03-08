@@ -20,3 +20,15 @@ fzf-git-add() {
 zle -N fzf-git-add
 bindkey '^G' fzf-git-add
 
+
+_fzf-pane() {
+  local text="$(fzf-pane)"
+  local ret=$?
+  LBUFFER="${LBUFFER}${text}"
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+
+zle -N _fzf-pane
+bindkey '^F' _fzf-pane
