@@ -14,6 +14,7 @@ alias l.='ls -d .*'
 alias mv="mv -i"
 alias rm="rm -i"
 alias grep="grep --color"
+alias rg="rg --no-heading"
 
 # Screen
 alias sc="screen -S"
