@@ -23,7 +23,6 @@ unsetopt EQUALS
 source ~/.dotfiles/zsh/combo.zsh
 . ~/.dotfiles/zsh/prompt.zsh
 . ~/.dotfiles/zsh/aliases.zsh
-. ~/.dotfiles/zsh/error.zsh
 . ~/.dotfiles/zsh/functions.zsh
 . ~/.dotfiles/zsh/completion.zsh
 . ~/.dotfiles/zsh/bind.zsh
