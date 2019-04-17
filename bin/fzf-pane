@@ -2,9 +2,6 @@
 
 set -e
 
-# https://stackoverflow.com/questions/1527049/how-can-i-join-elements-of-an-array-in-bash
-function join_by { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
-
 parseFzfOut() {
   local KEY=$1
   shift
@@ -47,14 +44,9 @@ PATTERNS_LIST=(
 REGEXP="($(join_by ')|(' ${PATTERNS_LIST[@]}))"
 # Remove colors from text
 
-
 FZF_OUT=$(cat $TMP_PANE_FILE | \
   # Grep matching patterns
-  grep -P "$REGEXP" --color --only-matching | \
-  # Reverse line order
-  tac | \
-  # Filter duplicate without sorting
-  awk '!x[$0]++' | \
+  _fzf-prepare-request-with-regexp "$REGEXP" | \
   # fuzzy find
   fzf-tmux --reverse -d 15 --multi --preview-window wrap --preview "grep --color=always -3 -F -e {} ${TMP_PANE_FILE}" --expect=enter,ctrl-e --header="ctrl-e: open in $EDITOR, enter: select" | \
   # remove line-breaks

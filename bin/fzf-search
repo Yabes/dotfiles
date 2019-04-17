@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -e
+
+KEYWORD=$1
+SEARCH_CMD="rg --no-heading --line-number"
+SEARCH_CMD_PREVIEW="${SEARCH_CMD} -C 3 --fixed-strings --color always"
+SEARCH_CMD_CONTEXT="${SEARCH_CMD} -C 3 --fixed-strings --color never --no-filename --no-line-number"
+RESULT=$($SEARCH_CMD "$KEYWORD")
+
+PATTERNS_LIST=(
+  '[[:alnum:]-]+'
+)
+
+REGEXP="($(join_by ')|(' ${PATTERNS_LIST[@]}))"
+
+parseFzfOut() {
+  local KEY=$1
+  shift
+
+  case "${KEY}" in
+    ctrl-s) fzf-search $(splitAndSearch ${@}) ;;
+    ctrl-e) ${EDITOR} $(echo ${@} | awk -F: '{print ($2 == "") ? $1 : $1":"$2}') ;;
+    enter) echo "${@}" ;;
+  esac
+}
+
+splitAndSearch() {
+  TMP_FILE=$(mktemp /tmp/fzf-search.XXXXXXXXX)
+  _fzf-search-get-context "${SEARCH_CMD_CONTEXT}" "${@}" > $TMP_FILE
+
+  # cat $TMP_FILE | grep -P "$REGEXP" --color --only-matching
+
+  local FZF_OUT=$(cat $TMP_FILE | \
+    # Grep matching patterns
+    _fzf-prepare-request-with-regexp "$REGEXP" | \
+    # fuzzy find
+    fzf --reverse -d 15 --multi --preview-window up:wrap --preview "grep --color=always -3 -F -e {} ${TMP_FILE}" | \
+    # remove line-breaks
+    sed ':a;N;$!ba;s/\n/.*/g')
+
+  rm $TMP_FILE
+  echo $FZF_OUT
+}
+
+FZF_OUT=$(echo "$RESULT" |\
+  fzf --multi --ansi --inline-info --expect=ctrl-e,ctrl-s,enter \
+  --preview-window wrap:up \
+  --preview="_fzf-search-get-context \"$SEARCH_CMD_PREVIEW\" {}" \
+  --header='ctrl-e:edit file, ctrl-s:search word, enter: print word' \
+  )
+
+KEY=${FZF_OUT[0]}
+PAYLOAD=${FZF_OUT[1]}
+
+parseFzfOut $FZF_OUT
+

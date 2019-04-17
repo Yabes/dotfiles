@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+REGEXP=$1
+
+cat /dev/stdin | grep -P "$REGEXP" --color --only-matching | \
+  # Reverse line order
+  tac | \
+  # Filter duplicate without sorting
+  awk '!x[$0]++'

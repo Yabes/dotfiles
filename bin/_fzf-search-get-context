@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+SEARCH_CMD=$1
+shift
+
+SEARCH_STRING=$(echo "$@" | awk -F: '{OFS = ":"; print substr($0, index($0, $3))}')
+
+$SEARCH_CMD "${SEARCH_STRING}"
