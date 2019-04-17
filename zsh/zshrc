@@ -34,7 +34,8 @@ disable r
 
 # Set editor
 if [[ -z "$EDITOR" ]]; then
-    export EDITOR=vim
+  command -v vim >/dev/null 2>&1 && export EDITOR=vim
+  command -v nvim >/dev/null 2>&1 && export EDITOR=nvim
 fi
 
 #Locale
