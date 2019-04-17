@@ -5,13 +5,27 @@ set -e
 # https://stackoverflow.com/questions/1527049/how-can-i-join-elements-of-an-array-in-bash
 function join_by { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
 
+parseFzfOut() {
+  local KEY=$1
+  shift
+
+  case "${KEY}" in
+    ctrl-e) echo "${EDITOR} $(echo ${@} | awk -F: '{print ($2 == "") ? $1 : $1":"$2}')" ;;
+    enter) echo "${@}" ;;
+  esac
+}
+
 PANE="$(tmux capture-pane -p | sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g")"
 PANE="${PANE//C-C-C-C-COMBO BREAKER/}"
 
+# Save PANE content to tmp file
+TMP_PANE_FILE=$(mktemp /tmp/fzf-pane.XXXXXXXXX)
+echo "$PANE" > $TMP_PANE_FILE
+
 # https://github.com/Morantron/tmux-fingers/blob/master/scripts/config.sh
 PATTERNS_LIST=(
-  # File path
-  "(^|^\.|[[:space:]]|[[:space:]]\.|[[:space:]]\.\.|^\.\.)[[:alnum:]~_-]*/[][[:alnum:]_.#$%&+=/@-]+"
+  # File path with optional line
+  "(^|^\.|[[:space:]]|[[:space:]]\.|[[:space:]]\.\.|^\.\.)[[:alnum:]~_-]*/[][[:alnum:]_.#$%&+=/@-]+(:\d+)?"
   # Number
   "[[:digit:]]{4,}"
   # UUID
@@ -33,7 +47,8 @@ PATTERNS_LIST=(
 REGEXP="($(join_by ')|(' ${PATTERNS_LIST[@]}))"
 # Remove colors from text
 
-echo "$PANE" | \
+
+FZF_OUT=$(cat $TMP_PANE_FILE | \
   # Grep matching patterns
   grep -P "$REGEXP" --color --only-matching | \
   # Reverse line order
@@ -41,6 +56,11 @@ echo "$PANE" | \
   # Filter duplicate without sorting
   awk '!x[$0]++' | \
   # fuzzy find
-  fzf-tmux --reverse -d 15 --multi --preview-window wrap --preview "grep --color=always -3 -F -e {} <<< '$PANE'" | \
+  fzf-tmux --reverse -d 15 --multi --preview-window wrap --preview "grep --color=always -3 -F -e {} ${TMP_PANE_FILE}" --expect=enter,ctrl-e --header="ctrl-e: open in $EDITOR, enter: select" | \
   # remove line-breaks
-  tr '\n' ' '
+  tr '\n' ' ')
+
+parseFzfOut $FZF_OUT
+
+rm $TMP_PANE_FILE
+
