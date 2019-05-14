@@ -21,8 +21,9 @@ echo "$PANE" > $TMP_PANE_FILE
 
 # https://github.com/Morantron/tmux-fingers/blob/master/scripts/config.sh
 PATTERNS_LIST=(
+  "(\.{0,2}/)?([[:alnum:]_.-]+/)+[[:alnum:]._-]+(:[[:alnum:]]+)?"
   # File path with optional line
-  "(^|^\.|[[:space:]]|[[:space:]]\.|[[:space:]]\.\.|^\.\.)[[:alnum:]~_-]*/[][[:alnum:]_.#$%&+=/@-]+(:\d+)?"
+  "(^|^\.|[[:space:]]|[[:space:]]\.|[[:space:]]\.\.|^\.\.)[[:alnum:]~_-]*/[][[:alnum:]_.#$%&+=/@-]+(:[[:alnum:]]+)?"
   # Number
   "[[:digit:]]{4,}"
   # UUID
