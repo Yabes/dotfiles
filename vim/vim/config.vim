@@ -138,7 +138,7 @@ endif
 " theme
 set background=dark
 try
-  colorscheme challenger_deep
+  colorscheme gruvbox
 catch
 endtry
 
@@ -274,10 +274,6 @@ autocmd BufReadPost *
       \   exe "normal! g`\"" |
       \ endif
 
-" Jump to ALE
-nnoremap [a :ALENext <cr>
-nnoremap ]a :ALEPrevious <cr>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -369,7 +365,7 @@ nnoremap cQ :call SetupCR()<CR>#``qz
 vnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 
-autocmd CursorMoved * if &previewwindow != 1 | pclose | endif
+" autocmd CursorMoved * if &previewwindow != 1 | pclose | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions

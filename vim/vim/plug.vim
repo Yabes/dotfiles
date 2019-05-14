@@ -82,6 +82,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'whiteinge/diffconflicts'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -89,7 +90,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " => Colors Plugins
 """"""""""""""""""""""""""""""
 " Plug 'MaxSt/FlatColor'
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 
 

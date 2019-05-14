@@ -40,10 +40,10 @@ function! GetCocStatus()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'challenger_deep',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+      \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ],
       \             [ 'coc' ]],
       \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'lineinfo' ],
       \              [ 'percent' ],
