@@ -32,3 +32,15 @@ _fzf-pane() {
 
 zle -N _fzf-pane
 bindkey '^F' _fzf-pane
+
+_fzf-pane-word() {
+  local text="$(fzf-pane-word)"
+  local ret=$?
+  LBUFFER="${LBUFFER}${text}"
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+
+zle -N _fzf-pane
+bindkey '^F' _fzf-pane
