@@ -1,16 +1,20 @@
 {
   "coc.preferences.diagnostic.enable": false,
-  "coc.preferences.noselect": false,
-  "coc.preferences.acceptSuggestionOnCommitCharacter": true,
-  "coc.preferences.fixInsertedWord": true,
+  "suggest.enablePreview": true,
   "coc.preferences.codeLens.enable": true,
-  "coc.preferences.echodocSupport": true,
+  "suggest.noselect": false,
+  "suggest.echodocSupport": true,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
     }
   }
 }
