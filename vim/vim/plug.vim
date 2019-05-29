@@ -58,7 +58,7 @@ endif
 """"""""""""""""""""""""""""""
 " => Snippets
 """"""""""""""""""""""""""""""
-Plug 'SirVer/ultisnips', { 'for': 'snippets' }
+Plug 'SirVer/ultisnips'
 
 
 """"""""""""""""""""""""""""""
