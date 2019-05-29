@@ -18,14 +18,11 @@
     ~/.ssh/config:
         create: true
         path: ssh/config
-    ~/.config/terminator/config:
-        create: true
-        path: terminator/config
     ~/.tmux.conf: tmux/tmux.config
 
 - shell:
   - ["[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
-  - ["[ -d ~/.zplug ] || git clone https://github.com/zplug/zplug ~/.zplug", Installing zplug]
+  - ["[ -d ~/.zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen", Installing zgen]
   -
     command: ./install-lsp
     stdout: true

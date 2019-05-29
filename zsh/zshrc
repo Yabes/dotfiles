@@ -1,4 +1,9 @@
-# Lines configured by zsh-newuser-install
+profile_zsh=false
+
+if $profile_zsh; then
+  zmodload zsh/zprof
+fi
+
 export HISTFILE=~/.histfile
 export HISTSIZE=100000
 export SAVEHIST=100000
@@ -6,28 +11,9 @@ export HISTCONTROL=ignoredups:erasedups
 setopt appendhistory autocd beep notify
 setopt HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/developer/.zshrc'
-
-autoload -Uz compinit
-compinit
-#End of lines added by compinstall
-
-### Personal stuff
 
 # Disable = command
 unsetopt EQUALS
-
-# Load personal configs
-source ~/.dotfiles/zsh/combo.zsh
-. ~/.dotfiles/zsh/prompt.zsh
-. ~/.dotfiles/zsh/aliases.zsh
-. ~/.dotfiles/zsh/functions.zsh
-. ~/.dotfiles/zsh/completion.zsh
-. ~/.dotfiles/zsh/bind.zsh
-. ~/.dotfiles/zsh/fzf.zsh
-. ~/.dotfiles/git/git-aliases.zsh
 
 # Disable r command
 disable r
@@ -42,51 +28,17 @@ fi
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-#autoload -Uz add-zsh-hook
-#add-zsh-hook precmd "dynPrompt $?"
-
 # Add v command on normal mode to edit current line with $EDITOR
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
-# AutoSuggest 
-[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=7
 
-# Autojump
-[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
-
-command -v yarn >/dev/null 2>&1 && export PATH="$(yarn global bin):$PATH"
-
-# RVM
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-# N
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
-export PATH="$PATH:$(npm config get prefix)"
-
-# Composer
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-# Cargo
-export PATH="$PATH:$HOME/.cargo/bin"
-
-# GKE
-export PATH="$PATH:$HOME/linux-amd64:$HOME/kubernetes/client/bin"
-
-# dotfiles bin
-export PATH="$PATH:$HOME/.dotfiles/bin"
-
-# And load plugins
-. ~/.dotfiles/zsh/zplug.zsh
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/developer/google-cloud-sdk/path.zsh.inc' ]; then . '/home/developer/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/developer/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/developer/google-cloud-sdk/completion.zsh.inc'; fi
-
-# kubectl completion
-source <(kubectl completion zsh) > /dev/null
-
+# Load personal configs
+. ~/.dotfiles/zsh/path.zsh
+. ~/.dotfiles/zsh/aliases.zsh
+. ~/.dotfiles/zsh/functions.zsh
+. ~/.dotfiles/zsh/completion.zsh
+. ~/.dotfiles/zsh/bind.zsh
+. ~/.dotfiles/zsh/fzf.zsh
+. ~/.dotfiles/git/git-aliases.zsh
+. ~/.dotfiles/zsh/plugins.zsh

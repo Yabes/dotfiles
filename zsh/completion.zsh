@@ -55,3 +55,11 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/developer/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/developer/google-cloud-sdk/completion.zsh.inc'; fi
+
+# kubectl completion
+command -v kubectl >/dev/null 2>&1 && source <(kubectl completion zsh) > /dev/null
+
