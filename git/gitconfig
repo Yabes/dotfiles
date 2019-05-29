@@ -5,6 +5,7 @@
     autocrlf = input
     safecrlf = false
     pager = less -r
+	attributesfile = ~/.gitattributes
 [color]
     ui = true
 [alias]
@@ -76,3 +77,5 @@
 [mergetool "diffconflicts"]
 	cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 	trustExitCode = true
+[diff "image"]
+	command = ~/bin/git-imgdiff
