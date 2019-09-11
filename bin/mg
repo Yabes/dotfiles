@@ -1,0 +1,327 @@
+#!/bin/bash
+
+# Constants
+YELLOW='\e[33m'
+GREEN='\e[32m'
+RED='\e[31m'
+NC='\e[0m'
+
+# Utils
+usage() {
+  cat << EOF 
+usage: $(basename $0) <command> [<args>]
+
+commands:
+  status [--no-fetch]
+    show the status of every repo
+      --no-fetch
+        don't fetch repos nor check remote branches (faster)
+
+  diff
+    show diff on dirty repos
+
+  bump <version>
+    bump to a new version if needed
+      --always
+        bump version even if there is no change
+
+  switch [--pull] <branch>
+    switch to branch if available
+      --pull
+        pull the branch after switching
+
+  exec <command>
+    exec command in each repo
+EOF
+}
+
+color_echo() {
+  echo -e "${1}${2}${NC}"
+}
+
+do_not_contains_element () {
+  ! grep -qs "${1}" ./.ignore-repo
+}
+
+iterate_git_run() {
+  fn=$1
+  shift
+
+  for folder in $(find . -maxdepth 1 -type d | sort); do
+    if [ -d $folder/.git ] && do_not_contains_element "$folder"; then
+      cd $folder
+      $fn $folder $@
+      cd ..
+    fi
+  done
+}
+
+is_clean() {
+  git diff --quiet
+}
+
+# Status utils
+rev_list_to_arrows() {
+	local left=${1:-0} right=${2:-0}
+	[ $right -gt 0 ] && printf ⇣ || true
+	[ $left -gt 0 ] && printf ⇡ || true
+}
+
+get_repo_info() {
+  repo=$(basename $(pwd))
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  describe=$(git describe --tags 2>/dev/null || echo " ") 
+  arrows=$(rev_list_to_arrows $(git rev-list --left-right --count HEAD...@"{u}" 2>/dev/null || echo "1 0"))
+  dirty=$(is_clean || color_echo ${RED} Yes)
+
+  if $FETCH; then
+    onlinePart="$(get_online_repo_info)"
+  else
+    onlinePart=""
+  fi
+
+  echo "${repo},${branch},${describe},${arrows:-" "},${onlinePart},${dirty}"
+}
+
+get_online_repo_info() {
+  remoteRefs=$(git ls-remote origin)
+
+  branchCount=$(echo "${remoteRefs}" | grep heads | grep -vP 'master|develop' | wc -l)
+  mrList=$(echo "${remoteRefs}" | grep merge-request | sort -n -k 2.22 | tail -10 | awk '{ print $1  }' | xargs -I '{}' git branch -r --contains {} 2>/dev/null | grep -vP 'develop|master' | sed -e 's@origin/@@' | tr -d ' ' | sort | uniq)
+
+  if [ -n "$mrList" ]; then
+    mrCount=$(echo "${remoteRefs}" | grep heads | grep -F "$mrList" | wc -l)
+  else
+    mrCount=0
+  fi
+
+  echo "${branchCount},${mrCount}"
+}
+
+get_status_header() {
+  if $FETCH; then
+    onlinePart="$(get_online_status_header)"
+  else
+    onlinePart=""
+  fi
+
+  echo "Repo,Branch,Describe,State,${onlinePart},Dirty?"
+}
+
+get_online_status_header() {
+  echo "Branches,MR"
+}
+
+fetch_repo() {
+  git fetch >/dev/null 2>&1
+}
+
+
+show_status() {
+  # Status constants
+  FETCH=true
+
+  # Parse status args
+  while test $# -gt 0
+  do
+    case $1 in
+      --no-fetch)
+        FETCH=false
+        ;;
+
+      *)
+        color_echo $RED "Unknown parameter: $1"
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+  done
+
+  if $FETCH; then
+    color_echo $YELLOW "Fetching..."
+    iterate_git_run fetch_repo
+  fi
+
+  echo -e "$(get_status_header)\n$(iterate_git_run get_repo_info)" | column -t -n -s ','
+}
+
+# Diff utils
+
+show_repo_diff() {
+  if is_clean; then
+    :
+  else
+    echo -e "\n"
+    color_echo $YELLOW "In repo '${1}'"
+    git --no-pager diff
+  fi
+}
+
+show_diff() {
+  iterate_git_run show_repo_diff
+}
+
+# Checkout utils
+
+branch_exists() {
+  git show-ref --verify --quiet refs/heads/$1
+}
+
+not_on_branch() {
+  test "$(git rev-parse --abbrev-ref HEAD)" != "$1"
+}
+
+checkout_if_exists() {
+  if branch_exists $2 && not_on_branch $2; then
+    color_echo $YELLOW "Switching '$1' to '$2'..."
+    git checkout --quiet $2
+
+    if $PULL; then
+      color_echo $YELLOW "Pulling '$2' in '$1'..."
+      git pull --quiet
+    fi
+  fi
+}
+
+switch() {
+  # Switch constant
+  PULL=false
+  TARGET=""
+
+  while test $# -gt 0
+  do
+    case $1 in
+      --pull)
+        PULL=true
+        ;;
+
+      -*)
+        color_echo $RED "Unknown switch option: ${1}"
+        usage
+        exit 1
+        ;;
+
+      *)
+        TARGET=$1
+        ;;
+    esac
+    shift
+  done
+
+  if [[ "$TARGET" = "" ]]; then
+    color_echo $RED "No branch provided"
+    exit 1
+  fi
+
+  iterate_git_run checkout_if_exists $TARGET
+}
+
+# Exec command utils
+exec_command_in_repo() {
+  repo=$1
+  shift
+
+  color_echo $YELLOW "Executing '$(echo $@)' in '$repo'"
+  $@
+}
+
+exec_command() {
+  if [[ $# -eq 0 ]]; then
+    color_echo $RED "No command provided"
+    exit 1
+  fi
+
+  iterate_git_run exec_command_in_repo $@
+}
+
+# Bump utils
+need_tag() {
+  test "$(git describe --tags)" != "$(git describe --tags --abbrev=0)"
+}
+
+tag_repo() {
+  if ${ALWAYS} || need_tag; then
+    color_echo $YELLOW "Tagging '$1' with '$2', previous describe was '$(git describe --tags)'"
+    git tag $2 -m "$(git log --merges --format=%s $(git describe --abbrev=0)..HEAD | awk -F \' '{ print $2  }')"
+    git push --quiet origin $2
+  fi
+}
+
+bump() {
+  # Bump constant
+  ALWAYS=false
+  TAG=""
+
+  while test $# -gt 0
+  do
+    case $1 in
+      --always)
+        ALWAYS=true
+        ;;
+
+      -*)
+        color_echo $RED "Unknown bump option: ${1}"
+        usage
+        exit 1
+        ;;
+
+      *)
+        TAG=$1
+        ;;
+    esac
+    shift
+  done
+
+  if [[ "$TAG" = "" ]]; then
+    color_echo $RED "No tag provided"
+    exit 1
+  fi
+
+  switch --pull "master"
+  iterate_git_run tag_repo $TAG
+}
+
+# Main
+
+COMMAND=$1
+shift
+
+if [ "${COMMAND}" = "" ]; then
+  usage
+  exit 1
+fi
+
+set -eu
+
+case ${COMMAND} in
+  status)
+    show_status $@
+    ;;
+
+  diff)
+    show_diff $@
+    ;;
+
+  bump)
+    bump $@
+    ;;
+
+  switch)
+    switch $@
+    ;;
+
+  exec)
+    exec_command $@
+    ;;
+
+  -h|--help|help)
+    usage
+    ;;
+
+  *)
+    color_echo $RED "Unknown command: ${COMMAND}"
+    usage
+    exit 1
+    ;;
+esac

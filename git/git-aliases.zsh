@@ -1,6 +1,9 @@
 # - Git - 
 alias g='git'
-alias s="git status"
+
+function s() {
+  git status 2>/dev/null || mg status $@
+}
 
 alias ga='git add'
 alias gaa='git add --all'
