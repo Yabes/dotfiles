@@ -21,14 +21,20 @@ commands:
     show diff on dirty repos
 
   bump <version>
-    bump to a new version if needed
+    bump to a new version if needed on master
       --always
         bump version even if there is no change
+      --overwrite
+        bump version even if there is already a tag
 
   switch [--pull] <branch>
     switch to branch if available
       --pull
         pull the branch after switching
+
+  changelog
+    Display content of the latest release.
+    Based on annoted tags messages.
 
   exec <command>
     exec command in each repo
@@ -41,6 +47,11 @@ color_echo() {
 
 do_not_contains_element () {
   ! grep -qs "${1}" ./.ignore-repo
+}
+
+display_repo_name() {
+  echo -e "\n"
+  color_echo $YELLOW "In repo '$(basename $(pwd))'"
 }
 
 iterate_git_run() {
@@ -152,8 +163,7 @@ show_repo_diff() {
   if is_clean; then
     :
   else
-    echo -e "\n"
-    color_echo $YELLOW "In repo '${1}'"
+    display_repo_name
     git --no-pager diff
   fi
 }
@@ -223,7 +233,7 @@ exec_command_in_repo() {
   shift
 
   color_echo $YELLOW "Executing '$(echo $@)' in '$repo'"
-  $@
+  $@ || true
 }
 
 exec_command() {
@@ -242,6 +252,11 @@ need_tag() {
 
 tag_repo() {
   if ${ALWAYS} || need_tag; then
+    if ${OVERWRITE}; then
+      (git tags -l | grep -q "$2") && git tag -d "$2"
+      (git ls-remote --tags | grep -q "$2") && git push --delete origin "refs/tags/$2"
+    fi
+
     color_echo $YELLOW "Tagging '$1' with '$2', previous describe was '$(git describe --tags)'"
     git tag $2 -m "$(git log --merges --format=%s $(git describe --abbrev=0)..HEAD | awk -F \' '{ print $2  }')"
     git push --quiet origin $2
@@ -251,6 +266,7 @@ tag_repo() {
 bump() {
   # Bump constant
   ALWAYS=false
+  OVERWRITE=false
   TAG=""
 
   while test $# -gt 0
@@ -258,6 +274,10 @@ bump() {
     case $1 in
       --always)
         ALWAYS=true
+        ;;
+
+      --overwrite)
+        OVERWRITE=true
         ;;
 
       -*)
@@ -280,6 +300,16 @@ bump() {
 
   switch --pull "master"
   iterate_git_run tag_repo $TAG
+}
+
+# Changelog utils
+show_tag_content() {
+  display_repo_name
+  git tag -n99 $(git describe --tags --abbrev=0) | tail -n +2 | sort | uniq
+}
+
+changelog() {
+  iterate_git_run show_tag_content
 }
 
 # Main
@@ -313,6 +343,10 @@ case ${COMMAND} in
 
   exec)
     exec_command $@
+    ;;
+
+  changelog)
+    changelog $@
     ;;
 
   -h|--help|help)
