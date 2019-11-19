@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TMUX_BIN=$(whereis tmux | tr ' ' '\n' | tail -n +2 | grep -v $0 | head -1)
+TMUX_ARG="-2 -S /tmp/tmux-1000/default"
+TMUX=$(echo "${TMUX_BIN} ${TMUX_ARG}")
+
+# If user provide parameters, run tmux with it
+if [[ $# -ne 0 ]] ; then
+  $TMUX $@
+  exit $?
+fi
+
+# If tmux is already started, show session selection
+if $TMUX list-sessions &> /dev/null; then 
+  SESSION=$($TMUX list-sessions | awk -F':' '{ print $1 }' | fzf)
+  $TMUX attach-session -t $SESSION
+  exit $?
+fi
+
+# Start tmux server in 256 colors mode
+$TMUX -2

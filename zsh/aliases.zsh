@@ -39,4 +39,4 @@ alias vs="vagrant ssh"
 #Discard error
 alias gvim="gvim 2>/dev/null"
 
-alias tmux='tmux -2'
+alias tmux='tmux-select'
