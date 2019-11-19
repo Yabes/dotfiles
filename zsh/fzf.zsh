@@ -39,9 +39,10 @@ _fzf_complete_kubectl() {
       kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{range .spec.containers[*]}{" "}{.name}{end}{end}' | grep ${POD} | tr ' ' '\n'
     )
   elif [[ $ARGS == 'kubectl exec'* ]]; then
-    local NAMESPACE=$(kubectl config view | grep namespace: | awk '{ print $2  }' | fzf-tmux --select-1)
+    local NAMESPACE=$(kubectl config view | grep namespace: | awk '{ print $2  }' | uniq | fzf-tmux --select-1)
     local PODNAME=$(kubectl get pods -n ${NAMESPACE} | fzf-tmux --header-lines=1 --nth=1 | awk '{ print $1 }')
-    _fzf_complete "--select-1" "$@" < <(kubectl get pods -n ${NAMESPACE} ${PODNAME} -o=jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}')
+    local CONTAINER=$(kubectl get pods -n ${NAMESPACE} ${PODNAME} -o=jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}' | fzf-tmux --select-1)
+    _fzf_complete "--select-1" "$@" < <(echo "${PODNAME} -c ${CONTAINER}")
   else
     eval "zle ${fzf_default_completion:-expend-or-complete}"
   fi
@@ -101,7 +102,7 @@ fshow() {
       git log --graph --color=always \
           --format="%C(auto)%h%d %s %C(black)%C(bold)%cn %cr" "$@" |
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
-          --bind "?:toggle-preview"  --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color $sha1 '"$@" \
+          --bind "?:toggle-preview"  --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
           --print-query --expect=ctrl-d,enter); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)
@@ -166,7 +167,7 @@ sf() {
   rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"'
 
   files=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
-  [[ -n "$files" ]] && vim -p $(echo ${files})
+  [[ -n "$files" ]] && ${EDITOR} -p $(echo ${files})
 }
 
 # https://github.com/junegunn/fzf/wiki/Examples
