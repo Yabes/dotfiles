@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+CONTEXT=$(kubectl config get-contexts -o'name' | fzf-tmux -d 15 --header-lines=1 --nth=1)
+kubectl config use-context $CONTEXT
+
+NAMESPACE=$(kubectl get namespace | fzf-tmux -d 15 --header-lines=1 --nth=1 | awk '{ print $1 }')
+kubectl config set-context $CONTEXT --namespace=$NAMESPACE
