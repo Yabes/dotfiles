@@ -39,20 +39,30 @@ function! GetCocStatus()
   return get(g:, 'coc_status', '')
 endfunction
 
+function! LightlineDirName() abort
+  return fnamemodify(getcwd(tabpagewinnr(0), 0), ':t')
+endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ],
+      \             [ 'gitbranch', 'readonly', 'dirname', 'relativepath', 'modified' ],
       \             [ 'coc' ]],
       \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
+      \ 'inactive': {
+      \   'left': [ [ 'dirname', 'filename' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \            [ 'percent' ] ]
+      \ },
       \ 'component_function': {
       \   'cocstatus': 'GetCocStatus',
       \   'coc': 'coc#status',
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'dirname': 'LightlineDirName'
       \ },
       \ 'tabline': {
       \   'left': [ [ 'tabs' ] ],
@@ -210,12 +220,6 @@ nnoremap <leader>rf :RgFiles <C-r><C-w><cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editor config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if executable('editorconfig')
-    let g:EditorConfig_core_mode = 'external_command'
-    let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
-else
-    let g:EditorConfig_core_mode = 'python_external'
-endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
