@@ -1,9 +1,15 @@
 {
-  "coc.preferences.diagnostic.enable": false,
+  "codeLens.enable": true,
+  "diagnostic.virtualText": true,
   "suggest.enablePreview": true,
-  "coc.preferences.codeLens.enable": true,
   "suggest.noselect": false,
   "suggest.echodocSupport": true,
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
