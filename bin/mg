@@ -38,11 +38,23 @@ commands:
 
   exec <command>
     exec command in each repo
+
+
+ignore repositories:
+  You can create '.ignore-repo' file containing a list a folder to ignore.
+  Ex:
+
+  ./ignore-me
+  ./and-me
 EOF
 }
 
 color_echo() {
   echo -e "${1}${2}${NC}"
+}
+
+color_echo_n() {
+  echo -en "${1}${2}${NC}"
 }
 
 do_not_contains_element () {
@@ -123,7 +135,13 @@ get_online_status_header() {
   echo "Branches,MR"
 }
 
+erase_previous_line() {
+  echo -en "\r\033[2K"
+}
+
 fetch_repo() {
+  erase_previous_line
+  color_echo_n $YELLOW "Fetching $(basename $(pwd))..."
   git fetch >/dev/null 2>&1
 }
 
@@ -150,11 +168,15 @@ show_status() {
   done
 
   if $FETCH; then
-    color_echo $YELLOW "Fetching..."
     iterate_git_run fetch_repo
+    erase_previous_line
   fi
 
-  echo -e "$(get_status_header)\n$(iterate_git_run get_repo_info)" | column -t -n -s ','
+  color_echo_n $YELLOW "Computing..."
+  result="$(get_status_header)\n$(iterate_git_run get_repo_info)"
+  erase_previous_line
+
+  echo -e "${result}" | column -t -n -s ','
 }
 
 # Diff utils
@@ -175,7 +197,7 @@ show_diff() {
 # Checkout utils
 
 branch_exists() {
-  git show-ref --verify --quiet refs/heads/$1
+  git show-ref --verify --quiet refs/heads/$1 || test "$(git ls-remote --tags origin $1)" != ""
 }
 
 not_on_branch() {
@@ -183,7 +205,7 @@ not_on_branch() {
 }
 
 checkout_if_exists() {
-  if branch_exists $2 && not_on_branch $2; then
+  if not_on_branch $2 && branch_exists $2; then
     color_echo $YELLOW "Switching '$1' to '$2'..."
     git checkout --quiet $2
 
@@ -305,10 +327,23 @@ bump() {
 # Changelog utils
 show_tag_content() {
   display_repo_name
-  git tag -n99 $(git describe --tags --abbrev=0) | tail -n +2 | sort | uniq
+  git tag -l -n99 ${TAG:-$(git describe --tags --abbrev=0)}
 }
 
 changelog() {
+  # Changelog constant
+  TAG=""
+
+  while test $# -gt 0
+  do
+    case $1 in
+      *)
+        TAG=$1
+        ;;
+    esac
+    shift
+  done
+
   iterate_git_run show_tag_content
 }
 
