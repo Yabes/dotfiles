@@ -12,6 +12,12 @@ setopt appendhistory autocd beep notify
 setopt HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 bindkey -v
 
+if [ -n "${TMUX_PANE}" ]; then
+  HISTS_DIR=$HOME/.zsh_history.d
+  mkdir -p "${HISTS_DIR}"
+  export HISTFILE="${HISTS_DIR}/histfile_tmux_${TMUX_PANE}"
+fi
+
 # Disable = command
 unsetopt EQUALS
 
