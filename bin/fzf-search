@@ -9,7 +9,7 @@ SEARCH_CMD_CONTEXT="${SEARCH_CMD} -C 3 --fixed-strings --color never --no-filena
 RESULT=$($SEARCH_CMD "$KEYWORD")
 
 PATTERNS_LIST=(
-  '[[:alnum:]-]+'
+  '[[:alnum:]-_/]+'
 )
 
 REGEXP="($(join_by ')|(' ${PATTERNS_LIST[@]}))"
