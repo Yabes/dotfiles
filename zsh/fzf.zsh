@@ -18,6 +18,20 @@ _fzf_complete_gp() {
   fi
 }
 
+_fzf_complete_docker() {
+  ARGS="$@"
+
+  if [[ $ARGS == 'docker inspect '* ]]; then
+    _fzf_complete "-m --header-lines=1 --select-1 --exit-0 --nth 2" "$@" < <(docker ps)
+  else
+    eval "zle ${fzf_default_completion:-expend-or-complete}"
+  fi
+}
+
+_fzf_complete_docker_post() {
+  awk '{ print $1 }'
+}
+
 _fzf_complete_g() {
   ARGS="$@"
 
