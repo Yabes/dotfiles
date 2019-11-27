@@ -1,6 +1,0 @@
-#!/bin/bash
-
-sudo npm i -g \
-  ocaml-language-server\
-  dockerfile-language-server-nodejs\
-  bash-language-server

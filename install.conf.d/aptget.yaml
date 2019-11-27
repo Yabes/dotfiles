@@ -1,0 +1,8 @@
+- aptget:
+    git:
+    htop:
+    zsh:
+    jq:
+
+- shell:
+  - ["chsh -s /bin/zsh", "Setting zsh as login shell"]

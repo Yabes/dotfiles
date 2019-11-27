@@ -25,4 +25,4 @@
 - shell:
   - ["[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
   - ["[ -d ~/.zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen", Installing zgen]
-  - ["./install.d/nvim", Installing nvim]
+  - ["sudo ./install.d/nvim", Installing nvim]
