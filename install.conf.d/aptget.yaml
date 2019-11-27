@@ -3,6 +3,8 @@
     htop:
     zsh:
     jq:
+    ripgrep:
+    fzf:
 
 - shell:
   - ["chsh -s /bin/zsh", "Setting zsh as login shell"]

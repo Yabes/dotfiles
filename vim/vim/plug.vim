@@ -64,7 +64,7 @@ Plug 'SirVer/ultisnips'
 """"""""""""""""""""""""""""""
 " => File Plugins
 """"""""""""""""""""""""""""""
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'eiginn/netrw'
