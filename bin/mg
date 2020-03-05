@@ -6,26 +6,34 @@ GREEN='\e[32m'
 RED='\e[31m'
 NC='\e[0m'
 
+DRY=false
+
 # Utils
 usage() {
   cat << EOF 
-usage: $(basename $0) <command> [<args>]
+usage: $(basename $0) [options] <command> [<args>]
+
+options:
+  --dry
+    Print commands from \`bump' or \`exec' instead of executing it
 
 commands:
-  status [--no-fetch]
+  status [--fetch]
     show the status of every repo
-      --no-fetch
-        don't fetch repos nor check remote branches (faster)
+      --fetch
+        fetch repos to check remote branches (slower)
 
   diff
     show diff on dirty repos
 
-  bump <version>
+  bump <version> [--always|--only-tag-matching <tag>] [--overwrite]
     bump to a new version if needed on master
       --always
         bump version even if there is no change
       --overwrite
         bump version even if there is already a tag
+      --only-tag-matching <tag>
+        only bump project with a tag matching the given tag
 
   switch [--pull] <branch>
     switch to branch if available
@@ -80,7 +88,17 @@ iterate_git_run() {
 }
 
 is_clean() {
-  git diff --quiet
+  git diff --quiet -- . ':(exclude)package-lock.json'
+}
+
+run() {
+  if $DRY; then
+    color_echo $YELLOW "Would run command \`$(echo $@)'"
+  else
+    $@
+  fi
+}
+
 }
 
 # Status utils
@@ -92,7 +110,7 @@ rev_list_to_arrows() {
 
 get_repo_info() {
   repo=$(basename $(pwd))
-  branch=$(git rev-parse --abbrev-ref HEAD)
+  branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} | sed -e 's@origin/@@g')
   describe=$(git describe --tags 2>/dev/null || echo " ") 
   arrows=$(rev_list_to_arrows $(git rev-list --left-right --count HEAD...@"{u}" 2>/dev/null || echo "1 0"))
   dirty=$(is_clean || color_echo ${RED} Yes)
@@ -142,20 +160,20 @@ erase_previous_line() {
 fetch_repo() {
   erase_previous_line
   color_echo_n $YELLOW "Fetching $(basename $(pwd))..."
-  git fetch >/dev/null 2>&1
+  git fetch -u origin >/dev/null 2>&1
 }
 
 
 show_status() {
   # Status constants
-  FETCH=true
+  FETCH=false
 
   # Parse status args
   while test $# -gt 0
   do
     case $1 in
-      --no-fetch)
-        FETCH=false
+      --fetch)
+        FETCH=true
         ;;
 
       *)
@@ -186,7 +204,7 @@ show_repo_diff() {
     :
   else
     display_repo_name
-    git --no-pager diff
+    git --no-pager diff -- . ':(exclude)package-lock.json'
   fi
 }
 
@@ -255,7 +273,7 @@ exec_command_in_repo() {
   shift
 
   color_echo $YELLOW "Executing '$(echo $@)' in '$repo'"
-  $@ || true
+  run $@ || true
 }
 
 exec_command() {
@@ -269,7 +287,11 @@ exec_command() {
 
 # Bump utils
 need_tag() {
-  test "$(git describe --tags)" != "$(git describe --tags --abbrev=0)"
+  if [[ "$ONLY" != "" ]]; then
+    [[ "$(git describe --tags --abbrev=0)" =~ "$ONLY" ]]
+  else
+    test "$(git describe --tags)" != "$(git describe --tags --abbrev=0)"
+  fi
 }
 
 tag_repo() {
@@ -280,8 +302,9 @@ tag_repo() {
     fi
 
     color_echo $YELLOW "Tagging '$1' with '$2', previous describe was '$(git describe --tags)'"
-    git tag $2 -m "$(git log --merges --format=%s $(git describe --abbrev=0)..HEAD | awk -F \' '{ print $2  }')"
-    git push --quiet origin $2
+    message=$(git log --merges --format=%s $(git describe --abbrev=0)..HEAD | awk -F \' '{ print $2  }')
+    run git tag $2 -m "${message:-$2}"
+    run git push --quiet origin $2
   fi
 }
 
@@ -290,6 +313,7 @@ bump() {
   ALWAYS=false
   OVERWRITE=false
   TAG=""
+  ONLY=""
 
   while test $# -gt 0
   do
@@ -300,6 +324,11 @@ bump() {
 
       --overwrite)
         OVERWRITE=true
+        ;;
+
+      --only-tag-matching)
+        shift
+        ONLY="$1"
         ;;
 
       -*)
@@ -348,6 +377,20 @@ changelog() {
 }
 
 # Main
+
+# Look for global options
+while : ; do
+  case $1 in
+    --dry)
+      DRY=true
+      ;;
+
+    *)
+      break
+      ;;
+  esac
+  shift
+done
 
 COMMAND=$1
 shift
