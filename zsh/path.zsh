@@ -18,7 +18,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/linux-amd64:$HOME/kubernetes/client/bin"
 
 # dotfiles bin
-export PATH="$PATH:$HOME/.dotfiles/bin"
+export PATH="$HOME/.dotfiles/bin:$PATH"
 
 # Google Cloud SDK.
 if [ -f '/home/developer/google-cloud-sdk/path.zsh.inc' ]; then . '/home/developer/google-cloud-sdk/path.zsh.inc'; fi
