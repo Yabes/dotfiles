@@ -1,0 +1,13 @@
+- shell:
+  - command: command -v n >/dev/null 2>&1 || curl https://sh.rustup.rs -sSf | sh
+    stderr: true
+    stdout: true
+    stdin: true
+    description: Installing rust
+  - command: command -v n >/dev/null 2>&1 || curl -L https://git.io/n-install | bash -s -- -y
+    stdin: true
+    stdout: true
+    stderr: true
+    description: Installing n
+  - ["bash ~/.dotfiles/install.d/docker-compose", Installing docker-compose]
+  - ["bash ~/.dotfiles/install.d/nvim", Installing nvim]

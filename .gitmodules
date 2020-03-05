@@ -4,3 +4,6 @@
 [submodule "dotbot_plugin_aptget"]
 	path = plugins/aptget
 	url = https://github.com/dein0s/dotbot_plugin_aptget.git
+[submodule "dotbot-rust"]
+	path = plugins/rust
+	url = https://github.com/alexcormier/dotbot-rust

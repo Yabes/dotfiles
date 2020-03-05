@@ -1,0 +1,8 @@
+- cargo:
+  - ripgrep
+  - broot
+- shell:
+  - command: broot --install
+    stdin: true
+    stderr: true
+    stdout: true

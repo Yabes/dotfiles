@@ -202,3 +202,6 @@ fs() {
     fzf --query="$1" --select-1 --exit-0 --header='enter:switch, ctrl-x:kill' --bind='ctrl-x:execute(tmux kill-session -t {})') &&
   tmux switch-client -t "$session"
 }
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+

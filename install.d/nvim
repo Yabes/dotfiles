@@ -26,13 +26,13 @@ CURRENT_VERSION=$(bin_version)
 
 if [ -f "${BIN_PATH}/${BIN_NAME}" ]; then
   if [ -f "${BIN_PATH}/${BIN_NAME}-${CURRENT_VERSION}" ]; then
-    rm "${BIN_PATH}/${BIN_NAME}"
+    sudo rm "${BIN_PATH}/${BIN_NAME}"
   else
-      mv "${BIN_PATH}/${BIN_NAME}" "${BIN_PATH}/${BIN_NAME}-${CURRENT_VERSION}"
+      sudo mv "${BIN_PATH}/${BIN_NAME}" "${BIN_PATH}/${BIN_NAME}-${CURRENT_VERSION}"
   fi
 fi
 
 
 curl -L -o ${BIN_NAME} "$(get_latest_bin_url)"
 chmod +x ${BIN_NAME}
-mv "${BIN_NAME}" "${BIN_PATH}/${BIN_NAME}"
+sudo mv "${BIN_NAME}" "${BIN_PATH}/${BIN_NAME}"

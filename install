@@ -1,16 +1,25 @@
 #!/usr/bin/env bash
 
-CONFIG_DIR="./install.conf.d"
-MAIN_CONF="main.yaml"
-APTGET_CONF="aptget.yaml"
-
-DOTBOT_DIR="dotbot"
-
-DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
 cd "${BASEDIR}"
-git submodule update --init --recursive "${DOTBOT_DIR}"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${MAIN_CONF}" "${@}"
-sudo "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${APTGET_CONF}" -p "./plugins/aptget/aptget.py"
+sudo apt update
+sudo apt -y install python python-apt git
+
+CONFIG_DIR="./install.conf.d"
+DOTBOT="${BASEDIR}/dotbot/bin/dotbot"
+
+# Install dotbot and plugins
+git submodule update --init --recursive
+
+# Install apt packages
+sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/aptget/aptget.py" "${@}"
+
+# Install other packages
+"${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/packages.yaml" "${@}"
+
+# Install rust packages
+"${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/rust.yaml" -p "./plugins/rust/rust.py"  "${@}"
+
+# Setup links, packages config and nvim plugins
+"${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/main.yaml" "${@}"

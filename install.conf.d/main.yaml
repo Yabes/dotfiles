@@ -21,8 +21,28 @@
         create: true
         path: ssh/config
     ~/.tmux.conf: tmux/tmux.config
+    ~/.Xresources-regolith: regolith/Xresources-regolith
 
 - shell:
   - ["[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
+  - command: test "$SHELL" "==" "$(which zsh)" || chsh -s $(which zsh)
+    stdin: true
+    stdout: true
+    stderr: true
+    description: Setting zsh as login shell
   - ["[ -d ~/.zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen", Installing zgen]
-  - ["sudo ./install.d/nvim", Installing nvim]
+  - command: nvim -N +PlugInstall +qall &>/dev/null
+    stdin: true
+    stdout: true
+    stderr: true
+    description: Installing nvim plugins
+  - command: sudo groupadd docker || true && sudo gpasswd -a $USER docker
+    stdin: true
+    stdout: true
+    stderr: true
+    description: Adding user to docker group
+  - command: pip install neovim && pip3 install neovim && npm install -g neovim
+    stdin: true
+    stdout: true
+    stderr: true
+    description: Installing neovim providers

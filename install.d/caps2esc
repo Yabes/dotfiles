@@ -1,0 +1,64 @@
+#!/bin/bash
+
+set -eu
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+WORKDIR="$(mktemp -d -p "${DIR}")"
+
+if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
+  echo "Could not create temp dir"
+  exit 1
+fi
+
+function cleanup {
+  rm -rf "${WORKDIR}"
+}
+
+trap cleanup EXIT
+
+# Install deps
+sudo apt install -y yaml-cpp-devel libevdev-devel
+
+# Install interception
+cd "${WORKDIR}"
+git clone git@gitlab.com:interception/linux/tools.git
+cd tools
+mkdir build
+cd build
+cmake ..
+make
+
+# Install caps2esc
+cd "${WORKDIR}"
+git clone git@gitlab.com:interception/linux/plugins/caps2esc.git
+cd caps2esc
+mkdir build
+cd build
+cmake ..
+make
+
+cd "${DIR}"
+
+# Configure udevmon with caps2esc
+sudo echo > /etc/udevmon.yaml <<EOF
+- JOB: "intercept -g \$DEVNODE | caps2esc | uinput -d \$DEVNODE"
+  DEVICE:
+    EVENTS:
+      EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+EOF
+
+sudo echo > /etc/systemd/system/udevmon.service <<EOF
+[Unit]
+Description=udevmon
+Wants=systemd-udev-settle.service
+After=systemd-udev-settle.service
+
+[Service]
+ExecStart=/usr/bin/nice -n -20 /usr/bin/udevmon -c /etc/udevmon.yaml
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable udevmon
+sudo systemctl enable --now udevmon
