@@ -15,6 +15,7 @@ Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
+Plug 'ElmCast/elm-vim', { 'for': ['elm'] }
 
 " HTML/CSS
 " Plug 'mattn/emmet-vim', { 'for': [ 'html', 'twig', 'javascript', 'jsx' ] }
