@@ -1,9 +1,6 @@
 {
   "codeLens.enable": true,
-  "diagnostic.virtualText": true,
-  "suggest.enablePreview": true,
   "suggest.noselect": false,
-  "suggest.echodocSupport": true,
   "list.normalMappings": {
     "<C-c>": "do:exit"
   },
@@ -21,6 +18,18 @@
       "command": "docker-langserver",
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
+    },
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"],
+      "initializationOptions": {
+        "elmAnalyseTrigger": "change",
+        "runtime": "node",
+        "elmPath": "elm",
+        "elmFormatPath": "elm-format",
+        "elmTestPath": "elm-test"
+      }
     }
   }
 }
