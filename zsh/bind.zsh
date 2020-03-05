@@ -46,3 +46,16 @@ _fzf-pane-word() {
 
 zle -N _fzf-pane
 bindkey '^F' _fzf-pane
+
+_fzf-directory() {
+  local text="$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux)"
+  local ret=$?
+  LBUFFER="${LBUFFER}${text}"
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+
+zle -N _fzf-directory
+bindkey '^P' _fzf-directory
+
