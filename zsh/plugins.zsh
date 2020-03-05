@@ -18,3 +18,4 @@ if ! zgen saved; then
 fi
 
 bindkey '^y' autosuggest-accept
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
