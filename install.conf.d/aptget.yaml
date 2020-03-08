@@ -10,4 +10,4 @@
     python-pip:
     python3-pip:
     docker.io:
-    regolith-desktop: ppa:kgilmer/regolith-stable
+    regolith-desktop: ppa:regolith-linux/release
