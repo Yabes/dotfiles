@@ -5,7 +5,7 @@ set -eu
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 WORKDIR="$(mktemp -d -p "${DIR}")"
 
-if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
+if [[ ! "$WORKDIR" || ! -d "$WORKDIR" ]]; then
   echo "Could not create temp dir"
   exit 1
 fi
@@ -17,11 +17,12 @@ function cleanup {
 trap cleanup EXIT
 
 # Install deps
-sudo apt install -y yaml-cpp-devel libevdev-devel
+sudo apt update
+sudo apt install -y libudev-dev libyaml-cpp-dev libevdev-dev cmake
 
 # Install interception
 cd "${WORKDIR}"
-git clone git@gitlab.com:interception/linux/tools.git
+git clone https://gitlab.com/interception/linux/tools.git
 cd tools
 mkdir build
 cd build
@@ -30,7 +31,7 @@ make
 
 # Install caps2esc
 cd "${WORKDIR}"
-git clone git@gitlab.com:interception/linux/plugins/caps2esc.git
+git clone https://gitlab.com/interception/linux/plugins/caps2esc.git
 cd caps2esc
 mkdir build
 cd build
@@ -40,14 +41,14 @@ make
 cd "${DIR}"
 
 # Configure udevmon with caps2esc
-sudo echo > /etc/udevmon.yaml <<EOF
+sudo tee -a /etc/udevmon.yaml <<EOF
 - JOB: "intercept -g \$DEVNODE | caps2esc | uinput -d \$DEVNODE"
   DEVICE:
     EVENTS:
       EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
 EOF
 
-sudo echo > /etc/systemd/system/udevmon.service <<EOF
+sudo tee -a /etc/systemd/system/udevmon.service <<EOF
 [Unit]
 Description=udevmon
 Wants=systemd-udev-settle.service
