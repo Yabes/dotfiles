@@ -28,6 +28,7 @@ mkdir build
 cd build
 cmake ..
 make
+sudo make install
 
 # Install caps2esc
 cd "${WORKDIR}"
@@ -37,25 +38,26 @@ mkdir build
 cd build
 cmake ..
 make
+sudo make install
 
 cd "${DIR}"
 
 # Configure udevmon with caps2esc
-sudo tee -a /etc/udevmon.yaml <<EOF
+sudo tee /etc/udevmon.yaml <<EOF
 - JOB: "intercept -g \$DEVNODE | caps2esc | uinput -d \$DEVNODE"
   DEVICE:
     EVENTS:
       EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
 EOF
 
-sudo tee -a /etc/systemd/system/udevmon.service <<EOF
+sudo tee /etc/systemd/system/udevmon.service <<EOF
 [Unit]
 Description=udevmon
 Wants=systemd-udev-settle.service
 After=systemd-udev-settle.service
 
 [Service]
-ExecStart=/usr/bin/nice -n -20 /usr/bin/udevmon -c /etc/udevmon.yaml
+ExecStart=/usr/bin/nice -n -20 /usr/local/bin/udevmon -c /etc/udevmon.yaml
 
 [Install]
 WantedBy=multi-user.target
