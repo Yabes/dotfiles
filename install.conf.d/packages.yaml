@@ -1,5 +1,5 @@
 - shell:
-  - command: command -v n >/dev/null 2>&1 || curl https://sh.rustup.rs -sSf | sh
+  - command: command -v n >/dev/null 2>&1 || curl https://sh.rustup.rs -sSf | sh -- -y
     stderr: true
     stdout: true
     stdin: true
