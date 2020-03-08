@@ -3,8 +3,6 @@
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 
-sudo apt update
-
 CONFIG_DIR="./install.conf.d"
 DOTBOT="${BASEDIR}/dotbot/bin/dotbot"
 
@@ -13,6 +11,9 @@ git submodule update --init --recursive
 
 # Update PATH
 export PATH+=:$HOME/.cargo/bin:$HOME/n/bin
+
+# Make sure python3 is used
+sudo ln -fs /usr/bin/python3 /usr/bin/python
 
 # Install apt packages
 sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/aptget/aptget.py" "${@}"
