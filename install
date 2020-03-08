@@ -21,5 +21,7 @@ sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/ap
 # Install rust packages
 "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/rust.yaml" -p "./plugins/rust/rust.py"  "${@}"
 
+source ~/.bashrc
+
 # Setup links, packages config and nvim plugins
 "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/main.yaml" "${@}"
