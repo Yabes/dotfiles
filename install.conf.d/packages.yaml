@@ -11,3 +11,6 @@
     description: Installing n
   - ["bash ~/.dotfiles/install.d/docker-compose", Installing docker-compose]
   - ["bash ~/.dotfiles/install.d/nvim", Installing nvim]
+  - ["bash ~/.dotfiles/install.d/caps2esc", Installing nvim]
+
+

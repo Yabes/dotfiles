@@ -26,5 +26,3 @@ sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/ap
 
 # Setup links, packages config and nvim plugins
 "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/main.yaml" "${@}"
-
-./install.d/caps2esc
