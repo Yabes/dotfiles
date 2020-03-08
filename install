@@ -12,11 +12,11 @@ git submodule update --init --recursive
 # Update PATH
 export PATH+=:$HOME/.cargo/bin:$HOME/n/bin
 
-# Make sure python3 is used
-sudo ln -fs /usr/bin/python3 /usr/bin/python
-
 # Install apt packages
 sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/aptget/aptget.py" "${@}"
+
+# Make sure python3 is used
+sudo ln -fs /usr/bin/python3 /usr/bin/python
 
 # Install other packages
 "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/packages.yaml" "${@}"
