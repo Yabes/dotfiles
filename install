@@ -4,13 +4,15 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 
 sudo apt update
-sudo apt -y install python python-apt git
 
 CONFIG_DIR="./install.conf.d"
 DOTBOT="${BASEDIR}/dotbot/bin/dotbot"
 
 # Install dotbot and plugins
 git submodule update --init --recursive
+
+# Update PATH
+export PATH+=:$HOME/.cargo/bin:$HOME/n/bin
 
 # Install apt packages
 sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/aptget/aptget.py" "${@}"
@@ -20,8 +22,6 @@ sudo "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/aptget.yaml" -p "./plugins/ap
 
 # Install rust packages
 "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/rust.yaml" -p "./plugins/rust/rust.py"  "${@}"
-
-source ~/.bashrc
 
 # Setup links, packages config and nvim plugins
 "${DOTBOT}" -d "${BASEDIR}" -c "${CONFIG_DIR}/main.yaml" "${@}"
