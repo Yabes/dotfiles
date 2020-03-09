@@ -17,6 +17,5 @@ if ! zgen saved; then
     zgen save
 fi
 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=gray"
 bindkey '^y' autosuggest-accept
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
