@@ -99,8 +99,6 @@ run() {
   fi
 }
 
-}
-
 # Status utils
 rev_list_to_arrows() {
 	local left=${1:-0} right=${2:-0}
