@@ -11,8 +11,8 @@ if [[ $# -ne 0 ]] ; then
 fi
 
 # If tmux is already started, show session selection
-if $TMUX list-sessions &> /dev/null; then 
-  SESSION=$($TMUX list-sessions | awk -F':' '{ print $1 }' | fzf)
+if $TMUX list-sessions &> /dev/null; then
+  SESSION=$($TMUX list-sessions | awk -F':' '{ print $1 }' | fzf --select-1)
   $TMUX attach-session -t $SESSION
   exit $?
 fi
