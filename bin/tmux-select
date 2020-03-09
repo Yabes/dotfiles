@@ -18,4 +18,4 @@ if $TMUX list-sessions &> /dev/null; then
 fi
 
 # Start tmux server in 256 colors mode
-$TMUX -2
+${TMUX_BIN} -2
