@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Constants
 YELLOW='\e[33m'
@@ -7,6 +7,9 @@ RED='\e[31m'
 NC='\e[0m'
 
 DRY=false
+MG_CONFIG=".mgrc"
+GITLAB_TOKEN=""
+GITLAB_URI=""
 
 # Utils
 usage() {
@@ -98,6 +101,96 @@ run() {
     $@
   fi
 }
+
+# Gitlab utils
+request_gitlab() {
+  local PATH=$1
+  curl -s -H "Authorization: Bearer ${GITLAB_TOKEN}" "${GITLAB_URI}/api/v4/${PATH}"
+}
+
+list_group_repo() {
+  local PROJECT=$1
+
+  local PROJECT_RESPONSE=$(request_gitlab "groups/${PROJECT}/projects" | jq -j '.[] | .id," ",.ssh_url_to_repo," ",.http_url_to_repo," ",.name,"\n"')
+}
+
+get_mr_count() {
+  local PROJECT=$1
+  local MR_PER_PROJECT=$(request_gitlab "groups/${PROJECT}/merge_resquests?state=opened" | jq '.[] | .project_id' | sort | uniq -c | awk '{ print $2" "$1 }')
+
+  echo "${MR_PER_PROJECT}"
+}
+
+mr_per_repo() {
+  join -o '1.2,2.2' -a 1 -a 2 -e 0 <(list_group_repo) <(get_mr_count)
+}
+
+gitlab_clone_group() {
+  local GROUP=${1//\//%2F}
+  request_gitlab "groups/${GROUP}/projects" | jq '.[] | .name,.ssh_url_to_repo' | xargs -n2 bash -c '[ ! -d "$0"  ] && git clone "$1" "$0"'
+}
+
+save_gitlab_token() {
+  xdg-open "${GITLAB_URI}/profile/personal_access_tokens" &
+  read GITLAB_TOKEN
+  echo "GITLAB_TOKEN_${GITLAB_URI} ${GITLAB_TOKEN}" > ${MG_CONFIG}
+}
+
+load_gitlab_token() {
+  if [ -f ${MG_CONFIG} ]; then
+    GITLAB_TOKEN=$(cat "${MG_CONFIG}" | grep "GITLAB_TOKEN_${GITLAB_URI}" | cut -d ' ' -f 2)
+  fi
+
+  if [ "${GITLAB_TOKEN}" = "" ]; then
+    save_gitlab_token
+  fi
+}
+
+gitlab() {
+  while : ; do
+    case $1 in
+      --uri)
+        shift
+        GITLAB_URI=$1
+        ;;
+
+      --token)
+        shift
+        GITLAB_TOKEN=$1
+        ;;
+
+      *)
+        break
+        ;;
+    esac
+    shift
+  done
+
+  if [ "${GITLAB_URI}" = "" ]; then
+    color_echo $RED "Missing uri for gitlab"
+    exit 1
+  fi
+
+  if [ "${GITLAB_TOKEN}" = "" ]; then
+    load_gitlab_token
+  fi
+
+  GITLAB_COMMAND=$1
+  shift
+
+  case ${GITLAB_COMMAND} in
+    clone-groupe)
+      gitlab_clone_group $@
+      ;;
+
+    *)
+      color_echo $RED "Unknown command: $GITLAB_COMMAND"
+      usage
+      exit 1
+      ;;
+  esac
+}
+
 
 # Status utils
 rev_list_to_arrows() {
@@ -379,6 +472,10 @@ changelog() {
 # Look for global options
 while : ; do
   case $1 in
+    --debug)
+      set -x
+      ;;
+
     --dry)
       DRY=true
       ;;
@@ -423,6 +520,17 @@ case ${COMMAND} in
 
   changelog)
     changelog $@
+    ;;
+
+  gitlab)
+    if command -v jq >/dev/null 2>&1; then
+      :
+    else
+      color_echo $RED "Missing command \`jq' for gitlab integration"
+      exit 1
+    fi
+
+    gitlab $@
     ;;
 
   -h|--help|help)
