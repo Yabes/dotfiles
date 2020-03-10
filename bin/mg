@@ -467,6 +467,15 @@ changelog() {
   iterate_git_run show_tag_content
 }
 
+is_command_available() {
+  if command -v ${1} >/dev/null 2>&1; then
+    :
+  else
+    color_echo $RED "Missing command \`${1}' for gitlab integration"
+    exit 1
+  fi
+}
+
 # Main
 
 # Look for global options
@@ -523,13 +532,8 @@ case ${COMMAND} in
     ;;
 
   gitlab)
-    if command -v jq >/dev/null 2>&1; then
-      :
-    else
-      color_echo $RED "Missing command \`jq' for gitlab integration"
-      exit 1
-    fi
-
+    is_command_available jq
+    is_command_available curl
     gitlab $@
     ;;
 
