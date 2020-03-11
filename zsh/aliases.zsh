@@ -40,5 +40,5 @@ alias vs="vagrant ssh"
 alias gvim="gvim 2>/dev/null"
 
 alias tmux='tmux-select'
-alias fg='\fg %$(jobs | fzf --select-1 | cut -d [ -f2 | cut -d  ] -f1)'
+alias fg='\fg %$(jobs | fzf --exit-0 --select-1 | cut -d [ -f2 | cut -d  ] -f1)'
 
