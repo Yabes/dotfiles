@@ -11,7 +11,7 @@ MG_CONFIG=".mgrc"
 GITLAB_TOKEN=""
 GITLAB_URI=""
 
-# Utils
+# Usage {{{
 usage() {
   cat << EOF 
 usage: $(basename $0) [options] <command> [<args>]
@@ -65,7 +65,9 @@ ignore repositories:
   ./and-me
 EOF
 }
+# }}}
 
+# Global Utils {{{
 color_echo() {
   echo -e "${1}${2}${NC}"
 }
@@ -108,7 +110,47 @@ run() {
   fi
 }
 
-# Gitlab utils
+is_command_available() {
+  if command -v ${1} >/dev/null 2>&1; then
+    :
+  else
+    color_echo $RED "Missing command \`${1}' for gitlab integration"
+    exit 1
+  fi
+}
+
+# }}}
+
+# Gitlab command {{{1
+# Gitlab usage {{{2
+gitlab_usage() {
+  cat << EOF
+usage: $(basename $0) gitlab [--uri <uri> | --guess]
+                 [--token <token>]
+                 <command> [<args>]
+
+options:
+  --uri <gitlab_uri>
+    Specify gitlab server uri
+
+  --guess
+    Guess gitlab server uri from existing repositories
+
+  --token <gitlab_token>
+    Auth token for gitlab api.
+    If no token is provided, the personal_access_tokens page of gitlab
+    will open to generate one. You'll be prompted to write the token
+    so it can be saved for future requests.
+
+commands:
+  clone-group <group_name>
+    Clone every project in the given group, a path of group and subgroups
+    can be used
+EOF
+}
+# }}}2
+
+# Gitlab utils {{{2
 request_gitlab() {
   local RESOURCE=$1
   curl -s -H "Authorization: Bearer ${GITLAB_TOKEN}" "${GITLAB_URI}/api/v4/${RESOURCE}"
@@ -162,32 +204,7 @@ guess_gitlab_uri() {
   GITLAB_URI=$(echo "https://$(echo "${URIS}" | head -1)")
   color_echo $YELLOW "Guessed ${GITLAB_URI}"
 }
-
-gitlab_usage() {
-  cat << EOF
-usage: $(basename $0) gitlab [--uri <uri> | --guess]
-                 [--token <token>]
-                 <command> [<args>]
-
-options:
-  --uri <gitlab_uri>
-    Specify gitlab server uri
-
-  --guess
-    Guess gitlab server uri from existing repositories
-
-  --token <gitlab_token>
-    Auth token for gitlab api.
-    If no token is provided, the personal_access_tokens page of gitlab
-    will open to generate one. You'll be prompted to write the token
-    so it can be saved for future requests.
-
-commands:
-  clone-group <group_name>
-    Clone every project in the given group, a path of group and subgroups
-    can be used
-EOF
-}
+# }}}2
 
 gitlab() {
   if [[ $# -eq 0 ]]; then
@@ -253,9 +270,11 @@ gitlab() {
       ;;
   esac
 }
+# }}}1
 
+# Status command {{{
+# Status utils {{{
 
-# Status utils
 rev_list_to_arrows() {
 	local left=${1:-0} right=${2:-0}
 	[ $right -gt 0 ] && printf ⇣ || true
@@ -316,7 +335,7 @@ fetch_repo() {
   color_echo_n $YELLOW "Fetching $(basename $(pwd))..."
   git fetch -u origin >/dev/null 2>&1
 }
-
+# }}}
 
 show_status() {
   # Status constants
@@ -350,9 +369,10 @@ show_status() {
 
   echo -e "${result}" | column -t -n -s ','
 }
+# }}}
 
-# Diff utils
-
+# Diff command {{{1
+# Diff utils {{{2
 show_repo_diff() {
   if is_clean; then
     :
@@ -361,13 +381,15 @@ show_repo_diff() {
     git --no-pager diff -- . ':(exclude)package-lock.json'
   fi
 }
+# }}}2
 
 show_diff() {
   iterate_git_run show_repo_diff
 }
+# }}}1
 
-# Checkout utils
-
+# Switch command {{{1
+# Switch utils {{{2
 branch_exists() {
   git show-ref --verify --quiet refs/heads/$1 || test "$(git ls-remote --tags origin $1)" != ""
 }
@@ -387,6 +409,7 @@ checkout_if_exists() {
     fi
   fi
 }
+# }}}2
 
 switch() {
   # Switch constant
@@ -420,8 +443,10 @@ switch() {
 
   iterate_git_run checkout_if_exists $TARGET
 }
+# }}}1
 
-# Exec command utils
+# Exec command {{{1
+# Exec utils {{{2
 exec_command_in_repo() {
   repo=$1
   shift
@@ -429,6 +454,7 @@ exec_command_in_repo() {
   color_echo $YELLOW "Executing '$(echo $@)' in '$repo'"
   run $@ || true
 }
+# }}}2
 
 exec_command() {
   if [[ $# -eq 0 ]]; then
@@ -438,8 +464,11 @@ exec_command() {
 
   iterate_git_run exec_command_in_repo $@
 }
+# }}}1
 
-# Bump utils
+# Bump command {{{1
+# Bump utils {{{
+
 need_tag() {
   if [[ "$ONLY" != "" ]]; then
     [[ "$(git describe --tags --abbrev=0)" =~ "$ONLY" ]]
@@ -461,6 +490,7 @@ tag_repo() {
     run git push --quiet origin $2
   fi
 }
+# }}}2
 
 bump() {
   # Bump constant
@@ -506,12 +536,15 @@ bump() {
   switch --pull "master"
   iterate_git_run tag_repo $TAG
 }
+# }}}1
 
-# Changelog utils
+# Changelog command {{{1
+# Changelog utils {{{2
 show_tag_content() {
   display_repo_name
   git tag -l -n99 ${TAG:-$(git describe --tags --abbrev=0)}
 }
+# }}}2
 
 changelog() {
   # Changelog constant
@@ -529,17 +562,7 @@ changelog() {
 
   iterate_git_run show_tag_content
 }
-
-is_command_available() {
-  if command -v ${1} >/dev/null 2>&1; then
-    :
-  else
-    color_echo $RED "Missing command \`${1}' for gitlab integration"
-    exit 1
-  fi
-}
-
-# Main
+# }}}1
 
 # Look for global options
 while : ; do
@@ -610,3 +633,5 @@ case ${COMMAND} in
     exit 1
     ;;
 esac
+
+# vim: foldmethod=marker
