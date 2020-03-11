@@ -20,6 +20,9 @@ options:
   --dry
     Print commands from \`bump' or \`exec' instead of executing it
 
+  --debug
+    show every executed commands
+
 commands:
   status [--fetch]
     show the status of every repo
@@ -50,9 +53,12 @@ commands:
   exec <command>
     exec command in each repo
 
+  gitlab
+    see $(basename $0) gitlab help
+
 
 ignore repositories:
-  You can create '.ignore-repo' file containing a list a folder to ignore.
+  You can create a '.ignore-repo' file containing a list a folder to ignore.
   Ex:
 
   ./ignore-me
@@ -104,8 +110,8 @@ run() {
 
 # Gitlab utils
 request_gitlab() {
-  local PATH=$1
-  curl -s -H "Authorization: Bearer ${GITLAB_TOKEN}" "${GITLAB_URI}/api/v4/${PATH}"
+  local RESOURCE=$1
+  curl -s -H "Authorization: Bearer ${GITLAB_TOKEN}" "${GITLAB_URI}/api/v4/${RESOURCE}"
 }
 
 list_group_repo() {
@@ -146,7 +152,49 @@ load_gitlab_token() {
   fi
 }
 
+get_repo_url() {
+  git remote get-url origin | cut -d '@' -f 2 | cut -d ':' -f 1
+}
+
+guess_gitlab_uri() {
+  URIS=$(iterate_git_run get_repo_url | uniq)
+
+  GITLAB_URI=$(echo "https://$(echo "${URIS}" | head -1)")
+  color_echo $YELLOW "Guessed ${GITLAB_URI}"
+}
+
+gitlab_usage() {
+  cat << EOF
+usage: $(basename $0) gitlab [--uri <uri> | --guess]
+                 [--token <token>]
+                 <command> [<args>]
+
+options:
+  --uri <gitlab_uri>
+    Specify gitlab server uri
+
+  --guess
+    Guess gitlab server uri from existing repositories
+
+  --token <gitlab_token>
+    Auth token for gitlab api.
+    If no token is provided, the personal_access_tokens page of gitlab
+    will open to generate one. You'll be prompted to write the token
+    so it can be saved for future requests.
+
+commands:
+  clone-group <group_name>
+    Clone every project in the given group, a path of group and subgroups
+    can be used
+EOF
+}
+
 gitlab() {
+  if [[ $# -eq 0 ]]; then
+    gitlab_usage
+    exit 1
+  fi
+
   while : ; do
     case $1 in
       --uri)
@@ -157,6 +205,15 @@ gitlab() {
       --token)
         shift
         GITLAB_TOKEN=$1
+        ;;
+
+      --guess)
+        guess_gitlab_uri
+        ;;
+
+      -h|--help|help)
+        gitlab_usage
+        exit 0
         ;;
 
       *)
@@ -178,8 +235,14 @@ gitlab() {
   GITLAB_COMMAND=$1
   shift
 
+  if [ "${GITLAB_COMMAND}" = "" ]; then
+    gitlab_usage
+    exit 1
+  fi
+
+
   case ${GITLAB_COMMAND} in
-    clone-groupe)
+    clone-group)
       gitlab_clone_group $@
       ;;
 
