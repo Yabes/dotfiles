@@ -9,10 +9,10 @@ if has('job') || has('nvim')
 endif
 
 Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
 
 " JavaScript
 Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 Plug 'ElmCast/elm-vim', { 'for': ['elm'] }

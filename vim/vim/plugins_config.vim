@@ -317,3 +317,5 @@ nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
 " => Elm
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:elm_setup_keybindings = 0
+
+let g:yats_host_keyword = 0
