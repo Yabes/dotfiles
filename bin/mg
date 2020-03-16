@@ -486,7 +486,7 @@ tag_repo() {
 
     color_echo $YELLOW "Tagging '$1' with '$2', previous describe was '$(git describe --tags)'"
     message=$(git log --merges --format=%s $(git describe --abbrev=0)..HEAD | awk -F \' '{ print $2  }')
-    run git tag $2 -m "${message:-$2}"
+    run git tag $2 -m "${message:-$2}" || run git tag $2 -m "$2"
     run git push --quiet origin $2
   fi
 }
