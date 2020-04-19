@@ -1,5 +1,6 @@
 # Npm/Yarn
 export PATH="$PATH:$HOME/.npm-global/bin"
+command -v yarn >/dev/null 2>&1 && export PATH="$(yarn global bin):$PATH"
 
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
