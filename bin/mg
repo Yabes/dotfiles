@@ -10,6 +10,8 @@ DRY=false
 MG_CONFIG=".mgrc"
 GITLAB_TOKEN=""
 GITLAB_URI=""
+ONLY_REF=""
+GLOB=""
 
 # Usage {{{
 usage() {
@@ -21,7 +23,13 @@ options:
     Print commands from \`bump' or \`exec' instead of executing it
 
   --debug
-    show every executed commands
+    Show every executed commands
+
+  --only-ref <ref>
+    Execute command only on project matching the given ref
+
+  --glob <glob>
+    Execute command only on project matching the given glob
 
 commands:
   status [--fetch]
@@ -32,14 +40,12 @@ commands:
   diff
     show diff on dirty repos
 
-  bump <version> [--always|--only-tag-matching <tag>] [--overwrite]
+  bump <version> [--always] [--overwrite]
     bump to a new version if needed on master
       --always
         bump version even if there is no change
       --overwrite
         bump version even if there is already a tag
-      --only-tag-matching <tag>
-        only bump project with a tag matching the given tag
 
   switch [--pull] <branch>
     switch to branch if available
@@ -76,8 +82,20 @@ color_echo_n() {
   echo -en "${1}${2}${NC}"
 }
 
-do_not_contains_element () {
+not_ignored () {
   ! grep -qs "${1}" ./.ignore-repo
+}
+
+match_glob () {
+  test "${GLOB}" == "" \
+    || [[ "${1}" =~ "${GLOB}" ]]
+}
+
+match_git_ref() {
+  local project=$1
+  test "${ONLY_REF}" == "" \
+    || [[ "$(git -C "${project}" rev-parse --abbrev-ref --symbolic-full-name '@{u}')" =~ "${ONLY_REF}" ]]\
+    || [[ "$(git -C "${project}" describe --tags --abbrev=0)"  =~ "${ONLY_REF}" ]]
 }
 
 display_repo_name() {
@@ -90,7 +108,7 @@ iterate_git_run() {
   shift
 
   for folder in $(find . -maxdepth 1 -type d | sort); do
-    if [ -d $folder/.git ] && do_not_contains_element "$folder"; then
+    if [ -d $folder/.git ] && not_ignored "$folder" && match_git_ref "$folder" && match_glob "$folder"; then
       cd $folder
       $fn $folder $@
       cd ..
@@ -179,7 +197,7 @@ gitlab_clone_group() {
 }
 
 save_gitlab_token() {
-  xdg-open "${GITLAB_URI}/profile/personal_access_tokens" &
+  open "${GITLAB_URI}/profile/personal_access_tokens" &
   read GITLAB_TOKEN
   echo "GITLAB_TOKEN_${GITLAB_URI} ${GITLAB_TOKEN}" > ${MG_CONFIG}
 }
@@ -367,7 +385,15 @@ show_status() {
   result="$(get_status_header)\n$(iterate_git_run get_repo_info)"
   erase_previous_line
 
-  echo -e "${result}" | column -t -n -s ','
+  case "$(uname)" in
+    Darwin)
+      echo -e "${result}" | column -t -s ','
+      ;;
+
+    *)
+      echo -e "${result}" | column -t -n -s ','
+      ;;
+  esac
 }
 # }}}
 
@@ -391,7 +417,7 @@ show_diff() {
 # Switch command {{{1
 # Switch utils {{{2
 branch_exists() {
-  git show-ref --verify --quiet refs/heads/$1 || test "$(git ls-remote --tags origin $1)" != ""
+  git show-ref --verify --quiet refs/heads/$1 || git show-ref --verify --quiet refs/remotes/origin/$1 || test "$(git ls-remote --tags origin $1)" != ""
 }
 
 not_on_branch() {
@@ -470,11 +496,7 @@ exec_command() {
 # Bump utils {{{
 
 need_tag() {
-  if [[ "$ONLY" != "" ]]; then
-    [[ "$(git describe --tags --abbrev=0)" =~ "$ONLY" ]]
-  else
-    test "$(git describe --tags)" != "$(git describe --tags --abbrev=0)"
-  fi
+  test "$(git describe --tags)" != "$(git describe --tags --abbrev=0)"
 }
 
 tag_repo() {
@@ -497,7 +519,6 @@ bump() {
   ALWAYS=false
   OVERWRITE=false
   TAG=""
-  ONLY=""
 
   while test $# -gt 0
   do
@@ -508,11 +529,6 @@ bump() {
 
       --overwrite)
         OVERWRITE=true
-        ;;
-
-      --only-tag-matching)
-        shift
-        ONLY="$1"
         ;;
 
       -*)
@@ -565,6 +581,7 @@ changelog() {
 # }}}1
 
 # Look for global options
+# {{{ Global option
 while : ; do
   case $1 in
     --debug)
@@ -575,13 +592,24 @@ while : ; do
       DRY=true
       ;;
 
+    --only-ref)
+      shift
+      ONLY_REF=$1
+      ;;
+
+    --glob)
+      shift
+      GLOB=$1
+      ;;
     *)
       break
       ;;
   esac
   shift
 done
+# }}}
 
+# Main switch {{{
 COMMAND=$1
 shift
 
@@ -633,5 +661,6 @@ case ${COMMAND} in
     exit 1
     ;;
 esac
+# }}}
 
 # vim: foldmethod=marker
