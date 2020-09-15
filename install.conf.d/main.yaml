@@ -13,6 +13,7 @@
     ~/.npmrc: npm/npmrc
     ~/.tern-config: tern/tern-config.json
     ~/.eslintrc.json: lint/eslintrc.json
+    ~/.config/alacritty: alacritty
     ~/.prettierrc.json: lint/prettierrc.json
     ~/.docker/config.json:
         create: true
