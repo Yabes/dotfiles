@@ -519,3 +519,8 @@ function! DoPrettyXML()
   exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+
+augroup TerminalStuff
+    au!
+    autocmd TermOpen * setlocal nonumber norelativenumber
+augroup END
