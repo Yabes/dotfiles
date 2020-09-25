@@ -1,5 +1,8 @@
 profile_zsh=false
 
+ZSH_DISABLE_COMPFIX=true
+autoload -U +X compinit; compinit -u -d "$ZPLUG_HOME/zcompdump"
+
 if $profile_zsh; then
   zmodload zsh/zprof
 fi
@@ -49,4 +52,10 @@ bindkey -M vicmd v edit-command-line
 . ~/.dotfiles/git/git-aliases.zsh
 . ~/.dotfiles/zsh/plugins.zsh
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export PATH="$HOME/n/bin:/usr/local/bin:/usr/local/opt/grep/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/mlemaitre-cosquer/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mlemaitre-cosquer/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/mlemaitre-cosquer/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mlemaitre-cosquer/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

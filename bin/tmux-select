@@ -1,7 +1,21 @@
 #!/bin/bash
 
-TMUX_BIN=$(whereis tmux | tr ' ' '\n' | tail -n +2 | grep -v $0 | head -1)
-TMUX_ARG="-2 -S /tmp/tmux-1000/default"
+case "$(uname)" in
+  Darwin)
+    TMUX_BIN=/usr/local/bin/tmux
+    ;;
+
+  *)
+    TMUX_BIN=$(whereis tmux | tr ' ' '\n' | tail -n +2 | grep -v $0 | head -1)
+    ;;
+esac
+
+if [ "${TMUX_BIN}" = "" ]; then
+  echo "Couldn't locate tmux in path"
+  exit 1
+fi
+
+TMUX_ARG="-2 -L default"
 TMUX=$(echo "${TMUX_BIN} ${TMUX_ARG}")
 
 # If user provide parameters, run tmux with it
@@ -18,4 +32,4 @@ if $TMUX list-sessions &> /dev/null; then
 fi
 
 # Start tmux server in 256 colors mode
-${TMUX_BIN} -2
+TERM=screen-256color ${TMUX_BIN} -2

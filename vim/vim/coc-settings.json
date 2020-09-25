@@ -1,4 +1,5 @@
 {
+  "eslint.enable": false,
   "codeLens.enable": true,
   "suggest.noselect": false,
   "list.normalMappings": {

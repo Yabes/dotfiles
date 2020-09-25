@@ -203,5 +203,3 @@ fs() {
   tmux switch-client -t "$session"
 }
 
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-
