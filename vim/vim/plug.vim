@@ -13,8 +13,8 @@ Plug 'sheerun/vim-polyglot'
 
 " JavaScript
 Plug 'elzr/vim-json', { 'for': [ 'javascript', 'json' ] }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'jsx' ] }
 Plug 'ElmCast/elm-vim', { 'for': ['elm'] }
 
 " HTML/CSS
@@ -42,7 +42,7 @@ Plug 'jiangmiao/auto-pairs'
 if has('nvim')
   Plug 'Shougo/neco-vim', { 'for': 'vim' }
   Plug 'neoclide/coc-neco', { 'for': 'vim' }
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'Shougo/echodoc.vim'
 elseif has('python3')
   Plug 'autozimu/LanguageClient-neovim', {
@@ -55,11 +55,10 @@ elseif has('python3')
   Plug 'roxma/nvim-yarp'
 endif
 
-
 """"""""""""""""""""""""""""""
 " => Snippets
 """"""""""""""""""""""""""""""
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 
 """"""""""""""""""""""""""""""
@@ -67,17 +66,17 @@ Plug 'SirVer/ultisnips'
 """"""""""""""""""""""""""""""
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'antoinemadec/coc-fzf'
 Plug 'mileszs/ack.vim'
 Plug 'eiginn/netrw'
 Plug 'kopischke/vim-fetch'
-
 
 """"""""""""""""""""""""""""""
 " => Look & Feel Plugins
 """"""""""""""""""""""""""""""
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'css', 'scss'] }
-Plug 'Yggdroot/indentLine'
-Plug 'Valloric/MatchTagAlways'
+" Plug 'Yggdroot/indentLine'
+" Plug 'Valloric/MatchTagAlways'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'whiteinge/diffconflicts'
@@ -142,14 +141,13 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/visual-split.vim', { 'on': ['VSSplit', 'VSSplitAbove', 'VSSplitBelow', 'VSResize'] }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/sideways.vim'
-Plug 'vim-scripts/ReplaceWithRegister'
+" Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'henrik/vim-indexed-search'
 Plug 'dohsimpson/vim-macroeditor', { 'on': 'MacroEdit' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi' }
 Plug 'tpope/vim-speeddating'
-Plug 'brooth/far.vim', { 'on': 'Far' }
-Plug 'yabes/vim-complete-commit-type', { 'for': 'gitcommit' }
-Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
+" Plug 'brooth/far.vim', { 'on': 'Far' }
+" Plug 'sbdchd/neoformat', { 'on': 'Neoformat' }
 " Plug 'tpope/vim-unimpaired'
 " Plug 'hauleth/sad.vim'
 

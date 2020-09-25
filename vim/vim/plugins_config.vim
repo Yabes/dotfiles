@@ -47,14 +47,14 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'dirname', 'relativepath', 'modified' ],
+      \             [ 'dirname', 'gitbranch', 'readonly', 'relativepath', 'modified' ],
       \             [ 'coc' ]],
       \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'inactive': {
-      \   'left': [ [ 'dirname', 'filename' ] ],
+      \   'left': [ [ 'dirname', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \            [ 'percent' ] ]
       \ },
@@ -82,6 +82,17 @@ let g:lightline = {
       \
       \ }
       \ }
+
+" If it's already defined, we call it to reload Lightline
+if exists("*LightlineReload")
+    call LightlineReload()
+endif
+
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -188,14 +199,14 @@ nnoremap <C-f> :GitFiles<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <C-b> :Buffers<cr>
 
-let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 
 command! -bang -nargs=* RgFiles
   \ call fzf#run(
   \   fzf#wrap({
-  \     'source': 'rg --files --hidden --follow . ',
+  \     'source': 'rg --files --hidden --follow -g "!.git" . ',
   \     'options': '--exit-0 --select-1 --query '.shellescape(<q-args>)
   \   }),
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
@@ -205,7 +216,7 @@ command! -bang -nargs=* RgFiles
 
 command! -bang -nargs=* RgSearch
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --hidden --follow --ignore-case '.shellescape(<q-args>),
+  \   'rg --column --line-number --no-heading --color=always --hidden -g "!.git" --follow --ignore-case '.shellescape(<q-args>),
   \   1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%', '?'),
@@ -237,13 +248,16 @@ if has('nvim')
   let g:coc_snippet_prev = '<c-k>'
 
   " Use <C-j> for both expand and jump (make expand higher priority.)
-  imap <C-j> <Plug>(coc-snippets-expand-jump)
+  imap <C-j> <Plug>(cc-snippets-expand-jump)
 
   " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+
+  nmap <silent> gsd :call CocAction('jumpDefinition', 'split')<CR>
+  nmap <silent> gvd :call CocAction('jumpDefinition', 'vsplit')<CR>
 
   " Use K to show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -263,13 +277,13 @@ if has('nvim')
   nmap <leader>rn <Plug>(coc-rename)
 
   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
+  xmap <silent><leader>a  <Plug>(coc-codeaction-selected)
+  nmap <silent><leader>a  <Plug>(coc-codeaction-selected)
 
   " Remap for do codeAction of current line
-  nmap <leader>ac  <Plug>(coc-codeaction)
+  nmap <silent><leader>ac  <Plug>(coc-codeaction)
   " Fix autofix problem of current line
-  nmap <leader>qf  <Plug>(coc-fix-current)
+  nmap <silent><leader>qf  <Plug>(coc-fix-current)
 
 elseif has('python3')
   " LSP
