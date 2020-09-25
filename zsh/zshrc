@@ -15,7 +15,7 @@ bindkey -v
 if [ -n "${TMUX_PANE}" ]; then
   HISTS_DIR=$HOME/.zsh_history.d
   mkdir -p "${HISTS_DIR}"
-  export HISTFILE="${HISTS_DIR}/histfile_tmux_${TMUX_PANE}"
+  export HISTFILE="${HISTS_DIR}/histfile_tmux_$(tmux display -p '#S-#I-#P')"
 fi
 
 # Disable = command
