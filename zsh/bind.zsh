@@ -59,3 +59,14 @@ _fzf-directory() {
 zle -N _fzf-directory
 bindkey '^P' _fzf-directory
 
+_fzf-latest-modified-files() {
+  local text="$(git diff --name-only HEAD~10..HEAD . | fzf-tmux --preview='git log --color=always -p -- {}')"
+  local ret=$?
+  LBUFFER="${LBUFFER}${text}"
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+
+zle -N _fzf-latest-modified-files
+bindkey '^H' _fzf-latest-modified-files
