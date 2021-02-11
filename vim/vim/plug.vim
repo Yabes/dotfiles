@@ -32,7 +32,8 @@ Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 Plug 'vitalk/vim-shebang'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex'] }
-
+Plug 'delphinus/vim-firestore'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 """"""""""""""""""""""""""""""
 " => Completion
@@ -43,7 +44,7 @@ if has('nvim')
   Plug 'Shougo/neco-vim', { 'for': 'vim' }
   Plug 'neoclide/coc-neco', { 'for': 'vim' }
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'Shougo/echodoc.vim'
+  " Plug 'Shougo/echodoc.vim'
 elseif has('python3')
   Plug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
