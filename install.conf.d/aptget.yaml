@@ -11,3 +11,5 @@
     python3-pip:
     docker.io:
     regolith-desktop: ppa:regolith-linux/release
+    regolith-look-cahuella: ppa:regolith-linux/release
+    keepassxc: ppa:phoerious/keepassxc
