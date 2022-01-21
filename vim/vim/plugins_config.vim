@@ -108,7 +108,7 @@ nmap <silent> ]a <Plug>(ale_next_wrap)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorized
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:colorizer_auto_filetype='scss,css,html'
+" let g:colorizer_auto_filetype='scss,css,html'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -121,7 +121,7 @@ let g:colorizer_auto_filetype='scss,css,html'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Follow my lead
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:fml_all_sources=1
+" let g:fml_all_sources=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,28 +133,28 @@ nnoremap <F5> :UndotreeToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Yank Ring
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <leader>y :YRShow<CR>
+" nnoremap <silent> <leader>y :YRShow<CR>
 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => EasyAlign
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vnoremap <silent> <Enter> :EasyAlign<cr>
+" vnoremap <silent> <Enter> :EasyAlign<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim-JsDoc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:jsdoc_enable_es6 = 1
-let g:jsdoc_allow_input_prompt = 1
+" let g:jsdoc_enable_es6 = 1
+" let g:jsdoc_allow_input_prompt = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-javascript
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
+" let g:javascript_plugin_jsdoc = 1
+" let g:javascript_plugin_ngdoc = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -333,3 +333,7 @@ nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
 let g:elm_setup_keybindings = 0
 
 let g:yats_host_keyword = 0
+
+" let g:over_enable_auto_nohlsearch = 1
+" let g:over_enable_cmd_window = 1
+" let g:over#command_line#substitute#replace_pattern_visually = 1

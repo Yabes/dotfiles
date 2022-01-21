@@ -1,4 +1,8 @@
 {
+  "tsserver.watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents"
+  },
   "codeLens.enable": true,
   "suggest.noselect": false,
   "list.normalMappings": {
@@ -8,17 +12,6 @@
     "<C-c>": "do:exit"
   },
   "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    },
-    "dockerfile": {
-      "command": "docker-langserver",
-      "filetypes": ["dockerfile"],
-      "args": ["--stdio"]
-    },
     "elmLS": {
       "command": "elm-language-server",
       "filetypes": ["elm"],

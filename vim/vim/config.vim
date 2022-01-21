@@ -250,10 +250,6 @@ noremap <silent> <leader>V "+P
 noremap <silent> <C-Left> :tabp<CR>
 noremap <silent> <C-Right> :tabn<CR>
 
-" Execute macro over visual range
-" https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -324,64 +320,57 @@ if executable('pt')
   set grepprg=pt
 endif
 
+set inccommand=split
+set switchbuf=uselast
+nnoremap <PageDown> :cn<CR>
+nnoremap <PageUp> :cp<CR>
+
+nnoremap <expr> <PageUp> filter(range(1, winnr('$')), 'getwinvar(v:val, "$ft") == "qf"') == [] ? '<PageUp>' : ':cp<CR>'
+nnoremap <expr> <PageDown> filter(range(1, winnr('$')), 'getwinvar(v:val, "$ft") == "qf"') == [] ? '<PageDown>' : ':cn<CR>'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>e :e! ~/.vim/config.vim<cr>
 
 
+" I AM HERE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Auto create directory with :e
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-fun! <SID>AutoMakeDirectory()
-  let s:directory = expand('<afile>:p:h')
-
-  if !isdirectory(s:directory)
-    call mkdir(s:directory, 'p')
-  endif
-
-endfun
-autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+" Migrate to plugin?
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easily replace words in files
 " http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
-
-nnoremap cn *``cgn
-nnoremap cN *``cgN
-
-vnoremap <expr> cn g:mc . "``cgn"
-vnoremap <expr> cN g:mc . "``cgN"
-
-function! SetupCR()
-  nnoremap <Enter> :nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z
-endfunction
-
-nnoremap cq :call SetupCR()<CR>*``qz
-nnoremap cQ :call SetupCR()<CR>#``qz
-
-vnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
-vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
+" let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
+"
+" nnoremap cn *``cgn
+" nnoremap cN *``cgN
+"
+" vnoremap <expr> cn g:mc . "``cgn"
+" vnoremap <expr> cN g:mc . "``cgN"
+"
+" function! SetupCR()
+"   nnoremap <Enter> :nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z
+" endfunction
+"
+" nnoremap cq :call SetupCR()<CR>*``qz
+" nnoremap cQ :call SetupCR()<CR>#``qz
+"
+" vnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
+" vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 
 " autocmd CursorMoved * if &previewwindow != 1 | pclose | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
-endfunction
+" Execute macro over visual range
+" https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
 
 " Get recent commit message
-function! InsertLatestCommitMessage(...)
-  let numberOfLine = a:0 > 0 ? a:1 : 1
-  let decorator  = a:0 > 1 ? a:2 : '*'
-  execute 'read !git log --pretty=format:"' . decorator . ' \%s (\%h)" --date=short -n ' . numberOfLine
-endfunction
-command! -nargs=* InsertLatestCommitMessage call InsertLatestCommitMessage(<f-args>)
 
 " make list-like commands more intuitive
 " From https://gist.github.com/romainl/047aca21e338df7ccf771f96858edb86
@@ -429,47 +418,26 @@ function! CmdLine(str)
   unmenu Foo
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
-  let l:saved_reg = @"
-  execute "normal! vgvy"
-
-  let l:pattern = escape(@", '\\/.*$^~[]')
-  let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-  if a:direction == 'b'
-    execute "normal ?" . l:pattern . "^M"
-  elseif a:direction == 'gv'
-    call CmdLine("Ack \"" . l:pattern . "\" " )
-  elseif a:direction == 'replace'
-    call CmdLine("%s" . '/'. l:pattern . '/')
-  elseif a:direction == 'f'
-    execute "normal /" . l:pattern . "^M"
-  endif
-
-  let @/ = l:pattern
-  let @" = l:saved_reg
-endfunction
-
 " Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-  let l:currentBufNum = bufnr("%")
-  let l:alternateBufNum = bufnr("#")
-
-  if buflisted(l:alternateBufNum)
-    buffer #
-  else
-    bnext
-  endif
-
-  if bufnr("%") == l:currentBufNum
-    new
-  endif
-
-  if buflisted(l:currentBufNum)
-    execute("bdelete! ".l:currentBufNum)
-  endif
-endfunction
+" command! Bclose call <SID>BufcloseCloseIt()
+" function! <SID>BufcloseCloseIt()
+"   let l:currentBufNum = bufnr("%")
+"   let l:alternateBufNum = bufnr("#")
+"
+"   if buflisted(l:alternateBufNum)
+"     buffer #
+"   else
+"     bnext
+"   endif
+"
+"   if bufnr("%") == l:currentBufNum
+"     new
+"   endif
+"
+"   if buflisted(l:currentBufNum)
+"     execute("bdelete! ".l:currentBufNum)
+"   endif
+" endfunction
 
 function! HighlightRepeats() range
   let lineCounts = {}
