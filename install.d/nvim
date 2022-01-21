@@ -11,9 +11,9 @@ get_latest_bin_url() {
       *)          echo "Unsupported machine"; exit 1
   esac
 
-  LATEST_STABLE_PACKAGE=https://github.com/neovim/neovim/releases/download/stable/${PACKAGE}
-
-  echo ${LATEST_STABLE_PACKAGE}
+  VERSION=$(curl -L -s -H 'Accept: application/json' https://github.com/neovim/neovim/releases/latest | jq -r .tag_name)
+  PACKAGE="https://github.com/neovim/neovim/releases/download/${VERSION}/${PACKAGE}"
+  echo ${PACKAGE}
 }
 
 bin_version() {

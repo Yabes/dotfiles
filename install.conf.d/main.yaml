@@ -4,7 +4,6 @@
     ~/.zshrc: zsh/zshrc
     ~/.vim: vim/vim/
     ~/.config/nvim: vim/vim/
-    ~/.vimrc: vim/vimrc
     ~/.gitconfig: git/gitconfig
     ~/.git_commit_msg.txt: git/git_commit_msg.txt
     ~/.gitattributes: git/gitattributes
@@ -13,37 +12,51 @@
     ~/.npmrc: npm/npmrc
     ~/.tern-config: tern/tern-config.json
     ~/.eslintrc.json: lint/eslintrc.json
-    ~/.config/alacritty: alacritty
     ~/.prettierrc.json: lint/prettierrc.json
     ~/.docker/config.json:
-        create: true
-        path: docker/config.json
+      create: true
+      path: docker/config.json
     ~/.ssh/config:
-        create: true
-        path: ssh/config
+      create: true
+      path: ssh/config
     ~/.tmux.conf: tmux/tmux.config
     ~/.Xresources-regolith: regolith/Xresources-regolith
+    ~/.config/gsimplecal: config/gsimplecal
+    ~/.config/kitty: config/kitty
+    ~/.config/alacritty: config/alacritty
+    ~/.config/regolith: config/regolith
+    ~/.config/ranger: config/ranger
 
 - shell:
-  - ["[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm", Installing tpm]
-  - command: test "$SHELL" "==" "$(which zsh)" || chsh -s $(which zsh)
-    stdin: true
-    stdout: true
-    stderr: true
-    description: Setting zsh as login shell
-  - ["[ -d ~/.zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen", Installing zgen]
-  - command: nvim -N +PlugInstall +qall &>/dev/null
-    stdin: true
-    stdout: true
-    stderr: true
-    description: Installing nvim plugins
-  - command: sudo groupadd docker || true && sudo gpasswd -a $USER docker
-    stdin: true
-    stdout: true
-    stderr: true
-    description: Adding user to docker group
-  - command: pip install neovim && pip3 install neovim && npm install -g neovim
-    stdin: true
-    stdout: true
-    stderr: true
-    description: Installing neovim providers
+    - [
+        '[ -d ~/.tmux ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm',
+        Installing tpm,
+      ]
+    - command: test "$SHELL" "==" "$(which zsh)" || chsh -s $(which zsh)
+      stdin: true
+      stdout: true
+      stderr: true
+      description: Setting zsh as login shell
+    - [
+        '[ -d ~/.zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen',
+        Installing zgen,
+      ]
+    - command: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+      stdin: true
+      stdout: true
+      stderr: true
+      description: Installing nvim plugins
+    - command: sudo groupadd docker || true && sudo gpasswd -a $USER docker
+      stdin: true
+      stdout: true
+      stderr: true
+      description: Adding user to docker group
+    - command: pip install neovim && pip3 install neovim && npm install -g neovim
+      stdin: true
+      stdout: true
+      stderr: true
+      description: Installing neovim providers
+    - command: npm install -g eslint_d @fsouza/prettierd
+      stdin: true
+      stdout: true
+      stderr: true

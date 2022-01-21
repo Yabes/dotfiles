@@ -1,8 +1,9 @@
 - cargo:
-  - ripgrep
-  - broot
+    - ripgrep
+    - broot
+    - stylua
 - shell:
-  - command: broot --install
-    stdin: true
-    stderr: true
-    stdout: true
+    - command: broot --install
+      stdin: true
+      stderr: true
+      stdout: true

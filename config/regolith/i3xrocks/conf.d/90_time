@@ -1,0 +1,4 @@
+# Date Time
+[time]
+command=button="" /usr/share/i3xrocks/$BLOCK_NAME; test ${button} && gsimplecal &
+interval=1
