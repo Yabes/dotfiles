@@ -27,3 +27,6 @@ export PATH="$HOME/.dotfiles/bin:$PATH"
 
 # Google Cloud SDK.
 if [ -f '/home/developer/google-cloud-sdk/path.zsh.inc' ]; then . '/home/developer/google-cloud-sdk/path.zsh.inc'; fi
+
+# Krew
+[ -d ~/.krew ] && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

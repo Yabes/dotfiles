@@ -85,8 +85,14 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # From https://github.com/junegunn/dotfiles
 # fd - cd to selected directory
 fd() {
-  DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
+  DIR=`find ${1:-*} -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
     && cd "$DIR"
+}
+
+cdv() {
+  local DIR
+  DIR=`find ${1:-${HOME}/dev} -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2> /dev/null | sed "s@${1:-${HOME}/dev}@@" | fzf-tmux` \
+    && cd "${1:-${HOME}/dev}$DIR"
 }
 
 # fda - including hidden directories
@@ -198,10 +204,10 @@ cdf() {
 #   - Exit if there's no match (--exit-0)
 fs() {
   local session
-  session=$(tmux list-sessions -F "#{session_name}" | \
+  session=$(\tmux list-sessions -F "#{session_name}" | \
     fzf --query="$1" --select-1 --exit-0 --header='enter:switch, ctrl-x:kill' --bind='ctrl-x:execute(tmux kill-session -t {})') &&
-  tmux switch-client -t "$session"
+  \tmux switch-client -t "$session"
 }
 
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+# source /usr/share/doc/fzf/examples/key-bindings.zsh
 
