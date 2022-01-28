@@ -109,17 +109,7 @@ lsp_installer.on_server_ready(function(server)
 	opts.on_attach = on_attach
 
 	if server.name == "sumneko_lua" then
-		opts.settings = {
-			Lua = {
-				diagnostics = { globals = { "vim" } },
-				workspace = {
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					},
-				},
-			},
-		}
+		opts.settings = require("lua-dev").setup().settings
 	end
 
 	-- (optional) Customize the options passed to the server

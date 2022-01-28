@@ -19,6 +19,8 @@ return require("packer").startup(function(use)
 	})
 	use("lewis6991/impatient.nvim")
 
+	use("folke/lua-dev.nvim")
+
 	-- git
 	use("tpope/vim-fugitive")
 	use({
