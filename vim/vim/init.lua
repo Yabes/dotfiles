@@ -88,9 +88,6 @@ vim.cmd([[
 -- Preview :s results in a split
 vim.opt.inccommand = "split"
 
--- Navigate quicklist in current buffer
-vim.opt.switchbuf = "uselast"
-
 vim.api.nvim_set_keymap(
 	"n",
 	"<PageDown>",
@@ -178,8 +175,8 @@ end
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Specify the behavior when switching between buffers
-vim.opt.switchbuf = { "useopen", "usetab", "newtab" }
+-- Specify the behavior when switching between buffers (eg. quickfix)
+vim.opt.switchbuf = { "useopen", "uselast" }
 vim.opt.showtabline = 1
 
 -- -----------------------------------------------------------------------------
