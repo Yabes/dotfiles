@@ -307,6 +307,21 @@ return require("packer").startup(function(use)
 
 	use("lambdalisue/suda.vim")
 
+	use("delphinus/vim-firestore")
+
+	use({
+		"AckslD/nvim-neoclip.lua",
+		requires = {
+			{ "tami5/sqlite.lua", module = "sqlite" },
+			{ "nvim-telescope/telescope.nvim" },
+		},
+		config = function()
+			require("neoclip").setup({
+				enable_persistent_history = true,
+			})
+		end,
+	})
+
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",

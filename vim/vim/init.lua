@@ -113,6 +113,14 @@ vim.api.nvim_set_keymap("n", "<F5>", ":UndotreeToggle<CR>", { noremap = true })
 -- Keep the cursor in place while joining line
 vim.api.nvim_set_keymap("n", "J", "mzJ`z", { noremap = true })
 
+-- Open neovlip
+vim.api.nvim_set_keymap(
+	"n",
+	'""',
+	":lua require('telescope').extensions.neoclip.default()<CR>",
+	{ noremap = true, silent = true }
+)
+
 -- Bootstrap packer
 require("plugins")
 

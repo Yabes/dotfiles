@@ -40,6 +40,11 @@ local on_attach = function(client, bufnr)
 		client.resolved_capabilities.document_range_formatting = false
 	end
 
+	if client.name == "jsonls" then
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+	end
+
 	if client.resolved_capabilities.document_formatting then
 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
 	end
@@ -90,11 +95,11 @@ cmp.setup({
 		end,
 	},
 	sources = {
-		{ name = "buffer" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "path" },
 		{ name = "luasnip" },
+		{ name = "buffer" },
 	},
 })
 
