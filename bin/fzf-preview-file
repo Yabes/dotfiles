@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+FILENAME="${1}"
+
+kitty +kitten icat --transfer-mode file --clear
+
+if [ ! -e "${FILENAME}" ]; then
+  git show HEAD^:${FILENAME}
+  exit 0;
+fi
+
+case $(file --mime-type -b "${FILENAME}") in
+  inode/directory)
+    if [ "$(command -v exa)" ]; then
+      exa -l --color=always "${FILENAME}"
+    else
+      ls -l --color=always "${FILENAME}"
+    fi
+    ;;
+
+  image/*g)
+    if [ "$(command -v viu)" ]; then
+      viu -w $((${FZF_PREVIEW_COLUMNS} - 2)) -b ${FILENAME}
+    elif [ "$(command -v tiv)" ]; then
+      tiv -w ${FZF_PREVIEW_COLUMNS} -h ${FZF_PREVIEW_LINES} ${FILENAME}
+    elif [ "$(command -v kitty)" ]; then
+      kitty +kitten icat --place ${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@$((${FZF_PREVIEW_COLUMNS} + 7))x1 --transfer-mode file ${FILENAME}
+    else
+      echo ${FILENAME}
+    fi
+    ;;
+
+  application/zip)
+    zip -sf ${FILENAME}
+    ;;
+
+  *)
+    if [ "$(git ls-files --error-unmatch ${FILENAME} 2> /dev/null )" ]; then
+      git diff HEAD --color-words="[[:alnum:]_.]+|[^[:space:]]" --color ${FILENAME}
+    elif [ "$(command -v bat)" ]; then
+      bat --color=always --terminal-width ${FZF_PREVIEW_COLUMNS} --style numbers ${FILENAME} 2> /dev/null
+    else
+      cat ${FILENAME}
+    fi
+    ;;
+esac
