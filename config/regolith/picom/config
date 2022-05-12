@@ -120,7 +120,7 @@ blur-background-exclude = [
 ];
 
 opacity-rule = [
-  "95:class_g='kitty'"
+  # "95:class_g='kitty'"
 ]
 blur-kern = "7x7box"
 

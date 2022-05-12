@@ -1,16 +1,22 @@
 gnome.wallpaper: /home/mlemaitre-cosquer/Pictures/elijah-mcneal-augmented-shrine.jpg
 
-i3-wm.workspace.01.name: 1:1. Dev <span foreground="#458588"></span>
-i3-wm.workspace.02.name: 2:2. Dev <span foreground="#689d6a"></span>
-i3-wm.workspace.03.name: 3:3. Dev <span foreground="#98971a"></span>
-i3-wm.workspace.04.name: 4:4. Teams <span foreground="#d79921"></span>
-i3-wm.workspace.05.name: 5:5. Slack <span foreground="#d65d0e"></span>
-i3-wm.workspace.06.name: 6:6. Email <span foreground="#cc241d"></span>
-i3-wm.workspace.07.name: 7:7. Emulator <span foreground="#d3869b"></span>
-i3-wm.workspace.08.name: 8:8. Tmp <span foreground="#b16286"></span>
-i3-wm.workspace.09.name: 9:9. Perso <span foreground="#bdae93"></span>
-i3-wm.workspace.10.name: 10:10. Perso <span foreground="#458588"></span>
+i3-wm.workspace.01.name: 1:1. <span foreground="#458588"></span>
+i3-wm.workspace.02.name: 2:2. <span foreground="#689d6a"></span>
+i3-wm.workspace.03.name: 3:3. <span foreground="#98971a"></span>
+i3-wm.workspace.04.name: 4:4. <span foreground="#d79921"></span>
+i3-wm.workspace.05.name: 5:5. <span foreground="#d65d0e"></span>
+i3-wm.workspace.06.name: 6:6. <span foreground="#cc241d"></span>
+i3-wm.workspace.07.name: 7:7. <span foreground="#d3869b"></span>
+i3-wm.workspace.08.name: 8:8. <span foreground="#b16286"></span>
+i3-wm.workspace.09.name: 9:9. <span foreground="#bdae93"></span>
+i3-wm.workspace.10.name: 10:10. <span foreground="#458588"></span>
 
 i3-wm.gaps.inner.size: 20
+i3-wm.bar.position: top
+
+i3-wm.gaps.smart: yes
 
 i3xrocks.weather.location: Rennes
+
+i3xrocks.value.mediaplayerwidth: 20
+i3xrocks.action.media-player.left: playerctl play-pause

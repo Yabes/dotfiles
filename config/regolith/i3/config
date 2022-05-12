@@ -390,7 +390,7 @@ gaps outer $i3-wm.gaps.outer.size
 
 # Only enable gaps on a workspace when there is at least one container
 set_from_resource $i3-wm.gaps.smart i3-wm.gaps.smart on
-smart_gaps $i3-wm.gaps.smart
+# smart_gaps $i3-wm.gaps.smart
 
 # Enable popup during fullscreen
 set_from_resource $i3-wm.gaps.popup_during_fullscreen i3-wm.gaps.popup_during_fullscreen smart
@@ -529,13 +529,13 @@ exec --no-startup-id $i3-wm.program.3
 
 
 # Custom settings
-for_window [title="Notification Microsoft Teams"] floating enable move right 800px,move down 400px
-for_window [title="Microsoft Teams Notification"] floating enable move right 800px,move down 400px
+for_window [title="Notification Microsoft Teams"] floating enable sticky enable move right 800px,move down 400px
+for_window [title="Microsoft Teams Notification"] floating enable sticky enable move right 800px,move down 400px
 
 for_window [class="crx_pkooggnaalmfkidjmlhoelhdllpphaga"] move to workspace $ws3
 for_window [class="Slack"] move to workspace $ws5
 for_window [class="discord"] move to workspace $ws10
-# for_window [name="Outlook - *"] move to workspace $ws6
+for_window [title="Outlook - *"] move to workspace $ws6
 for_window [class="Microsoft Teams - Preview"] move to workspace $ws4
 for_window [class="(?i)pick-colour-picker"] floating enable, move position center, resize set 527 500 px
 
@@ -552,7 +552,7 @@ for_window [instance="(?i)zstray"] floating enable, move scratchpad
 bindsym $mod+p [instance="keepassxc"] scratchpad show, move position center
 for_window [instance="keepassxc"] floating enable, move scratchpad
 
-for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move up 30 px, move left 5 px
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px, move left 5 px
 
 bindsym $mod+e exec /home/mlemaitre-cosquer/.dotfiles/bin/rofi-emoji.sh
 

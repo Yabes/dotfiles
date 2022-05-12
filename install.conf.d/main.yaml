@@ -23,7 +23,6 @@
     ~/.Xresources-regolith: regolith/Xresources-regolith
     ~/.config/gsimplecal: config/gsimplecal
     ~/.config/kitty: config/kitty
-    ~/.config/alacritty: config/alacritty
     ~/.config/regolith: config/regolith
     ~/.config/ranger: config/ranger
 

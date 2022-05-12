@@ -2,4 +2,4 @@
 #
 # Displays current keyboard layout.
 [keyboard-layout]
-interval=1
+interval=10
