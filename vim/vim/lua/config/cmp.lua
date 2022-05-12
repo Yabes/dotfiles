@@ -103,33 +103,27 @@ cmp.setup({
 	},
 })
 
-local lsp_installer = require("nvim-lsp-installer")
-
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lsp_installer.on_server_ready(function(server)
-	local opts = {}
+require("nvim-lsp-installer").setup({})
+local lspconfig = require("lspconfig")
 
-	opts.capabilities = capabilities
-	opts.on_attach = on_attach
+lspconfig.sumneko_lua.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = require("lua-dev").setup().settings,
+})
 
-	if server.name == "sumneko_lua" then
-		opts.settings = require("lua-dev").setup().settings
-	end
-
-	-- (optional) Customize the options passed to the server
-	if server.name == "jsonls" then
-		opts.settings = {
-			json = {
-				schemas = require("schemastore").json.schemas(),
-			},
-		}
-	end
-
-	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-	server:setup(opts)
-	vim.cmd([[ do User LspAttachBuffers ]])
-end)
+lspconfig.tsserver.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+		},
+	},
+})
+-- vim.cmd([[ do User LspAttachBuffers ]])
 
 local null_ls = require("null-ls")
 null_ls.setup({

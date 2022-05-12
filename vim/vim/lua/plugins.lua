@@ -54,6 +54,17 @@ return require("packer").startup(function(use)
 	use("arecarn/fold-cycle.vim")
 
 	--
+	use("vim-scripts/ReplaceWithRegister")
+
+	--
+	use({
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").set_default_keymaps()
+		end,
+	})
+
+	--
 	use({
 		"luukvbaal/stabilize.nvim",
 		config = function()
@@ -175,7 +186,7 @@ return require("packer").startup(function(use)
 		run = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = "maintained",
+				ensure_installed = "all",
 				highlight = {
 					enable = true, -- false will disable the whole extension
 				},
