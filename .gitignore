@@ -14,3 +14,6 @@ tmux-client-*.log
 
 # Do not ignore .gitkeep
 !vim/vim/undo/.gitkeep
+
+# optimized lua imports
+packer_compiled.lua

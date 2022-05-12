@@ -1,5 +1,26 @@
 require("impatient")
 
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+
+vim.filetype.add({
+	extension = {},
+	filename = {
+		["Fastfile"] = "ruby",
+		[".eslintrc"] = "json",
+		[".czrc"] = "json",
+		[".huskyrc"] = "json",
+		[".lintstagedrc"] = "json",
+		[".gitignore"] = "conf",
+		[".dockerignore"] = "conf",
+		[".ignore"] = "conf",
+	},
+	pattern = {
+		["Jenkinsfile.*"] = "groovy",
+		["cheat40.*"] = "cheat40",
+	},
+})
+
 -- Default shell
 vim.opt.shell = "zsh"
 
