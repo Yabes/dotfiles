@@ -19,7 +19,7 @@ return require("packer").startup(function(use)
 	})
 	use("lewis6991/impatient.nvim")
 
-	use("folke/lua-dev.nvim")
+	use("folke/neodev.nvim")
 
 	-- git
 	use("tpope/vim-fugitive")
@@ -35,7 +35,13 @@ return require("packer").startup(function(use)
 	-- "gc" to comment visual regions/lines
 	-- TODO lua equivalent?
 	-- vs tcomment?
-	use("tpope/vim-commentary")
+	-- use("tpope/vim-commentary")
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
 
 	use("tpope/vim-repeat")
 	use("tpope/vim-abolish")
@@ -203,6 +209,8 @@ return require("packer").startup(function(use)
 							["if"] = "@function.inner",
 							["ac"] = "@class.outer",
 							["ic"] = "@class.inner",
+							["aa"] = "@attribute.outer",
+							["ia"] = "@attribute.inner",
 						},
 					},
 				},
@@ -246,12 +254,27 @@ return require("packer").startup(function(use)
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 
 	-- completion
-	use({ "neovim/nvim-lspconfig", "williamboman/nvim-lsp-installer", "jose-elias-alvarez/null-ls.nvim" })
+	use({
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	})
+
+	use({
+		"williamboman/mason.nvim",
+		"jose-elias-alvarez/null-ls.nvim",
+		"jayp0521/mason-null-ls.nvim",
+	})
 
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			"L3MON4D3/LuaSnip",
+			{
+				"L3MON4D3/LuaSnip",
+				config = function()
+					-- require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			"hrsh7th/cmp-nvim-lsp",
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
@@ -303,7 +326,13 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use({ "tversteeg/registers.nvim", cmd = "Registers" })
+	use({
+		"tversteeg/registers.nvim",
+		cmd = "Registers",
+		config = function()
+			require("registers").setup()
+		end,
+	})
 
 	-- use({ "https://gitlab.com/yorickpeterse/nvim-pqf.git", config = function()
 	--   require('pqf').setup()
@@ -314,6 +343,9 @@ return require("packer").startup(function(use)
 	require("packer").use({
 		"weilbith/nvim-code-action-menu",
 		cmd = "CodeActionMenu",
+		config = function()
+			vim.api.nvim_set_keymap("n", "<C-Space>", "<cmd>CodeActionMenu<CR>", { noremap = true, silent = true })
+		end,
 	})
 
 	use("lambdalisue/suda.vim")
@@ -333,6 +365,14 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	use("kyazdani42/nvim-web-devicons", {
+		config = function()
+			require("nvim-web-devicons").setup({
+				default = true,
+			})
+		end,
+	})
+
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -341,9 +381,14 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Markdown preview
-	use({ "iamcco/markdown-preview.nvim", ft = "markdown", run = "mkdp#util#install()" })
-	--, { 'do': { -> call mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = "cd app && npm install",
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	})
 
 	if packer_bootstrap then
 		require("packer").sync()

@@ -1,7 +1,7 @@
 require("impatient")
 
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
+-- https://github.com/renerocksai/telekasten.nvim
+-- https://github.com/Furkanzmc/zettelkasten.nvim
 
 vim.filetype.add({
 	extension = {},
@@ -14,6 +14,7 @@ vim.filetype.add({
 		[".gitignore"] = "conf",
 		[".dockerignore"] = "conf",
 		[".ignore"] = "conf",
+		["config"] = "sshconfig",
 	},
 	pattern = {
 		["Jenkinsfile.*"] = "groovy",
@@ -75,8 +76,6 @@ vim.opt.hidden = true
 -- vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
--- New tab
-vim.api.nvim_set_keymap("", "<C-t>", "<cmd>tabnew<CR>", { noremap = true, silent = true })
 
 -- Copy/Paste in systemclipboard
 vim.api.nvim_set_keymap("n", "<leader>c", '"+y', { noremap = true, silent = true })
@@ -135,12 +134,13 @@ vim.api.nvim_set_keymap("n", "<F5>", ":UndotreeToggle<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "J", "mzJ`z", { noremap = true })
 
 -- Open neovlip
-vim.api.nvim_set_keymap(
-	"n",
-	'""',
-	":lua require('telescope').extensions.neoclip.default()<CR>",
-	{ noremap = true, silent = true }
-)
+vim.api.nvim_set_keymap("n", '""', "", {
+	noremap = true,
+	silent = true,
+	callback = function()
+		require("telescope").extensions.neoclip.default()
+	end,
+})
 
 -- Bootstrap packer
 require("plugins")

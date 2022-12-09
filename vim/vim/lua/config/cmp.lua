@@ -23,9 +23,9 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
 	-- vim.api.nvim_buf_set_keymap( bufnr, "n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
@@ -36,20 +36,25 @@ local on_attach = function(client, bufnr)
 
 	-- Let null_ls handle formatting
 	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 
 	if client.name == "jsonls" then
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	if client.name == "sumneko_lua" then
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+	if client.server_capabilities.documentFormattingProvider then
+		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
+	end
+
+	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting({ async = true })' ]])
 end
 
 -- luasnip setup
@@ -57,6 +62,11 @@ local luasnip = require("luasnip")
 
 -- nvim-cmp setup
 local cmp = require("cmp")
+
+local has_words_before = function()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 cmp.setup({
 	snippet = {
@@ -69,30 +79,39 @@ cmp.setup({
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-Space>"] = cmp.mapping.complete({}),
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
-		["<Tab>"] = function(fallback)
-			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
 			elseif luasnip.expand_or_jumpable() then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+				luasnip.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
 			else
 				fallback()
 			end
-		end,
-		["<S-Tab>"] = function(fallback)
-			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+		end, {
+			"i",
+			"s",
+		}),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
 			elseif luasnip.jumpable(-1) then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+				luasnip.jump(-1)
 			else
 				fallback()
 			end
-		end,
+		end, {
+			"i",
+			"s",
+		}),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
@@ -103,34 +122,73 @@ cmp.setup({
 	},
 })
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require("nvim-lsp-installer").setup({})
+require("neodev").setup({})
+require("mason").setup()
+
+require("mason-lspconfig").setup({
+	ensure_installed = { "sumneko_lua", "tsserver", "bashls", "dockerls", "jsonls", "graphql" },
+})
 local lspconfig = require("lspconfig")
 
 lspconfig.sumneko_lua.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
-	settings = require("lua-dev").setup().settings,
 })
 
 lspconfig.tsserver.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	init_options = {
+		preferences = {
+			importModuleSpecifierPreference = "relative",
+		},
+	},
 	settings = {
 		json = {
 			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
 		},
 	},
 })
--- vim.cmd([[ do User LspAttachBuffers ]])
 
-local null_ls = require("null-ls")
-null_ls.setup({
-	sources = {
-		null_ls.builtins.formatting.prettierd,
-		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.formatting.eslint_d,
+lspconfig.jsonls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
+		},
 	},
+})
+
+lspconfig.bashls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+lspconfig.graphql.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+lspconfig.terraformls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+-- vim.cmd([[ do User LspAttachBuffers ]])
+
+require("mason-null-ls").setup({
+	ensure_installed = { "stylua", "jq", "prettierd", "eslint_d", "stylelint-lsp" },
+	automatic_installation = true,
+	automatic_setup = true,
+})
+
+require("null-ls").setup({
+	on_attach = on_attach,
+})
+
+require("mason-null-ls").setup_handlers({})
