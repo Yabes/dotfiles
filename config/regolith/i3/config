@@ -536,7 +536,9 @@ for_window [class="crx_pkooggnaalmfkidjmlhoelhdllpphaga"] move to workspace $ws3
 for_window [class="Slack"] move to workspace $ws5
 for_window [class="discord"] move to workspace $ws10
 for_window [title="Outlook - *"] move to workspace $ws6
+for_window [title="Outlook \(PWA\) - *"] move to workspace $ws6
 for_window [class="Microsoft Teams - Preview"] move to workspace $ws4
+for_window [title="Microsoft Teams - *"] move to workspace $ws4
 for_window [class="(?i)pick-colour-picker"] floating enable, move position center, resize set 527 500 px
 
 for_window [title=".*Emulator.*"] floating enable
@@ -550,7 +552,10 @@ bindsym $mod+z [class="(?i)zstray"] scratchpad show, move position center
 for_window [instance="(?i)zstray"] floating enable, move scratchpad
 
 bindsym $mod+p [instance="keepassxc"] scratchpad show, move position center
-for_window [instance="keepassxc"] floating enable, move scratchpad
+for_window [instance="keepassxc" title=".* - KeePassXC"] floating enable, move scratchpad
+
+for_window[class="(?i)gnome-calculator"] floating enable
+for_window[class="(?i)blueman-manager"] floating enable
 
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px, move left 5 px
 
