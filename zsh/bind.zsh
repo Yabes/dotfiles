@@ -2,7 +2,7 @@ fzf-git-add() {
   local file="$(git status --short | \
     grep "^.\S" | \
     fzf --multi --reverse --bind "?:toggle-preview" --preview-window nowrap --preview "fzf-preview-file {2}"| \
-    awk '{ print $2 }' | \
+    awk '{ print "'"'"'"$2"'"'"'" }' | \
     tr '\n' ' ')"
   local ret=$?
   LBUFFER="${LBUFFER}${file}"

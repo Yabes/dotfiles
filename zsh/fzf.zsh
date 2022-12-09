@@ -114,15 +114,30 @@ fco() {
     fzf-tmux -l50 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
+            #
+            # INITIAL_QUERY="foobar"
+            # FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+            #   fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            #       --ansi --disabled --query "$INITIAL_QUERY"
+            #
 
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
 fshow() {
+  local args=${@}
   local out shas sha q k
+
+  # TODO fzf in files of previous cmd
+  # TODO save previous cmd std to file
+
+  local GIT_CMD="git log --decorate --graph --color=always --format='%C(auto)%h%d %s %C(black)%C(bold)%cn %cr'"
   while out=$(
-      git log --all --decorate --graph --color=always \
-          --format="%C(auto)%h%d %s %C(black)%C(bold)%cn %cr" "$@" |
+    FZF_DEFAULT_COMMAND="$GIT_CMD $@" \
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
-          --bind "?:toggle-preview"  --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
+          --header "ctrl-a: show all branches, ctrl-o: show current branch, ctrl-d: print diff, enter: return selected sha(s)" \
+          --bind "ctrl-a:reload($GIT_CMD --all $@)" \
+          --bind "ctrl-o:reload($GIT_CMD $@)" \
+          --bind "?:toggle-preview" \
+          --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
           --print-query --expect=ctrl-d,enter); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)
@@ -130,7 +145,8 @@ fshow() {
     [ -z "$shas" ] && continue
 
     if [ "$k" = 'ctrl-d' ]; then
-      git diff --color=always $shas | less -R
+      git show --color=always $(echo $shas | tr '\n' ' ') $@
+      break
     elif [ "$k" = 'enter' ]; then
       echo $shas
       break

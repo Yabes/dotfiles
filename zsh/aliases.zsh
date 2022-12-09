@@ -6,7 +6,13 @@ else
 fi
 
 alias l="ls"
-alias ll="ls -lh"
+
+if command -v exa >/dev/null 2>&1; then
+  alias ll="exa -l --group-directories-first"
+else
+  alias ll="ls -lh"
+fi
+
 alias la="ls -a"
 alias l.='ls -d .*'
 
