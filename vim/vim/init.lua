@@ -4,7 +4,9 @@ require("impatient")
 -- https://github.com/Furkanzmc/zettelkasten.nvim
 
 vim.filetype.add({
-	extension = {},
+	extension = {
+		["jsonl"] = "json",
+	},
 	filename = {
 		["Fastfile"] = "ruby",
 		[".eslintrc"] = "json",
@@ -19,6 +21,7 @@ vim.filetype.add({
 	pattern = {
 		["Jenkinsfile.*"] = "groovy",
 		["cheat40.*"] = "cheat40",
+		[".env.*"] = "sh",
 	},
 })
 
@@ -127,6 +130,7 @@ vim.api.nvim_set_keymap(
 )
 
 vim.api.nvim_set_keymap("n", "<leader>e", ":e! ~/.config/nvim/init.lua<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>p", ":e! ~/.config/nvim/lua/plugins.lua<CR>", { noremap = true })
 
 vim.api.nvim_set_keymap("n", "<F5>", ":UndotreeToggle<CR>", { noremap = true })
 
@@ -173,7 +177,7 @@ vim.opt.smartindent = true
 vim.opt.magic = true
 
 -- Hide search results when pressing twice <ESC>
-vim.api.nvim_set_keymap("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
 
 -- Ignore case when searching
 vim.opt.ignorecase = true

@@ -133,6 +133,7 @@ fshow() {
   while out=$(
     FZF_DEFAULT_COMMAND="$GIT_CMD $@" \
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
+          --track \
           --header "ctrl-a: show all branches, ctrl-o: show current branch, ctrl-d: print diff, enter: return selected sha(s)" \
           --bind "ctrl-a:reload($GIT_CMD --all $@)" \
           --bind "ctrl-o:reload($GIT_CMD $@)" \

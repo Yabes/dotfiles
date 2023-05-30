@@ -199,6 +199,9 @@ return require("packer").startup(function(use)
 				indent = {
 					enable = true,
 				},
+				disable = function(lang, bufnr) -- Disable in large C++ buffers
+					return vim.api.nvim_buf_line_count(bufnr) > 5000
+				end,
 				textobjects = {
 					select = {
 						enable = true,
@@ -237,18 +240,19 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-	use({
-		"code-biscuits/nvim-biscuits",
-		config = function()
-			require("nvim-biscuits").setup({
-				default_config = {
-					max_length = 24,
-					min_distance = 80,
-					prefix_string = "📎 ",
-				},
-			})
-		end,
-	})
+
+	-- use({
+	-- 	"code-biscuits/nvim-biscuits",
+	-- 	config = function()
+	-- 		require("nvim-biscuits").setup({
+	-- 			default_config = {
+	-- 				max_length = 24,
+	-- 				min_distance = 80,
+	-- 				prefix_string = "📎 ",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
 
 	-- -- Additional textobjects for treesitter
 	use("nvim-treesitter/nvim-treesitter-textobjects")
@@ -258,13 +262,15 @@ return require("packer").startup(function(use)
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
-	})
-
-	use({
-		"williamboman/mason.nvim",
 		"jose-elias-alvarez/null-ls.nvim",
 		"jayp0521/mason-null-ls.nvim",
 	})
+
+	-- use({
+	-- 	"williamboman/mason.nvim",
+	-- 	"jose-elias-alvarez/null-ls.nvim",
+	-- 	"jayp0521/mason-null-ls.nvim",
+	-- })
 
 	use({
 		"hrsh7th/nvim-cmp",
@@ -296,7 +302,7 @@ return require("packer").startup(function(use)
 	-- colors
 	-- use("morhetz/gruvbox")
 	-- use("shinchu/lightline-gruvbox.vim")
-	-- use("NLKNguyen/papercolor-theme")
+	use("NLKNguyen/papercolor-theme")
 	use({ "rebelot/kanagawa.nvim" })
 
 	-- Undo tree
@@ -355,12 +361,12 @@ return require("packer").startup(function(use)
 	use({
 		"AckslD/nvim-neoclip.lua",
 		requires = {
-			{ "tami5/sqlite.lua", module = "sqlite" },
+			-- { "tami5/sqlite.lua", module = "sqlite" },
 			{ "nvim-telescope/telescope.nvim" },
 		},
 		config = function()
 			require("neoclip").setup({
-				enable_persistent_history = true,
+				-- enable_persistent_history = true,
 			})
 		end,
 	})
@@ -388,6 +394,11 @@ return require("packer").startup(function(use)
 			vim.g.mkdp_filetypes = { "markdown" }
 		end,
 		ft = { "markdown" },
+	})
+
+	use({
+		"eandrju/cellular-automaton.nvim",
+		cmd = "CellularAutomaton",
 	})
 
 	if packer_bootstrap then

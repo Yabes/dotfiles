@@ -538,8 +538,10 @@ for_window [class="discord"] move to workspace $ws10
 for_window [title="Outlook - *"] move to workspace $ws6
 for_window [title="Outlook \(PWA\) - *"] move to workspace $ws6
 for_window [class="Microsoft Teams - Preview"] move to workspace $ws4
-for_window [title="Microsoft Teams - *"] move to workspace $ws4
+for_window [class="Chromium-browser" title="Microsoft Teams - *"] move to workspace $ws4
 for_window [class="(?i)pick-colour-picker"] floating enable, move position center, resize set 527 500 px
+
+for_window [title="Picture-in-Picture"] sticky enable
 
 for_window [title=".*Emulator.*"] floating enable
 # assign [title=".*Emulator.*"] 5

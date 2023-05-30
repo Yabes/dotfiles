@@ -1,0 +1,3 @@
+[gromit]
+command=button="" echo aa ; (test ${button} && gromit-mpx && gromit--mpx -t
+interval=60

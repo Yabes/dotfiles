@@ -45,7 +45,7 @@ local on_attach = function(client, bufnr)
 		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 
-	if client.name == "sumneko_lua" then
+	if client.name == "lua_ls" then
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
 	end
@@ -54,7 +54,7 @@ local on_attach = function(client, bufnr)
 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
 	end
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting({ async = true })' ]])
+	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]])
 end
 
 -- luasnip setup
@@ -128,14 +128,41 @@ require("neodev").setup({})
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "tsserver", "bashls", "dockerls", "jsonls", "graphql" },
+	ensure_installed = { "lua_ls", "tsserver", "bashls", "dockerls", "jsonls", "graphql" },
 })
 local lspconfig = require("lspconfig")
 
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	settings = {
+		Lua = {
+			workspace = {
+				checkThirdParty = false,
+				ignoreDir = { "undo" },
+			},
+		},
+	},
 })
+
+local function filter(arr, fn)
+	if type(arr) ~= "table" then
+		return arr
+	end
+
+	local filtered = {}
+	for k, v in pairs(arr) do
+		if fn(v, k, arr) then
+			table.insert(filtered, v)
+		end
+	end
+
+	return filtered
+end
+
+local function filterReactDTS(value)
+	return string.match(value.uri or value.targetUri, "react/index.d.ts") == nil
+end
 
 lspconfig.tsserver.setup({
 	capabilities = capabilities,
@@ -150,6 +177,16 @@ lspconfig.tsserver.setup({
 			schemas = require("schemastore").json.schemas(),
 			validate = { enable = true },
 		},
+	},
+	handlers = {
+		["textDocument/definition"] = function(err, result, method, ...)
+			if vim.tbl_islist(result) and #result > 1 then
+				local filtered_result = filter(result, filterReactDTS)
+				return vim.lsp.handlers["textDocument/definition"](err, filtered_result, method, ...)
+			end
+
+			vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
+		end,
 	},
 })
 

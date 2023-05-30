@@ -1,6 +1,3 @@
 save-prefix=~
-prefix=~/.npm-global
-init.author.name=Matthis LC
-init.author.url=
 init.author.license=MIT
 init.author.version=1.0.0
