@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -ex
+
+sudo apt install -y libfdk-aac2 libldacbt-{abr,enc}2 libopenaptx0
+
+# If `libfdk-aac2` not found install `libfdk-aac1`
+# Install pipewire and additional packages
+
+sudo apt install -y gstreamer1.0-pipewire libpipewire-0.3-{0,dev,modules} libspa-0.2-{bluetooth,dev,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,locales,tests}} pipewire-doc
+
+# For WirePlumber (Recommended)
+
+sudo apt install -y wireplumber{,-doc} gir1.2-wp-0.4 libwireplumber-0.4-{0,dev}
+
+systemctl --user --now disable  pulseaudio.{socket,service}
+systemctl --user mask pulseaudio
+
+systemctl --user --now enable pipewire{,-pulse}.{socket,service}
+systemctl --user --now enable wireplumber.service
+
+sleep 1
+
+systemctl --user status pipewire{,-pulse}.{socket,service}
+pactl info | grep '^Server Name'
