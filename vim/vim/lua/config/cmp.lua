@@ -228,4 +228,4 @@ require("null-ls").setup({
 	on_attach = on_attach,
 })
 
-require("mason-null-ls").setup_handlers({})
+require("mason-null-ls").setup({})
