@@ -4,7 +4,7 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
     echo "Creating a zgen save"
 
-    zgen load mafredri/zsh-async async.zsh
+    zgen load mafredri/zsh-async async.zsh main
 
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-autosuggestions
@@ -12,7 +12,7 @@ if ! zgen saved; then
 
     zgen load chrissicool/zsh-256color
 
-    zgen load sindresorhus/pure
+    zgen load sindresorhus/pure . main
 
     zgen save
 fi
