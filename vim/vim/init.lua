@@ -469,6 +469,7 @@ vim.g.fzf_buffers_jump = 1
 vim.g.fzf_layout = { window = { width = 0.9, height = 0.6 } }
 
 vim.api.nvim_set_keymap("n", "<C-f>", ":Telescope git_files<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-g>", ":Telescope git_status<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>f", ":Telescope file_browser<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-b>", ":Telescope buffers<CR>", { noremap = true })
 

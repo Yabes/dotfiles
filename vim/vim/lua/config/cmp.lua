@@ -222,10 +222,9 @@ require("mason-null-ls").setup({
 	ensure_installed = { "stylua", "jq", "prettierd", "eslint_d", "stylelint-lsp" },
 	automatic_installation = true,
 	automatic_setup = true,
+	handlers = {},
 })
 
 require("null-ls").setup({
 	on_attach = on_attach,
 })
-
-require("mason-null-ls").setup({})
