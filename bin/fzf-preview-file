@@ -4,7 +4,9 @@ set -e
 
 FILENAME="${1}"
 
-kitty +kitten icat --transfer-mode file --clear
+if [ "$(command -v kitty)" ]; then
+  kitty +kitten icat --transfer-mode file --clear
+fi
 
 if [ ! -e "${FILENAME}" ]; then
   git show HEAD^:${FILENAME}
