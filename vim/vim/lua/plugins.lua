@@ -81,7 +81,7 @@ return require("packer").startup(function(use)
 	use({ "wellle/visual-split.vim", cmd = "VSSplit" })
 
 	use({ "AndrewRadev/splitjoin.vim", keys = { "gS", "gJ" } })
-	use({ "AndrewRadev/sideways.vim", keys = { "<C-h>", "<C-l>" } })
+	-- use({ "AndrewRadev/sideways.vim", keys = { "<C-h>", "<C-l>" } })
 	use({ "chrisbra/vim-autoread", cmd = "AutoRead" })
 
 	use({ "metakirby5/codi.vim", cmd = "Codi" })
@@ -140,7 +140,7 @@ return require("packer").startup(function(use)
 					{ "mode", separator = { left = "  " } },
 				},
 				lualine_b = { "filename", "branch" },
-				lualine_c = { "fileformat" },
+				lualine_c = { "fileformat", require('pomodoro').statusline },
 				lualine_x = {
 					{
 						"diagnostics",
@@ -202,6 +202,7 @@ return require("packer").startup(function(use)
 				disable = function(lang, bufnr) -- Disable in large C++ buffers
 					return vim.api.nvim_buf_line_count(bufnr) > 5000
 				end,
+
 				textobjects = {
 					select = {
 						enable = true,
@@ -212,34 +213,47 @@ return require("packer").startup(function(use)
 							["if"] = "@function.inner",
 							["ac"] = "@class.outer",
 							["ic"] = "@class.inner",
-							["aa"] = "@attribute.outer",
-							["ia"] = "@attribute.inner",
+							["aa"] = "@parameter.outer",
+							["ia"] = "@parameter.inner",
 						},
 					},
-				},
-				move = {
-					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]m"] = "@function.outer",
-						["]]"] = "@class.outer",
+
+					swap = {
+						enable = true,
+						swap_previous = {
+							["<C-h>"] = "@parameter.inner",
+						},
+						swap_next = {
+							["<C-l>"] = "@parameter.inner",
+						},
 					},
-					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
-					},
-					goto_previous_start = {
-						["[m"] = "@function.outer",
-						["[["] = "@class.outer",
-					},
-					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
+
+					move = {
+						enable = true,
+						set_jumps = true, -- whether to set jumps in the jumplist
+						goto_next_start = {
+							["]m"] = "@function.outer",
+							["]]"] = "@class.outer",
+						},
+						goto_next_end = {
+							["]M"] = "@function.outer",
+							["]["] = "@class.outer",
+						},
+						goto_previous_start = {
+							["[m"] = "@function.outer",
+							["[["] = "@class.outer",
+						},
+						goto_previous_end = {
+							["[M"] = "@function.outer",
+							["[]"] = "@class.outer",
+						},
 					},
 				},
 			})
 		end,
 	})
+
+	use({ "j-hui/fidget.nvim", tag = "legacy" })
 
 	-- use({
 	-- 	"code-biscuits/nvim-biscuits",
@@ -255,7 +269,11 @@ return require("packer").startup(function(use)
 	-- })
 
 	-- -- Additional textobjects for treesitter
-	use("nvim-treesitter/nvim-treesitter-textobjects")
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
 
 	-- completion
 	use({
@@ -278,7 +296,12 @@ return require("packer").startup(function(use)
 			{
 				"L3MON4D3/LuaSnip",
 				config = function()
-					-- require("luasnip.loaders.from_vscode").lazy_load()
+					require("luasnip.loaders.from_vscode").lazy_load()
+
+					require("luasnip").config.set_config({
+						-- Other configuration...
+						enable_autosnippets = true,
+					})
 				end,
 			},
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
@@ -302,8 +325,9 @@ return require("packer").startup(function(use)
 	-- colors
 	-- use("morhetz/gruvbox")
 	-- use("shinchu/lightline-gruvbox.vim")
-	use("NLKNguyen/papercolor-theme")
-	use({ "rebelot/kanagawa.nvim" })
+	-- use("NLKNguyen/papercolor-theme")
+	use("rebelot/kanagawa.nvim")
+	use("EdenEast/nightfox.nvim")
 
 	-- Undo tree
 	use({
@@ -399,6 +423,19 @@ return require("packer").startup(function(use)
 	use({
 		"eandrju/cellular-automaton.nvim",
 		cmd = "CellularAutomaton",
+	})
+
+	use({
+		"wthollingsworth/pomodoro.nvim",
+		requires = "MunifTanjim/nui.nvim",
+		config = function()
+			require("pomodoro").setup({
+				time_work = 25,
+				time_break_short = 5,
+				time_break_long = 20,
+				timers_to_long_break = 4,
+			})
+		end,
 	})
 
 	if packer_bootstrap then

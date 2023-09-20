@@ -4,25 +4,25 @@ require("impatient")
 -- https://github.com/Furkanzmc/zettelkasten.nvim
 
 vim.filetype.add({
-	extension = {
-		["jsonl"] = "json",
-	},
-	filename = {
-		["Fastfile"] = "ruby",
-		[".eslintrc"] = "json",
-		[".czrc"] = "json",
-		[".huskyrc"] = "json",
-		[".lintstagedrc"] = "json",
-		[".gitignore"] = "conf",
-		[".dockerignore"] = "conf",
-		[".ignore"] = "conf",
-		["config"] = "sshconfig",
-	},
-	pattern = {
-		["Jenkinsfile.*"] = "groovy",
-		["cheat40.*"] = "cheat40",
-		[".env.*"] = "sh",
-	},
+  extension = {
+    ["jsonl"] = "json",
+  },
+  filename = {
+    ["Fastfile"] = "ruby",
+    [".eslintrc"] = "json",
+    [".czrc"] = "json",
+    [".huskyrc"] = "json",
+    [".lintstagedrc"] = "json",
+    [".gitignore"] = "conf",
+    [".dockerignore"] = "conf",
+    [".ignore"] = "conf",
+    ["config"] = "sshconfig",
+  },
+  pattern = {
+    ["Jenkinsfile.*"] = "groovy",
+    ["cheat40.*"] = "cheat40",
+    [".env.*"] = "sh",
+  },
 })
 
 -- Default shell
@@ -112,10 +112,10 @@ vim.cmd([[
 vim.opt.inccommand = "split"
 
 vim.api.nvim_set_keymap(
-	"n",
-	"<PageDown>",
-	"(&buftype is# \"quickfix\" || empty(filter(tabpagebuflist(), 'getbufvar(v:val, \"&buftype\") is# \"quickfix\"'))) ? '<PageDown>' : ':cn<CR>'",
-	{ noremap = true, silent = true, expr = true }
+  "n",
+  "<PageDown>",
+  "(&buftype is# \"quickfix\" || empty(filter(tabpagebuflist(), 'getbufvar(v:val, \"&buftype\") is# \"quickfix\"'))) ? '<PageDown>' : ':cn<CR>'",
+  { noremap = true, silent = true, expr = true }
 )
 
 vim.api.nvim_set_keymap("n", "[q", ":cn<CR>", { noremap = true, silent = true })
@@ -123,10 +123,10 @@ vim.api.nvim_set_keymap("n", "[q", ":cn<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "]q", ":cp<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap(
-	"n",
-	"<PageUp>",
-	"(&buftype is# \"quickfix\" || empty(filter(tabpagebuflist(), 'getbufvar(v:val, \"&buftype\") is# \"quickfix\"'))) ? '<PageUp>' : ':cp<CR>'",
-	{ noremap = true, silent = true, expr = true }
+  "n",
+  "<PageUp>",
+  "(&buftype is# \"quickfix\" || empty(filter(tabpagebuflist(), 'getbufvar(v:val, \"&buftype\") is# \"quickfix\"'))) ? '<PageUp>' : ':cp<CR>'",
+  { noremap = true, silent = true, expr = true }
 )
 
 vim.api.nvim_set_keymap("n", "<leader>e", ":e! ~/.config/nvim/init.lua<CR>", { noremap = true })
@@ -139,11 +139,11 @@ vim.api.nvim_set_keymap("n", "J", "mzJ`z", { noremap = true })
 
 -- Open neovlip
 vim.api.nvim_set_keymap("n", '""', "", {
-	noremap = true,
-	silent = true,
-	callback = function()
-		require("telescope").extensions.neoclip.default()
-	end,
+  noremap = true,
+  silent = true,
+  callback = function()
+    require("telescope").extensions.neoclip.default()
+  end,
 })
 
 -- Bootstrap packer
@@ -193,11 +193,11 @@ vim.opt.incsearch = true
 
 -- Update grepprg to a faster cmd in favor of pt
 if vim.fn.executable("ag") == 1 then
-	vim.opt.grepprg = "ag"
+  vim.opt.grepprg = "ag"
 end
 
 if vim.fn.executable("pt") == 1 then
-	vim.opt.grepprg = "pt"
+  vim.opt.grepprg = "pt"
 end
 
 -- -----------------------------------------------------------------------------
@@ -240,8 +240,8 @@ vim.opt.foldcolumn = "1"
 
 -- Set extra options when running in GUI mode
 if vim.fn.has("gui_running") == 1 then
-	--  Disable scrollbars
-	vim.opt.guioptions = ""
+  --  Disable scrollbars
+  vim.opt.guioptions = ""
 end
 
 -- Show relative number
@@ -261,9 +261,9 @@ vim.opt.showbreak = "↳ "
 -- Invisible chars
 vim.opt.list = true
 vim.opt.listchars = {
-	tab = "▷⋯",
-	trail = "·",
-	nbsp = "␣",
+  tab = "▷⋯",
+  trail = "·",
+  nbsp = "␣",
 }
 
 -- Disabled syntax highlighting after 500 chars
@@ -287,13 +287,13 @@ vim.opt.lazyredraw = true
 
 -- Highlight on yank
 vim.api.nvim_exec(
-	[[
+  [[
   augroup YankHighlight
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]],
-	false
+  false
 )
 
 -- Y yank until the end of line  (note: this is now a default on master)
@@ -306,33 +306,34 @@ vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
 -- TODO check me
 -- vim.opt.t_Co = 256
 if not vim.fn.has("gui_running") and not vim.fn.has("nvim") then
-	vim.opt.term = "screen-256color"
+  vim.opt.term = "screen-256color"
 end
 
 if vim.fn.has("unix") == 1 then
-	if vim.fn.has("macunix") == 1 then
-		vim.opt.guifont = "FiraCode-Regular:h11"
+  if vim.fn.has("macunix") == 1 then
+    vim.opt.guifont = "FiraCode-Regular:h11"
 
-		if vim.fn.has("gui_running") == 1 then
-			vim.opt.macligatures = true
-		end
-	else
-		vim.opt.guifont = "FuraCode Nerd Font 10"
-	end
+    if vim.fn.has("gui_running") == 1 then
+      vim.opt.macligatures = true
+    end
+  else
+    vim.opt.guifont = "FuraCode Nerd Font 10"
+  end
 end
 
 vim.opt.background = "dark"
 
 -- True color support
 if vim.fn.exists("+termguicolors") == 1 then
-	vim.opt.termguicolors = true
-	vim.cmd([[ set t_8f=^[[38;2;%lu;%lu;%lum ]])
-	vim.cmd([[ set t_8b=^[[48;2;%lu;%lu;%lum ]])
+  vim.opt.termguicolors = true
+  vim.cmd([[ set t_8f=^[[38;2;%lu;%lu;%lum ]])
+  vim.cmd([[ set t_8b=^[[48;2;%lu;%lu;%lum ]])
 end
 
 -- vim.g.gruvbox_italic = 1
 -- vim.cmd("colorscheme gruvbox")
 vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme nightfox")
 
 -- -----------------------------------------------------------------------------
 -- Lang & regional settings {{{1
@@ -363,19 +364,19 @@ vim.opt.undoreload = 10000
 -- -----------------------------------------------------------------------------
 -- Tmux Navigator {{{2
 if vim.fn.exists("$TMUX") == 1 then
-	vim.g.tmux_navigator_no_mappings = 1
-	vim.g.tmux_navigator_disable_when_zoomed = 1
-	vim.g.tmux_navigator_no_mappings = 1
+  vim.g.tmux_navigator_no_mappings = 1
+  vim.g.tmux_navigator_disable_when_zoomed = 1
+  vim.g.tmux_navigator_no_mappings = 1
 
-	vim.api.nvim_set_keymap("n", "<C-Left>", ":TmuxNavigateLeft", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-Right>", ":TmuxNavigateRight", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-Up>", ":TmuxNavigateUp", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-Down>", ":TmuxNavigateDown", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Left>", ":TmuxNavigateLeft", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Right>", ":TmuxNavigateRight", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Up>", ":TmuxNavigateUp", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Down>", ":TmuxNavigateDown", { noremap = true, silent = true })
 else
-	vim.api.nvim_set_keymap("n", "<C-Left>", "<C-w>h", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-Right>", "<C-w>l", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-Up>", "<C-w>k", { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "<C-Down>", "<C-w>j", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Left>", "<C-w>h", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Right>", "<C-w>l", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Up>", "<C-w>k", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-Down>", "<C-w>j", { noremap = true, silent = true })
 end
 
 -- lightline {{{2
@@ -444,15 +445,6 @@ vim.g.ale_lint_on_text_changed = 0
 vim.api.nvim_set_keymap("n", "[a", "<Plug>(ale_previous_wrap)", { silent = true })
 vim.api.nvim_set_keymap("n", "]a", "<Plug>(ale_next_wrap)", { silent = true })
 
--- Sideways {{{2
-vim.api.nvim_set_keymap("n", "<C-h>", ":SidewaysLeft<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-l>", ":SidewaysRight<CR>", { noremap = true })
-
-vim.api.nvim_set_keymap("o", "aa", "<Plug>SidewaysArgumentTextobjA", {})
-vim.api.nvim_set_keymap("x", "aa", "<Plug>SidewaysArgumentTextobjA", {})
-vim.api.nvim_set_keymap("o", "ia", "<Plug>SidewaysArgumentTextobjI", {})
-vim.api.nvim_set_keymap("x", "ia", "<Plug>SidewaysArgumentTextobjI", {})
-
 -- vim-peekaboo {{{2
 vim.g.peekaboo_delay = 750
 
@@ -478,6 +470,47 @@ vim.api.nvim_set_keymap("n", "<leader>rg", ":Telescope grep_string<CR>", { norem
 -- LSP {{{2
 -- TODO try it
 -- vim.o.completeopt = 'menuone,noselect'
+
+-- luasnip {{{2
+local ls = require("luasnip")
+local s = ls.s
+local fmt = require("luasnip.extras.fmt").fmt
+local i = ls.insert_node
+
+ls.add_snippets("lua", {
+  s(
+    {
+      trig = "if",
+      condition = function()
+        local ignored_nodes = { "string", "comment" }
+
+        local pos = vim.api.nvim_win_get_cursor(0)
+        -- Use one column to the left of the cursor to avoid a "chunk" node
+        -- type. Not sure what it is, but it seems to be at the end of lines in
+        -- some cases.
+        local row, col = pos[1] - 1, pos[2] - 1
+
+        local node_type = vim.treesitter
+          .get_node({
+            pos = { row, col },
+          })
+          :type()
+
+        return not vim.tbl_contains(ignored_nodes, node_type)
+      end,
+    },
+    fmt(
+      [[
+if {} then
+  {}
+end
+  ]],
+      { i(1), i(2) }
+    )
+  ),
+}, {
+  type = "autosnippets",
+})
 
 -- -----------------------------------------------------------------------------
 -- Modeline {{{1
