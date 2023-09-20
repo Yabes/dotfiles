@@ -1,0 +1,6 @@
+[includeIf "gitdir:~/perso/"]
+  path = ~/.gitconfig-perso
+
+[includeIf "gitdir:~/dev/client"]
+  path = ~/.gitconfig-work-client
+

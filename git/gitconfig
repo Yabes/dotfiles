@@ -63,9 +63,6 @@
     autocorrect = 1
 [commit]
     template = ~/.git_commit_msg.txt
-[user]
-    name = Matthis LEMAITRE--COSQUER
-    email = matthis.lemaitre-cosquer@niji.fr
 [commit]
   verbose = true
 [rebase]
@@ -88,3 +85,6 @@
 	helper = gcloud.sh
 [init]
 	defaultBranch = main
+[include]
+  path = ~/.gitconfig-local
+
