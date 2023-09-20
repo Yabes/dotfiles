@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -eux
+
+TAG="${1}"
+
+git tag -d "${TAG}"
+git push --delete origin "${TAG}"
+git tag "${TAG}" -m "${TAG}"
+git push -u origin "${TAG}"

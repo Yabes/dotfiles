@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eu
+
+filePrefix=""
+
+if [ ! -d .git ]; then
+  filePrefix=$(pwd)
+  filePrefix="${filePrefix##$(git rev-parse --show-toplevel)/}/"
+fi
+
+git show $1:$filePrefix$2 | bat --file-name $filePrefix$2
