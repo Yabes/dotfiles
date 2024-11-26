@@ -1,6 +1,8 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
 - hosts: localhost
+  vars:
+    dotfiles: "{{ (ansible_env.PWD, '..', 'dotfiles') | ansible.builtin.path_join | ansible.builtin.normpath }}"
   tasks:
     - name: Ensure directories exists
       ansible.builtin.file:
@@ -14,7 +16,7 @@
 
     - name: list home dotfiles
       ansible.builtin.find:
-        paths: '{{ ansible_env.HOME }}/dotfiles/home/'
+        paths: '{{ dotfiles }}/home/'
         file_type: any
         hidden: true
       register: home_dotfiles
@@ -30,7 +32,7 @@
 
     - name: list config dotfiles
       ansible.builtin.find:
-        paths: '{{ ansible_env.HOME }}/dotfiles/config/'
+        paths: '{{ dotfiles }}/config/'
         file_type: any
       register: config_dotfiles
     - name: link config dotfiles
@@ -44,7 +46,7 @@
 
     - name: list ssh dotfiles
       ansible.builtin.find:
-        paths: '{{ ansible_env.HOME }}/dotfiles/ssh/'
+        paths: '{{ dotfiles }}/ssh/'
         file_type: any
       register: ssh_dotfiles
     - name: link ssh dotfiles
@@ -58,7 +60,7 @@
 
     - name: list docker dotfiles
       ansible.builtin.find:
-        paths: '{{ ansible_env.HOME }}/dotfiles/docker/'
+        paths: '{{ dotfiles }}/docker/'
         file_type: any
       register: docker_dotfiles
     - name: link docker dotfiles
@@ -72,7 +74,7 @@
 
     - name: list bin dotfiles
       ansible.builtin.find:
-        paths: '{{ ansible_env.HOME }}/dotfiles/bin/'
+        paths: '{{ dotfiles }}/bin/'
         file_type: any
       register: bin_dotfiles
     - name: link bin dotfiles

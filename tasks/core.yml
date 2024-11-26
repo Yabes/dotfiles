@@ -7,7 +7,6 @@
       become: true
       ansible.builtin.apt:
         name:
-          - git
           - curl
           - zsh
           - unzip
