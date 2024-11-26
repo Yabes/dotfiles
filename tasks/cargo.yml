@@ -7,9 +7,9 @@
       - dust
       - viu
       - dua
+      - ripgrep
       # Already installed with a tasks/bin script
       # - atuin
-      # - ripgrep
       # - eza
       # - bat
       # - broot

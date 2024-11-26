@@ -6,7 +6,6 @@
 - ansible.builtin.import_playbook: ./tasks/bin/eza.yml
 - ansible.builtin.import_playbook: ./tasks/bin/fzf.yml
 - ansible.builtin.import_playbook: ./tasks/bin/neovim.yml
-- ansible.builtin.import_playbook: ./tasks/bin/ripgrep.yml
 - ansible.builtin.import_playbook: ./tasks/bin/stylua.yml
 - ansible.builtin.import_playbook: ./tasks/bin/starship.yml
 - ansible.builtin.import_playbook: ./tasks/bin/broot.yml
