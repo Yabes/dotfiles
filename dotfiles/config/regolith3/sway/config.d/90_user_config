@@ -15,7 +15,7 @@ for_window [title=".*Emulator.*"] floating enable
 
 # exec --no-startup-id i3-msg 'exec /usr/bin/discord'
 # exec --no-startup-id i3-msg 'exec /usr/bin/keepassxc'
-# exec --no-startup-id i3-msg 'exec $HOME/.dotfiles/bin/i3-auto-kb-layout'
+# exec --no-startup-id i3-msg 'exec $HOME/.local/bin/i3-auto-kb-layout'
 
 unbindsym $mod+z
 bindsym $mod+z [class="(?i)zstray"] scratchpad show, move position center
@@ -26,10 +26,10 @@ for_window [instance="keepassxc"] floating enable, move scratchpad
 
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px, move left 5 px
 
-bindsym $mod+e exec $HOME/dev-env/dotfiles/bin/rofi-emoji.sh
+bindsym $mod+e exec $HOME/.local/bin/rofi-emoji.sh
 
 unbindsym $mod+Shift+Return
-bindsym $mod+Shift+Return exec rofi -modi 'Chrome Profile':$HOME/dev-env/dotfiles/bin/rofi-chrome-profile-launcher.sh -show 'Chrome Profile'
+bindsym $mod+Shift+Return exec rofi -modi 'Chrome Profile':$HOME/.local/bin/rofi-chrome-profile-launcher.sh -show 'Chrome Profile'
 
 for_window [class="(?i)nautilus"] floating enable; border none
 for_window [class="(?i)file-roller"] floating enable; border none
@@ -39,7 +39,7 @@ for_window [title="^Picture in picture$"] floating enable; sticky enable; border
 for_window [app_id="waydroid"] floating enabled; border none
 
 exec /usr/bin/keepassxc
-exec $HOME/dev-env/dotfiles/bin/i3-auto-kb-layout
+exec $HOME/.local/bin/i3-auto-kb-layout
 exec MOZ_DISABLE_WAYLAND_PROXY=1 /usr/bin/firefox
 exec /usr/bin/slack
 
