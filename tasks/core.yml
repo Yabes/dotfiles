@@ -3,10 +3,6 @@
 - name: Bootstrap development environment
   hosts: localhost
   tasks:
-    - name: Add repository into sources list
-      ansible.builtin.apt_repository:
-        repo: ppa:phoerious/keepassxc
-        state: present
     - name: Install packages with apt
       become: true
       ansible.builtin.apt:

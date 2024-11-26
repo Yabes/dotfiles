@@ -2,11 +2,13 @@
 - hosts: localhost
   tasks:
     - name: Install regolith key
+      become: true
       ansible.builtin.get_url:
         url: https://regolith-desktop.org/regolith.key
         dest: /etc/apt/trusted.gpg.d/regolith.asc
 
     - name: Add regolith repository
+      become: true
       ansible.builtin.apt_repository:
         repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/release-3_2-ubuntu-noble-amd64 noble main'
         state: present

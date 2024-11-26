@@ -3,6 +3,7 @@
 - hosts: localhost
   tasks:
     - name: Add repository into sources list
+      become: true
       ansible.builtin.apt_repository:
         repo: ppa:phoerious/keepassxc
         state: present
