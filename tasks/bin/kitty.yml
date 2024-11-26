@@ -17,8 +17,7 @@
       register: download
 
     - name: Run the install script
-      shell: /tmp/kitty-installer.sh
-      become: true
+      shell: /tmp/kitty-installer.sh launch=n
       when: download.changed
 
     - name: Remove the kitty-installer.sh
@@ -41,15 +40,15 @@
         dest: ~/.local/share/applications/kitty.desktop
 
     - name: Update the paths to the kitty and its icon in the kitty desktop file(s)
-      ansible.builtin.copy:
-        regex: '{{ item.regex }}'
+      ansible.builtin.replace:
+        regexp: '{{ item.regexp }}'
         replace: '{{ item.replace }}'
         path: ~/.local/share/applications/kitty.desktop
       loop:
-        - regex: 'Icon=kitty'
-          replace: 'Icon={{ ~/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png | expanduser }}'
-        - regex: 'Exec=kitty'
-          replace: 'Exec={{ ~/.local/kitty.app/bin/kitty | expanduser }}'
+        - regexp: 'Icon=kitty'
+          replace: 'Icon={{ "~/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png" | expanduser }}'
+        - regexp: 'Exec=kitty'
+          replace: 'Exec={{ "~/.local/kitty.app/bin/kitty" | expanduser }}'
 
     - name: Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
       ansible.builtin.copy:
