@@ -1,0 +1,77 @@
+---
+- hosts: localhost
+  become: false
+  vars:
+    instpath: '{{ ansible_env.HOME }}/.local/bin'
+    org: dundee
+    repo: gdu
+    filename: "{{ 'gdu_linux_amd64.tgz' if ansible_architecture == 'x86_64' else 'gdu_linux_arm64.tar.gz' }}"
+    version: latest
+    project_url: https://api.github.com/repos/{{ org }}/{{ repo }}/releases
+  tasks:
+    - name: check {{ repo }} version
+      uri:
+        url: '{{ project_url }}/{{ version }}'
+        return_content: true
+      register: latest_version
+
+    - name: check if {{ repo }}-{{ version }} is already there
+      stat:
+        path: '{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}'
+      register: newestbinary
+
+    - name: download and link to version {{ version }}
+      block:
+        - name: 'check if {{ instpath }} exists'
+          file:
+            path: '{{ instpath }}'
+            state: directory
+            mode: '0755'
+
+        - name: create tempdir
+          tempfile:
+            state: directory
+            suffix: dwnld
+          register: tempfolder_1
+
+        - name: 'installing {{ repo }} {{ latest_version.json.tag_name }}'
+          # idea from: https://stackoverflow.com/a/62672308/886659
+          loop: '{{ latest_version.json.assets }}'
+          loop_control:
+            label: '{{ item.name }}'
+          when: 'filename|string in item.name'
+          unarchive:
+            remote_src: true
+            src: '{{ item.browser_download_url }}'
+            dest: '{{ tempfolder_1.path }}'
+            keep_newer: true
+
+        - name: command because no mv available
+          command: mv "{{ tempfolder_1.path }}/{{ repo }}_linux_amd64" "{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}"
+          args:
+            creates: '{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}'
+          when:
+            - ansible_architecture == 'x86_64'
+
+        - name: command because no mv available
+          command: mv "{{ tempfolder_1.path }}/{{ repo }}_linux_arm64" "{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}"
+          args:
+            creates: '{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}'
+          when:
+            - ansible_architecture == 'aarch64'
+
+        - name: 'link {{ repo }}-{{ latest_version.json.tag_name }} -> {{ repo }} '
+          file:
+            src: '{{ instpath }}/{{ repo }}-{{ latest_version.json.tag_name }}'
+            dest: '{{ instpath }}/{{ repo }}'
+            state: link
+            force: true
+      when: not newestbinary.stat.exists
+      always:
+        - name: delete {{ tempfolder_1.path|default("tempfolder") }}
+          file:
+            path: '{{ tempfolder_1.path }}'
+            state: absent
+          when: tempfolder_1.path is defined
+          ignore_errors: true
+# vim:ft=yaml.ansible:

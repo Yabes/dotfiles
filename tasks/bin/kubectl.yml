@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Check for kubectl command
+      command: command -v kubectl >/dev/null 2>&1
+      register: installed
+      no_log: true
+      ignore_errors: yes
+
+    - name: Download kubectl
+      get_url:
+        url: https://dl.k8s.io/release/v1.31.0/bin/linux/amd64/kubectl
+        dest: ~/.local/bin/kubectl
+        mode: 'u+rwx'
+      when: installed.rc != 0
+      register: download

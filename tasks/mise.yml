@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  become: false
+  vars:
+    global_packages:
+      - eslint_d
+      - neovim
+      - '@fsouza/prettierd'
+      - '@go-task/cli'
+      - tree-sitter-cli
+  tasks:
+    - name: Check for mise command
+      command: command -v mise >/dev/null 2>&1
+      register: installed
+      no_log: true
+      ignore_errors: yes
+
+    - name: Download mise installer
+      get_url:
+        url: https://mise.run
+        dest: /tmp/mise-installer.sh
+        mode: 'u+rwx'
+      when: installed.rc != 0
+      register: download
+
+    - name: Run the install script
+      shell: /tmp/mise-installer.sh
+      when: download.changed
+
+    - name: Remove the mise-installer.sh
+      file:
+        path: /tmp/mise-installer.sh
+        state: absent
+
+    - name: install mise tools
+      shell: |
+        eval "$(~/.local/bin/mise activate zsh)"
+        mise use -g node@20
+        mise exec -- npm install -g {{ global_packages | join(' ') }}
+      args:
+        executable: /bin/zsh

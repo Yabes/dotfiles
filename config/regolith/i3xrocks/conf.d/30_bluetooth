@@ -1,6 +1,0 @@
-# Media Player
-#
-# Displays media controls
-[bluetooth]
-interval=10
-command=button="" /usr/share/i3xrocks/$BLOCK_NAME; (test ${button} -eq 1 && /home/mlemaitre-cosquer/.dotfiles/bin/switch-bt-profile.sh switch) || (test ${button} -eq 3 && /home/mlemaitre-cosquer/.dotfiles/bin/switch-bt-profile.sh reconnect)

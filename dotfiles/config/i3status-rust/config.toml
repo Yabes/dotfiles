@@ -1,0 +1,66 @@
+[theme]
+theme = "semi-native"
+
+[icons]
+icons = "awesome4"
+
+[[block]]
+block = "music"
+[[block.click]]
+button = "left"
+action = "play_pause"
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+format = " $icon $available.eng(w:2) "
+
+[[block]]
+block = "battery"
+format = " $icon\u2009 $percentage "
+missing_format = ""
+device = "DisplayDevice"
+driver = "upower"
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+
+[[block.click]]
+button = "left"
+cmd = "regolith-control-center sound"
+
+[[block]]
+block = "time"
+interval = 5
+format = "\uf073 $timestamp.datetime(f:'%d/%m')"
+[[block.click]]
+button = "left"
+cmd = "gsimplecal &"
+
+[[block]]
+block = "time"
+interval = 5
+format = "$icon $timestamp.datetime(f:'%R')"
+
+
+[[block]]
+block = "menu"
+text = "\uf21f "
+[[block.items]]
+display = " -&gt;   Homepage   &lt;-"
+cmd = "docker compose -f $HOME/dev/perso/homepage/docker-compose.yml restart"
+[[block.items]]
+display = " -&gt;   Wireproxy   &lt;-"
+cmd = "docker compose -f $HOME/dev/perso/wireproxy/docker-compose.yml up -d"
+[[block.items]]
+display = " -&gt;   Dockprom   &lt;-"
+cmd = "docker compose -f $HOME/dev/kering/dockprom/docker-compose.yml up -d"
+[[block.items]]
+display = " -&gt;   Dozzle   &lt;-"
+cmd = "docker compose -f $HOME/dev/perso/dozzle/docker-compose.yml up -d"

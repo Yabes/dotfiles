@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Remove existing firefox snap
+      command: snap remove firefox
+      become: true
+      no_log: true
+      ignore_errors: true
+
+    - name: Add repository into sources list
+      ansible.builtin.apt_repository:
+        repo: ppa:mozillateam/ppa
+        state: present
+    - name: Set priority
+      ansible.builtin.copy:
+        dest: /etc/apt/preferences.d/mozillateamppa
+        content: |
+          Package: firefox*
+          Pin: release o=LP-PPA-mozillateam
+          Pin-Priority: 1001
+    - name: Install packages with apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - firefox
+        state: present

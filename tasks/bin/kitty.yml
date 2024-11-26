@@ -1,0 +1,57 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Check for kitty command
+      command: command -v kitty >/dev/null 2>&1
+      register: installed
+      no_log: true
+      ignore_errors: yes
+
+    - name: Download kitty installer
+      get_url:
+        url: https://sw.kovidgoyal.net/kitty/installer.sh
+        dest: /tmp/kitty-installer.sh
+        mode: 'u+rwx'
+      when: installed.rc != 0
+      register: download
+
+    - name: Run the install script
+      shell: /tmp/kitty-installer.sh
+      become: true
+      when: download.changed
+
+    - name: Remove the kitty-installer.sh
+      file:
+        path: /tmp/kitty-installer.sh
+        state: absent
+
+    - name: Create symbolic links to add kitty and kitten to PATH
+      ansible.builtin.file:
+        src: ~/.local/kitty.app/bin/{{ item }}
+        path: ~/.local/bin/{{ item }}
+        state: link
+      loop:
+        - kitty
+        - kitten
+
+    - name: Place the kitty.desktop file somewhere it can be found by the OS
+      ansible.builtin.copy:
+        src: ~/.local/kitty.app/share/applications/kitty.desktop
+        dest: ~/.local/share/applications/kitty.desktop
+
+    - name: Update the paths to the kitty and its icon in the kitty desktop file(s)
+      ansible.builtin.copy:
+        regex: '{{ item.regex }}'
+        replace: '{{ item.replace }}'
+        path: ~/.local/share/applications/kitty.desktop
+      loop:
+        - regex: 'Icon=kitty'
+          replace: 'Icon={{ ~/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png | expanduser }}'
+        - regex: 'Exec=kitty'
+          replace: 'Exec={{ ~/.local/kitty.app/bin/kitty | expanduser }}'
+
+    - name: Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
+      ansible.builtin.copy:
+        content: kitty.desktop
+        dest: ~/.config/xdg-terminals.list

@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install syncthing key
+      ansible.builtin.get_url:
+        url: https://syncthing.net/release-key.gpg
+        dest: /etc/apt/trusted.gpg.d/syncthing.asc
+
+    - name: Add syncthing repository
+      ansible.builtin.apt_repository:
+        repo: 'deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable'
+        state: present
+        update_cache: yes
+
+    - name: Install syncthing
+      become: true
+      ansible.builtin.package:
+        name: syncthing
+        state: present

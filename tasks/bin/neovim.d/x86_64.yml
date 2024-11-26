@@ -1,0 +1,38 @@
+---
+- name: Create tmp directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: temp_dir
+
+- name: Download latest release
+  ansible.builtin.get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    dest: '{{ temp_dir.path }}'
+  register: archive
+
+- name: Extract archive
+  ansible.builtin.unarchive:
+    src: '{{ archive.dest }}'
+    dest: '{{ temp_dir.path }}'
+    remote_src: yes
+
+- name: Install nvim
+  become: true
+  ansible.builtin.copy:
+    remote_src: true
+    src: '{{ temp_dir.path }}/nvim-linux64/'
+    dest: '/usr/local/'
+    owner: root
+    group: root
+
+- name: Remove temporary directory
+  ansible.builtin.file:
+    state: absent
+    path: '{{ temp_dir.path }}'
+
+- name: Install nvim plugins
+  when: false
+  ansible.builtin.shell:
+    cmd: |
+      nvim --headless "+Lazy! sync" +qa
+      nvim --headless -c 'MasonUpdate' -c 'qa'

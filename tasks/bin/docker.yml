@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install syncthing key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+
+    - name: Add syncthing repository
+      ansible.builtin.apt_repository:
+        repo: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable'
+        state: present
+        update_cache: yes
+
+    - name: Install syncthing
+      become: true
+      ansible.builtin.package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present

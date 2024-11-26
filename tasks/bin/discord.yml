@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Download latest Discord deb file
+      ansible.builtin.get_url:
+        url: https://discord.com/api/download?platform=linux&format=deb
+        dest: /tmp/discord.deb
+    - name: Install packages with apt
+      become: true
+      ansible.builtin.apt:
+        deb: /tmp/discord.deb
+    - name: Remove deb file
+      ansible.builtin.file:
+        path: /tmp/discord.deb
+        state: absent

@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  become: false
+  vars:
+    org: obsidianmd
+    repo: obsidian-releases
+    filename: _amd64.deb
+    version: latest
+    project_url: https://api.github.com/repos/{{ org }}/{{ repo }}/releases
+  tasks:
+    - name: check {{ repo }} version
+      uri:
+        url: '{{ project_url }}/{{ version }}'
+        return_content: true
+      register: latest_version
+
+    - name: 'installing {{ repo }} {{ latest_version.json.tag_name }}'
+      # idea from: https://stackoverflow.com/a/62672308/886659
+      loop: '{{ latest_version.json.assets }}'
+      loop_control:
+        label: '{{ item.name }}'
+      when: 'filename|string in item.name'
+      ansible.builtin.get_url:
+        remote_src: true
+        url: '{{ item.browser_download_url }}'
+        dest: /tmp/obsidian.deb
+
+    - name: Install packages with apt
+      become: true
+      ansible.builtin.apt:
+        deb: /tmp/obsidian.deb
+    - name: Remove deb file
+      ansible.builtin.file:
+        path: /tmp/obsidian.deb
+        state: absent

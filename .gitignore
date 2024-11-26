@@ -1,19 +1,4 @@
-# Mac
-.DS_Store
-
-# Vim
-vim/vim/plugged/
-vim/vim/spell/
-vim/vim/autoload/
-vim/vim/undo/*
-vim/vim/session/
-.netrwhist
-
-# Tmux
-tmux-client-*.log
-
-# Do not ignore .gitkeep
-!vim/vim/undo/.gitkeep
-
-# optimized lua imports
-packer_compiled.lua
+dotfiles/config/nvim/undo
+dotfiles/home/.gitconfig.d/*
+!dotfiles/home/.gitconfig.d/template
+dotfiles/config/btop/btop.log

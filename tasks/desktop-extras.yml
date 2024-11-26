@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  tasks:
+    - name: Install packages with apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - playerctl
+          - gsimplecal
+        state: present

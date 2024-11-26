@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Check for Starship command
+      command: command -v starship >/dev/null 2>&1
+      register: installed
+      no_log: true
+      ignore_errors: yes
+
+    - name: Download Starship installer
+      get_url:
+        url: https://starship.rs/install.sh
+        dest: /tmp/starship-installer.sh
+        mode: 'u+rwx'
+      when: installed.rc != 0
+      register: download
+
+    - name: Run the install script
+      shell: /tmp/starship-installer.sh --yes
+      become: true
+      when: download.changed
+
+    - name: Remove the starship-installer.sh
+      file:
+        path: /tmp/starship-installer.sh
+        state: absent

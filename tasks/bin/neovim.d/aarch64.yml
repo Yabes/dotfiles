@@ -1,0 +1,56 @@
+---
+- name: install build deps
+  become: true
+  ansible.builtin.apt:
+    name:
+      - automake
+      - cmake
+      - curl
+      - g++
+      - gettext
+      - git
+      - libtool-bin
+      - make
+      - pkg-config
+      - unzip
+    state: present
+
+- name: Create tmp directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: temp_dir
+
+- name: Download latest release
+  ansible.builtin.get_url:
+    url: https://github.com/neovim/neovim/archive/refs/tags/stable.tar.gz
+    dest: '{{ temp_dir.path }}'
+  register: archive
+
+- name: Extract archive
+  ansible.builtin.unarchive:
+    src: '{{ archive.dest }}'
+    dest: '{{ temp_dir.path }}'
+    remote_src: yes
+
+- name: Build nvim
+  ansible.builtin.shell:
+    cmd: make CMAKE_BUILD_TYPE=RelWithDebInfo
+    chdir: '{{ temp_dir.path }}/neovim-stable'
+
+- name: install nvim
+  become: true
+  ansible.builtin.shell:
+    cmd: make install
+    chdir: '{{ temp_dir.path }}/neovim-stable'
+
+- name: Remove temporary directory
+  become: true
+  ansible.builtin.file:
+    state: absent
+    path: '{{ temp_dir.path }}'
+
+- name: Install nvim plugins
+  ansible.builtin.shell:
+    cmd: |
+      nvim --headless "+Lazy! sync" +qa
+      nvim --headless -c 'MasonUpdate' -c 'qa'

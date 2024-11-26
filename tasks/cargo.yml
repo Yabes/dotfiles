@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  become: false
+  vars:
+    global_packages:
+      - git-delta
+      - dust
+      - viu
+      - dua
+      # Already installed with a tasks/bin script
+      # - atuin
+      # - ripgrep
+      # - eza
+      # - bat
+      # - broot
+  tasks:
+    - name: Download binstall installer
+      get_url:
+        url: https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh
+        dest: /tmp/install-from-binstall-release.sh
+        mode: 'u+rwx'
+
+    - name: Run the install script
+      shell: /tmp/install-from-binstall-release.sh
+
+    - name: Remove the install-from-binstall-release.sh
+      file:
+        path: /tmp/install-from-binstall-release.sh
+        state: absent
+    - name: install global packages
+      command: cargo binstall --no-confirm "{{ global_packages | join(' ') }}"

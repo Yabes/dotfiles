@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Check for helm command
+      command: command -v helm >/dev/null 2>&1
+      register: installed
+      no_log: true
+      ignore_errors: yes
+
+    - name: Download helm installer
+      get_url:
+        url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+        dest: /tmp/helm-installer.sh
+        mode: 'u+rwx'
+      when: installed.rc != 0
+      register: download
+
+    - name: Run the install script
+      shell: /tmp/helm-installer.sh
+      become: true
+      when: download.changed
+
+    - name: Remove the helm-installer.sh
+      file:
+        path: /tmp/helm-installer.sh
+        state: absent

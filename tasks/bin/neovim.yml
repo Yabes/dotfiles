@@ -1,0 +1,10 @@
+- hosts: localhost
+  tasks:
+    - name: Check if binary exists in PATH
+      ansible.builtin.command: which nvim
+      ignore_errors: true
+      register: nvim_installed
+
+    - name: Install nvim
+      ansible.builtin.include_tasks: ./neovim.d/{{ ansible_architecture }}.yml
+      when: nvim_installed.rc != 0

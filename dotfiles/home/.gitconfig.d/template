@@ -1,0 +1,19 @@
+; Template for local config
+;
+; [includeIf "gitdir:~/perso"]
+;   path = ~/.gitconfig.d/perso
+;
+; [includeIf "gitdir:~/work"]
+;   path = ~/.gitconfig.d/work
+;
+; ; ~/.gitconfig.d/perso
+; [user]
+;   name = Your NAME
+;   email = your.email@example.com
+;
+; ; ~/.gitconfig.d/work
+; [user]
+;   name = Your NAME
+;   email = your.email@example.com
+;
+; vim: set ft=gitconfig :

@@ -1,0 +1,41 @@
+regolith.wallpaper.file: $HOME/Pictures/elijah-mcneal-augmented-shrine.jpg
+
+wm.workspace.01.name: 1:<span foreground="#458588">1</span>
+wm.workspace.02.name: 2:<span foreground="#689d6a">2</span>
+wm.workspace.03.name: 3:<span foreground="#98971a">3</span>
+wm.workspace.04.name: 4:<span foreground="#d79921">4</span>
+wm.workspace.05.name: 5:<span foreground="#d65d0e">5</span>
+wm.workspace.06.name: 6:<span foreground="#cc241d">6</span>
+wm.workspace.07.name: 7:<span foreground="#d3869b">7</span>
+wm.workspace.08.name: 8:<span foreground="#b16286">8</span>
+wm.workspace.09.name: 9:<span foreground="#bdae93">9</span>
+wm.workspace.10.name: 10:<span foreground="#458588">10</span>
+
+wm.window.border.size: 0
+wm.floatingwindow.border.size: 0
+
+wm.gaps.inner.size: 5
+wm.gaps.outer.size: 5
+wm.bar.position: top
+wm.bar.status_command: /usr/bin/i3status-rs $HOME/.config/i3status-rust/config.toml
+
+wm.gaps.smart: no
+
+! Free Mod+Shift+Enter and Mod+z bindings
+wm.binding.browser: Shift+.
+wm.binding.focus_child: Shift+\
+
+i3xrocks.weather.location: Rennes
+
+i3xrocks.value.mediaplayerwidth: 20
+i3xrocks.action.media-player.left: playerctl play-pause
+
+gtk.document_font_name: Ubuntu Regular 13
+gtk.font_name: Ubuntu Regular 13
+gtk.monospace_font_name: Ubuntu Mono 13
+gnome.terminal.font: Ubuntu Mono 13
+
+regolith.look.path: /usr/share/regolith-look/gruvbox
+
+wm.program.terminal: kitty -d $($HOME/dev-env/dotfiles/bin/i3-open-term-cwd.sh kitty)
+

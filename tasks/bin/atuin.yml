@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Check for atuin command
+      command: command -v atuin >/dev/null 2>&1
+      register: installed
+      no_log: true
+      ignore_errors: yes
+
+    - name: Download atuin installer
+      get_url:
+        url: https://setup.atuin.sh
+        dest: /tmp/atuin-installer.sh
+        mode: 'u+rwx'
+      when: installed.rc != 0
+      register: download
+
+    - name: Run the install script
+      shell: /tmp/atuin-installer.sh
+      become: true
+      when: download.changed
+
+    - name: Remove the atuin-installer.sh
+      file:
+        path: /tmp/atuin-installer.sh
+        state: absent

@@ -1,0 +1,11 @@
+- hosts: localhost
+  vars:
+    instpath: "{{ ansible_env.HOME }}/.local/bin"
+    org: multiprocessio
+    repo: dsq
+    filename: dsq-linux-x64
+    version: latest
+    project_url: https://api.github.com/repos/{{ org }}/{{ repo }}/releases
+  tasks:
+    - name: Install dsq
+      ansible.builtin.include_tasks: ./dsq.d/{{ ansible_architecture }}.yml
