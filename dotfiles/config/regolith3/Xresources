@@ -37,5 +37,5 @@ gnome.terminal.font: Ubuntu Mono 13
 
 regolith.look.path: /usr/share/regolith-look/gruvbox
 
-wm.program.terminal: kitty -d $($HOME/.local/bin/bin/i3-open-term-cwd.sh kitty)
+wm.program.terminal: kitty -d $($HOME/.local/bin/i3-open-term-cwd.sh kitty)
 

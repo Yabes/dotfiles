@@ -5,12 +5,12 @@
       become: true
       ansible.builtin.get_url:
         url: https://syncthing.net/release-key.gpg
-        dest: /etc/apt/trusted.gpg.d/syncthing.asc
+        dest: /etc/apt/keyrings/syncthing-archive-keyring.gpg
 
     - name: Add syncthing repository
       become: true
       ansible.builtin.apt_repository:
-        repo: 'deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable'
+        repo: 'deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg https://apt.syncthing.net/ syncthing stable'
         state: present
         update_cache: yes
 

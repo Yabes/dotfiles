@@ -2,10 +2,26 @@
 - hosts: localhost
   tasks:
     - name: Install regolith key
-      become: true
       ansible.builtin.get_url:
         url: https://regolith-desktop.org/regolith.key
-        dest: /etc/apt/trusted.gpg.d/regolith.asc
+        dest: /tmp/regolith.key
+
+    - name: Dearmor key
+      ansible.builtin.command: gpg --dearmor /tmp/regolith.key
+
+    - name: Copy key
+      become: true
+      ansible.builtin.copy:
+        src: /tmp/regolith.key.gpg
+        dest: /usr/share/keyrings/regolith-archive-keyring.gpg
+
+    - name: Remove tmp key files
+      loop:
+        - /tmp/regolith.key.gpg
+        - /tmp/regolith.key
+      ansible.builtin.file:
+        state: absent
+        path: '{{ item }}'
 
     - name: Add regolith repository
       become: true

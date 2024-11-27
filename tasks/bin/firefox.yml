@@ -6,14 +6,13 @@
     - name: Remove existing firefox snap
       command: snap remove firefox
       become: true
-      no_log: true
-      ignore_errors: true
 
     - name: Add repository into sources list
       become: true
       ansible.builtin.apt_repository:
         repo: ppa:mozillateam/ppa
         state: present
+        update_cache: yes
     - name: Set priority
       become: true
       ansible.builtin.copy:
