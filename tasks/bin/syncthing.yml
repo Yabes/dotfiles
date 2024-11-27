@@ -10,7 +10,7 @@
     - name: Add syncthing repository
       become: true
       ansible.builtin.apt_repository:
-        repo: 'deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg https://apt.syncthing.net/ syncthing stable'
+        repo: 'deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable'
         state: present
         update_cache: yes
 
