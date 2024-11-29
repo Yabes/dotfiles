@@ -18,7 +18,6 @@
 
     - name: Run the install script
       shell: /tmp/atuin-installer.sh
-      become: true
       when: download.changed
 
     - name: Remove the atuin-installer.sh
