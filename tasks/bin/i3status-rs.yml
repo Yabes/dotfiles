@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  tasks:
+    - name: Install dependencies with apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - libssl-dev
+          - libsensors-dev
+          - libpulse-dev
+          - libpipewire-0.3-dev
+          - clang
+        state: present
+
+    - name: Clone i3status-rust
+      ansible.builtin.git:
+        repo: https://github.com/greshake/i3status-rust
+        dest: /tmp/i3status-rust
+
+    - name: Install i3status-rust rust dependencies
+      ansible.builtin.command:
+        chdir: /tmp/i3status-rust
+        cmd: cargo install --path . --locked
+
+    - name: Install i3status-rust
+      ansible.builtin.command:
+        chdir: /tmp/i3status-rust
+        cmd: install.sh
