@@ -1,20 +1,24 @@
-source "${HOME}/.zgen/zgen.zsh"
+source "${HOME}/.zgenom/zgenom.zsh"
+
+# Check for plugin and zgenom updates every 7 days
+# This does not increase the startup time.
+zgenom autoupdate
 
 # if the init scipt doesn't exist
-if ! zgen saved; then
-    echo "Creating a zgen save"
+if ! zgenom saved; then
+  echo "Creating a zgenom save"
 
-    zgen load mafredri/zsh-async async.zsh main
+  zgenom load mafredri/zsh-async async.zsh main
 
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zsh-users/zsh-autosuggestions
-    zgen load zsh-users/zsh-completions src
+  zgenom load zsh-users/zsh-syntax-highlighting
+  zgenom load zsh-users/zsh-autosuggestions
+  zgenom load zsh-users/zsh-completions src
 
-    # zgen load chrissicool/zsh-256color
+  # zgenom load chrissicool/zsh-256color
 
-    # zgen load sindresorhus/pure . main
+  # zgenom load sindresorhus/pure . main
 
-    zgen save
+  zgenom save
 fi
 
 eval "$(starship init zsh)"

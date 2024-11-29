@@ -33,5 +33,5 @@
 
     - name: Install zgen
       ansible.builtin.git:
-        repo: https://github.com/tarjoilija/zgen.git
-        dest: ~/.zgen
+        repo: https://github.com/jandamm/zgenom.git
+        dest: ~/.zgenom
