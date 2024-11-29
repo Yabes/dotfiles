@@ -1,7 +1,9 @@
 # Custom FZF completion
-# TODO Add header
+
+source <(fzf --zsh)
+
 _fzf_complete_lxc() {
-  _fzf_complete "-m --header-lines=1" "$@" < <( lxc list | grep "^| " )
+  _fzf_complete "-m --header-lines=1" "$@" < <(lxc list | grep "^| ")
 }
 
 _fzf_complete_lxc_post() {
@@ -85,41 +87,47 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # From https://github.com/junegunn/dotfiles
 # fd - cd to selected directory
 fd() {
-  DIR=`find ${1:-*} -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
-    && cd "$DIR"
+  DIR=$(find ${1:-*} -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -print 2>/dev/null | fzf-tmux) &&
+    cd "$DIR"
 }
 
 cdv() {
   local DIR
-  DIR=`find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2> /dev/null | sed "s@${1:-${HOME}/dev}@@" | fzf-tmux` \
-    && cd "${1:-${HOME}/dev}$DIR"
+  DIR=$(find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null | sed "s@${1:-${HOME}/dev}@@" | fzf-tmux) &&
+    cd "${1:-${HOME}/dev}$DIR"
 }
 
 # fda - including hidden directories
 fda() {
-  DIR=`find ${1:-.} -type d 2> /dev/null | fzf-tmux` && cd "$DIR"
+  DIR=$(find ${1:-.} -type d 2>/dev/null | fzf-tmux) && cd "$DIR"
 }
 
 # fco - checkout git branch/tag
 fco() {
   local tags branches target
   tags=$(
-    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}'
+  ) || return
   branches=$(
-    git branch --all | grep -v HEAD             |
-    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+    git branch --all | grep -v HEAD |
+      sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+      sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
+  ) || return
   target=$(
-    (echo "$tags"; echo "$branches") |
-    fzf-tmux -l50 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+    (
+      echo "$tags"
+      echo "$branches"
+    ) |
+      fzf-tmux -l50 -- --no-hscroll --ansi +m -d "\t" -n 2
+  ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
-            #
-            # INITIAL_QUERY="foobar"
-            # FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
-            #   fzf --bind "change:reload:$RG_PREFIX {q} || true" \
-            #       --ansi --disabled --query "$INITIAL_QUERY"
-            #
+#
+# INITIAL_QUERY="foobar"
+# FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+#   fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+#       --ansi --disabled --query "$INITIAL_QUERY"
+#
 
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
 fshow() {
@@ -133,16 +141,17 @@ fshow() {
   while out=$(
     FZF_DEFAULT_COMMAND="$GIT_CMD $@" \
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
-          --track \
-          --header "ctrl-a: show all branches, ctrl-o: show current branch, ctrl-d: print diff, enter: return selected sha(s)" \
-          --bind "ctrl-a:reload($GIT_CMD --all $@)" \
-          --bind "ctrl-o:reload($GIT_CMD $@)" \
-          --bind "?:toggle-preview" \
-          --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
-          --print-query --expect=ctrl-d,enter); do
-    q=$(head -1 <<< "$out")
-    k=$(head -2 <<< "$out" | tail -1)
-    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+      --track \
+      --header "ctrl-a: show all branches, ctrl-o: show current branch, ctrl-d: print diff, enter: return selected sha(s)" \
+      --bind "ctrl-a:reload($GIT_CMD --all $@)" \
+      --bind "ctrl-o:reload($GIT_CMD $@)" \
+      --bind "?:toggle-preview" \
+      --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
+      --print-query --expect=ctrl-d,enter
+  ); do
+    q=$(head -1 <<<"$out")
+    k=$(head -2 <<<"$out" | tail -1)
+    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<<"$out" | awk '{print $1}')
     [ -z "$shas" ] && continue
 
     if [ "$k" = 'ctrl-d' ]; then
@@ -160,7 +169,6 @@ frg() {
   rg -l $1 | fzf --multi --bind "?:toggle-preview" --preview "rg --color='always' --line-number $1 {1}"
 }
 
-
 frun() {
   cmds=$(npm run)
   cmd=$(echo $cmds | grep "^  \w" | fzf --bind "?:toggle-preview" --preview "echo '${cmds}' | grep -A 1 '^  {1}$' | tail -1 | sed 's/  //g'" | sed 's/ //g')
@@ -177,17 +185,17 @@ gstash() {
   out=(
     $(git stash list --pretty='%C(yellow)%gd %>(14)%Cgreen%cr %C(blue)%gs' |
       fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
-          --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
-          --preview-window=down:50% --reverse \
-          --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
-          --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
-          --expect=ctrl-o,ctrl-y,ctrl-x))
+        --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
+        --preview-window=down:50% --reverse \
+        --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+        --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+        --expect=ctrl-o,ctrl-y,ctrl-x))
   k=${out[0]}
   reflog=${out[1]}
   [ -n "$reflog" ] && case "$k" in
-    ctrl-o) git stash pop $reflog ;;
-    ctrl-y) git stash apply $reflog ;;
-    ctrl-x) git stash drop $reflog ;;
+  ctrl-o) git stash pop $reflog ;;
+  ctrl-y) git stash apply $reflog ;;
+  ctrl-x) git stash drop $reflog ;;
   esac
 }
 
@@ -203,16 +211,16 @@ sf() {
 
   rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"'
 
-  files=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
+  files=$(eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}')
   [[ -n "$files" ]] && ${EDITOR} -p $(echo ${files})
 }
 
 # https://github.com/junegunn/fzf/wiki/Examples
 # cdf - cd into the directory of the selected file
 cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+  local file
+  local dir
+  file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 # https://github.com/junegunn/fzf/wiki/Examples#tmux
@@ -221,10 +229,9 @@ cdf() {
 #   - Exit if there's no match (--exit-0)
 fs() {
   local session
-  session=$(\tmux list-sessions -F "#{session_name}" | \
+  session=$(\tmux list-sessions -F "#{session_name}" |
     fzf --query="$1" --select-1 --exit-0 --header='enter:switch, ctrl-x:kill' --bind='ctrl-x:execute(tmux kill-session -t {})') &&
-  \tmux switch-client -t "$session"
+    \tmux switch-client -t "$session"
 }
 
 # source /usr/share/doc/fzf/examples/key-bindings.zsh
-
