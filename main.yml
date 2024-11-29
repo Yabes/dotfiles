@@ -16,6 +16,7 @@
 - ansible.builtin.import_playbook: ./tasks/cargo.yml
 - ansible.builtin.import_playbook: ./tasks/mise.yml
 - ansible.builtin.import_playbook: ./tasks/desktop-extras.yml
+- ansible.builtin.import_playbook: ./tasks/fonts.yml
 
 - ansible.builtin.import_playbook: ./tasks/bin/kitty.yml
 - ansible.builtin.import_playbook: ./tasks/bin/syncthing.yml

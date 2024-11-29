@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  tasks:
+    - name: Download Recursive font
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: https://github.com/arrowtype/recursive/releases/download/v1.085/ArrowType-Recursive-1.085.zip
+        dest: /tmp/recursive
+
+    - name: Create RecMono directory
+      become: true
+      ansible.builtin.file:
+        state: directory
+        path: /usr/share/fonts/opentype/recursive
+
+    - name: Copy fonts
+      become: true
+      ansible.builtin.copy:
+        src: /tmp/recursive/Recursive_Code/RecMonoDuotone/
+        dest: /usr/share/fonts/opentype/recursive
+
+    - name: Update the font cache
+      ansible.builtin.command: fc-cache -fv
