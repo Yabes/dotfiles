@@ -11,6 +11,7 @@
           - libpulse-dev
           - libpipewire-0.3-dev
           - clang
+          - pandoc
         state: present
 
     - name: Clone i3status-rust
@@ -21,7 +22,7 @@
     - name: Install i3status-rust rust dependencies
       ansible.builtin.command:
         chdir: /tmp/i3status-rust
-        cmd: cargo install --path . --locked
+        cmd: cargo install --path . --locked --features pipewire
 
     - name: Install i3status-rust
       ansible.builtin.command:
