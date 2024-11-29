@@ -6,7 +6,7 @@
       ansible.builtin.unarchive:
         remote_src: true
         src: https://github.com/arrowtype/recursive/releases/download/v1.085/ArrowType-Recursive-1.085.zip
-        dest: /tmp/recursive
+        dest: /tmp
 
     - name: Create RecMono directory
       become: true
@@ -17,7 +17,7 @@
     - name: Copy RecMono fonts
       become: true
       ansible.builtin.copy:
-        src: /tmp/recursive/Recursive_Code/RecMonoDuotone/
+        src: /tmp/ArrowType-Recursive-1.085/Recursive_Code/RecMonoDuotone/
         dest: /usr/share/fonts/opentype/recursive
 
     - name: Download NerdFontsSymbols
@@ -25,6 +25,11 @@
         remote_src: true
         src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
         dest: /tmp/nerdfonts
+
+    - name: Create nerdfonts tmp directory
+      ansible.builtin.file:
+        state: directory
+        path: /tmp/nerdfonts
 
     - name: Create NerdFontsSymbols directory
       become: true
@@ -42,4 +47,5 @@
         - SymbolsNerdFontMono-Regular.ttf
 
     - name: Update the font cache
+      become: true
       ansible.builtin.command: fc-cache -fv
