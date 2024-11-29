@@ -55,9 +55,9 @@ _fzf_complete_kubectl() {
       kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{range .spec.containers[*]}{" "}{.name}{end}{end}' | grep ${POD} | tr ' ' '\n'
     )
   elif [[ $ARGS == 'kubectl exec'* ]]; then
-    local NAMESPACE=$(kubectl config view | grep namespace: | awk '{ print $2  }' | uniq | fzf-tmux --select-1)
-    local PODNAME=$(kubectl get pods -n ${NAMESPACE} | fzf-tmux --header-lines=1 --nth=1 | awk '{ print $1 }')
-    local CONTAINER=$(kubectl get pods -n ${NAMESPACE} ${PODNAME} -o=jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}' | fzf-tmux --select-1)
+    local NAMESPACE=$(kubectl config view | grep namespace: | awk '{ print $2  }' | uniq | fzf --select-1)
+    local PODNAME=$(kubectl get pods -n ${NAMESPACE} | fzf --header-lines=1 --nth=1 | awk '{ print $1 }')
+    local CONTAINER=$(kubectl get pods -n ${NAMESPACE} ${PODNAME} -o=jsonpath='{range .spec.containers[*]}{.name}{"\n"}{end}' | fzf --select-1)
     _fzf_complete "--select-1" "$@" < <(echo "${PODNAME} -c ${CONTAINER}")
   else
     eval "zle ${fzf_default_completion:-expend-or-complete}"
@@ -75,8 +75,6 @@ _fzf_complete_kubectl_post() {
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_TMUX=1
-
 # If ag or pt is present adapt fzf default command, with a preference for rg
 command -v ag >/dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore custom_plugins -g ""'
 command -v pt >/dev/null 2>&1 && export FZF_DEFAULT_COMMAND='pt --hidden -g=""'
@@ -87,19 +85,19 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # From https://github.com/junegunn/dotfiles
 # fd - cd to selected directory
 fd() {
-  DIR=$(find ${1:-*} -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -print 2>/dev/null | fzf-tmux) &&
+  DIR=$(find ${1:-*} -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -print 2>/dev/null | fzf) &&
     cd "$DIR"
 }
 
 cdv() {
   local DIR
-  DIR=$(find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null | sed "s@${1:-${HOME}/dev}@@" | fzf-tmux) &&
+  DIR=$(find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null | sed "s@${1:-${HOME}/dev}@@" | fzf) &&
     cd "${1:-${HOME}/dev}$DIR"
 }
 
 # fda - including hidden directories
 fda() {
-  DIR=$(find ${1:-.} -type d 2>/dev/null | fzf-tmux) && cd "$DIR"
+  DIR=$(find ${1:-.} -type d 2>/dev/null | fzf) && cd "$DIR"
 }
 
 # fco - checkout git branch/tag
@@ -118,7 +116,7 @@ fco() {
       echo "$tags"
       echo "$branches"
     ) |
-      fzf-tmux -l50 -- --no-hscroll --ansi +m -d "\t" -n 2
+      fzf -l50 -- --no-hscroll --ansi +m -d "\t" -n 2
   ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
