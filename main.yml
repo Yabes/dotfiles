@@ -13,13 +13,14 @@
 - ansible.builtin.import_playbook: ./tasks/bin/gdu.yml
 - ansible.builtin.import_playbook: ./tasks/bin/atuin.yml
 
+- ansible.builtin.import_playbook: ./tasks/cargo.yml
 - ansible.builtin.import_playbook: ./tasks/mise.yml
-
 - ansible.builtin.import_playbook: ./tasks/desktop-extras.yml
 
 - ansible.builtin.import_playbook: ./tasks/bin/kitty.yml
 - ansible.builtin.import_playbook: ./tasks/bin/syncthing.yml
 - ansible.builtin.import_playbook: ./tasks/bin/regolith.yml
+- ansible.builtin.import_playbook: ./tasks/bin/i3status-rs.yml
 - ansible.builtin.import_playbook: ./tasks/bin/docker.yml
 - ansible.builtin.import_playbook: ./tasks/bin/kubectl.yml
 - ansible.builtin.import_playbook: ./tasks/bin/helm.yml
