@@ -2,3 +2,4 @@ dotfiles/config/nvim/undo
 dotfiles/home/.gitconfig.d/*
 !dotfiles/home/.gitconfig.d/template
 dotfiles/config/btop/btop.log
+*.zwc

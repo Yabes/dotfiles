@@ -17,7 +17,7 @@ wm.floatingwindow.border.size: 0
 wm.gaps.inner.size: 5
 wm.gaps.outer.size: 5
 wm.bar.position: top
-wm.bar.status_command: /usr/bin/i3status-rs $HOME/.config/i3status-rust/config.toml
+wm.bar.status_command: $HOME/.cargo/bin/i3status-rs $HOME/.config/i3status-rust/config.toml
 
 wm.gaps.smart: no
 
@@ -37,5 +37,6 @@ gnome.terminal.font: Ubuntu Mono 13
 
 regolith.look.path: /usr/share/regolith-look/gruvbox
 
-wm.program.terminal: kitty -d $($HOME/.local/bin/i3-open-term-cwd.sh kitty)
+/* wm.program.terminal: $HOME/.local.bin/kitty -d $($HOME/.local/bin/sway-open-term-cwd.sh kitty) */
+wm.program.terminal: $HOME/.local.bin/kitty -d $($HOME/.local/bin/i3-open-term-cwd.sh kitty)
 
