@@ -14,12 +14,6 @@ setopt HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 # Vim mode
 bindkey -v
 
-if [ -n "${TMUX_PANE}" ]; then
-  HISTS_DIR=$HOME/.zsh_history.d
-  mkdir -p "${HISTS_DIR}"
-  export HISTFILE="${HISTS_DIR}/histfile_tmux_$(tmux display -p '#S-#I-#P')"
-fi
-
 # Disable = command
 unsetopt EQUALS
 
@@ -60,8 +54,6 @@ export LD_LIBRARY_PATH=/usr/local/lib
 export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
@@ -82,17 +74,6 @@ fi
 if [ -d $HOME/.local/kitty.app/bin ]; then
   export PATH="$HOME/.local/kitty.app/bin:$PATH"
 fi
-
-# pnpm
-export PNPM_HOME="/$HOME/Library/pnpm"
-
-if [ -d $PNPM_HOME ]; then
-  case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-  esac
-fi
-# pnpm end
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
