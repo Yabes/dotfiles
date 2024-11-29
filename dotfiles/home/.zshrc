@@ -37,7 +37,8 @@ LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
 # Add v command on normal mode to edit current line with $EDITOR
-autoload edit-command-line; zle -N edit-command-line
+autoload edit-command-line
+zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 export LD_LIBRARY_PATH=/usr/local/lib
@@ -56,8 +57,8 @@ export LD_LIBRARY_PATH=/usr/local/lib
 . ~/.config/zsh/git-aliases.zsh
 . ~/.config/zsh/plugins.zsh
 
-export N_PREFIX="$HOME/n";
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export N_PREFIX="$HOME/n"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -68,18 +69,18 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-if [ -d $HOME/.rvm ]; then 
-  export PATH="$PATH:$HOME/.rvm/bin";
+if [ -d $HOME/.rvm ]; then
+  export PATH="$PATH:$HOME/.rvm/bin"
 fi
 
 # kubectl
 if [ -d $HOME/.kubectl-plugins ]; then
-  export PATH="$PATH:$HOME/.kubectl-plugins";
+  export PATH="$PATH:$HOME/.kubectl-plugins"
 fi
 
 # kitty
 if [ -d $HOME/.local/kitty.app/bin ]; then
-  export PATH="$HOME/.local/kitty.app/bin:$PATH";
+  export PATH="$HOME/.local/kitty.app/bin:$PATH"
 fi
 
 # pnpm
@@ -87,8 +88,8 @@ export PNPM_HOME="/$HOME/Library/pnpm"
 
 if [ -d $PNPM_HOME ]; then
   case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
   esac
 fi
 # pnpm end
@@ -104,6 +105,5 @@ if $profile_zsh; then
   zprof
 fi
 
-eval "$(atuin init zsh --disable-up-arrow)"
-
 . "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh --disable-up-arrow)"
