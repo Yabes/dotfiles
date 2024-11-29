@@ -7,23 +7,44 @@
       command: snap remove firefox
       become: true
 
-    - name: Add repository into sources list
+    - name: Remove any firefox packages with apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - firefox
+        state: absent
+
+    - name: Install Mozilla key
+      ansible.builtin.get_url:
+        url: https://packages.mozilla.org/apt/repo-signing-key.gpg
+        dest: /tmp/mozilla.gpg
+
+    - name: Copy key
+      become: true
+      ansible.builtin.copy:
+        src: /tmp/mozilla.gpg
+        dest: /etc/apt/keyrings/packages.mozilla.org.asc
+
+    - name: Add Mozilla repository
       become: true
       ansible.builtin.apt_repository:
-        repo: ppa:mozillateam/ppa
+        repo: 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main'
         state: present
         update_cache: yes
+
     - name: Set priority
       become: true
       ansible.builtin.copy:
-        dest: /etc/apt/preferences.d/mozillateamppa
+        dest: /etc/apt/preferences.d/mozilla
         content: |
-          Package: firefox*
-          Pin: release o=LP-PPA-mozillateam
-          Pin-Priority: 1001
-    - name: Install packages with apt
+          Package: *
+          Pin: origin packages.mozilla.org
+          Pin-Priority: 1000
+
+    - name: Install firefox packages with apt
       become: true
       ansible.builtin.apt:
+        update_cache: true
         name:
           - firefox
         state: present
