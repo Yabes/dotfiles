@@ -1,8 +1,8 @@
 fzf-git-add() {
-  local file="$(git status --short | \
-    grep "^.\S" | \
-    fzf --multi --reverse --bind "?:toggle-preview" --preview-window nowrap --preview "fzf-preview-file {2}"| \
-    awk '{ print "'"'"'"$2"'"'"'" }' | \
+  local file="$(git status --short |
+    grep "^.\S" |
+    fzf --multi --reverse --bind "?:toggle-preview" --preview-window nowrap --preview "fzf-preview-file {2}" |
+    awk '{ print "'"'"'"$2"'"'"'" }' |
     tr '\n' ' ')"
   local ret=$?
   LBUFFER="${LBUFFER}${file}"
@@ -13,7 +13,6 @@ fzf-git-add() {
 
 zle -N fzf-git-add
 bindkey '^G' fzf-git-add
-
 
 _fzf-pane() {
   _zsh_autosuggest_clear
@@ -41,7 +40,7 @@ zle -N _fzf-pane
 bindkey '^F' _fzf-pane
 
 _fzf-directory() {
-  local text="$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux)"
+  local text="$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2>/dev/null | fzf)"
   local ret=$?
   LBUFFER="${LBUFFER}${text}"
   zle redisplay
@@ -53,7 +52,7 @@ zle -N _fzf-directory
 bindkey '^P' _fzf-directory
 
 _fzf-latest-modified-files() {
-  local text="$(git diff --name-only HEAD~10..HEAD . | fzf-tmux --preview='git log --color=always -p -- {}')"
+  local text="$(git diff --name-only HEAD~10..HEAD . | fzf --preview='git log --color=always -p -- {}')"
   local ret=$?
   LBUFFER="${LBUFFER}${text}"
   zle redisplay
