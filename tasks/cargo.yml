@@ -4,7 +4,7 @@
   vars:
     global_packages:
       - git-delta
-      - dust
+      - du-dust
       - viu
       - dua
       - ripgrep
@@ -14,6 +14,20 @@
       # - bat
       # - broot
   tasks:
+    - name: Download rustup script
+      get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/rustup.sh
+        mode: 'u+rwx'
+
+    - name: Run rustup
+      shell: /tmp/rustup.sh -y
+
+    - name: Remove rustup.sh
+      file:
+        path: /tmp/rustup.sh
+        state: absent
+
     - name: Download binstall installer
       get_url:
         url: https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh
@@ -27,5 +41,7 @@
       file:
         path: /tmp/install-from-binstall-release.sh
         state: absent
+
     - name: install global packages
-      command: cargo binstall --no-confirm "{{ global_packages | join(' ') }}"
+      command: cargo binstall --no-confirm "{{ item }}"
+      loop: '{{ global_packages }}'
