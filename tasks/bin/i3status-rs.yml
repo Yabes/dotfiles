@@ -20,11 +20,7 @@
         dest: /tmp/i3status-rust
 
     - name: Install i3status-rust rust dependencies
-      ansible.builtin.command:
-        chdir: /tmp/i3status-rust
-        cmd: cargo install --path . --locked --features pipewire
-
-    - name: Install i3status-rust
-      ansible.builtin.command:
-        chdir: /tmp/i3status-rust
-        cmd: install.sh
+      ansible.builtin.shell: |
+        cd /tmp/i3status-rust
+        cargo install --path . --locked --features pipewire
+        ./install.sh
