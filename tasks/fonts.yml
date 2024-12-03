@@ -20,16 +20,16 @@
         src: /tmp/ArrowType-Recursive-1.085/Recursive_Code/RecMonoDuotone/
         dest: /usr/share/fonts/opentype/recursive
 
+    - name: Create nerdfonts tmp directory
+      ansible.builtin.file:
+        state: directory
+        path: /tmp/nerdfonts
+
     - name: Download NerdFontsSymbols
       ansible.builtin.unarchive:
         remote_src: true
         src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.zip
         dest: /tmp/nerdfonts
-
-    - name: Create nerdfonts tmp directory
-      ansible.builtin.file:
-        state: directory
-        path: /tmp/nerdfonts
 
     - name: Create NerdFontsSymbols directory
       become: true

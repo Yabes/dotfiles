@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- name: Update user
+  hosts: localhost
+  tasks:
+    - name: Add docker and set default shell
+      becomre: true
+      ansible.builtin.user:
+        name: '{{ ansible_user_id }}'
+        append: true
+        shell: /bin/zsh
+        groups:
+          - docker
+        generate_ssh_key: true

@@ -56,5 +56,5 @@
         dest: ~/.config/xdg-terminals.list
 
     - name: Add kitty as x-terminal-emulator alternative
-      becore: true
-      ansible.builtin.command: update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ~/.local/bin/kitty 50
+      become: true
+      ansible.builtin.command: update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator {{ "~/.local/bin/kitty" | expanduser }} 50

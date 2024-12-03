@@ -1,0 +1,9 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook
+- hosts: localhost
+  tasks:
+    - name: Download bemoji script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/marty-oehme/bemoji/refs/heads/main/bemoji
+        dest: '{{ ansible_env.HOME }}/.local/bin/bemoji'
+        mode: u+rwx

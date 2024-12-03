@@ -27,3 +27,5 @@
 - ansible.builtin.import_playbook: ./tasks/bin/helm.yml
 - ansible.builtin.import_playbook: ./tasks/bin/firefox.yml
 - ansible.builtin.import_playbook: ./tasks/bin/discord.yml
+- ansible.builtin.import_playbook: ./tasks/bin/bemoji.yml
+- ansible.builtin.import_playbook: ./tasks/user.yml
