@@ -1,4 +1,4 @@
-regolith.wallpaper.file: $HOME/Pictures/elijah-mcneal-augmented-shrine.jpg
+regolith.wallpaper.file: $HOME/dotfiles/assets/elijah-mcneal-augmented-shrine.jpg
 
 wm.workspace.01.name: 1:<span foreground="#458588">1</span>
 wm.workspace.02.name: 2:<span foreground="#689d6a">2</span>
@@ -21,10 +21,6 @@ wm.bar.status_command: $HOME/.cargo/bin/i3status-rs $HOME/.config/i3status-rust/
 
 wm.gaps.smart: no
 
-! Free Mod+Shift+Enter and Mod+z bindings
-wm.binding.browser: Shift+.
-wm.binding.focus_child: Shift+\
-
 i3xrocks.weather.location: Rennes
 
 i3xrocks.value.mediaplayerwidth: 20
@@ -37,6 +33,6 @@ gnome.terminal.font: Ubuntu Mono 13
 
 regolith.look.path: /usr/share/regolith-look/gruvbox
 
-/* wm.program.terminal: $HOME/.local.bin/kitty -d $($HOME/.local/bin/sway-open-term-cwd.sh kitty) */
-wm.program.terminal: $HOME/.local.bin/kitty -d $($HOME/.local/bin/i3-open-term-cwd.sh kitty)
+/* wm.program.terminal: $HOME/.local/bin/kitty -d $($HOME/.local/bin/sway-open-term-cwd.sh kitty) */
+wm.program.terminal: $HOME/.local/bin/kitty -d $($HOME/.local/bin/i3-open-term-cwd.sh kitty)
 
