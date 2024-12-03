@@ -10,9 +10,16 @@ sudo apt install -y software-properties-common git pip
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install -y ansible
 
+if [ "$(basename $(pwd))" != "dotfiles" ]; then
+
+  if [ ! -d "dotfiles" ]; then
+    git clone https://github.com/Yabes/dotfiles
+  fi
+
+  cd dotfiles
+fi
+
 # Setup dotfiles
-git clone https://github.com/Yabes/dotfiles
-cd dotfiles
 ansible-galaxy install -r requirements.yml
 
 # Ensure cargo bin is found during install

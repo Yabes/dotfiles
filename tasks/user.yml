@@ -4,7 +4,7 @@
   hosts: localhost
   tasks:
     - name: Add docker and set default shell
-      becomre: true
+      become: true
       ansible.builtin.user:
         name: '{{ ansible_user_id }}'
         append: true
