@@ -21,6 +21,8 @@ wm.bar.status_command: $HOME/.cargo/bin/i3status-rs $HOME/.config/i3status-rust/
 
 wm.gaps.smart: no
 
+wm.binding.logout: Ctrl+Shift+e
+
 i3xrocks.weather.location: Rennes
 
 i3xrocks.value.mediaplayerwidth: 20

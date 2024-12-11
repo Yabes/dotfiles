@@ -28,7 +28,8 @@ for_window [instance="keepassxc"] floating enable, move scratchpad
 
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 30 px, move left 5 px
 
-bindsym $mod+e exec $HOME/.local/bin/bemoji
+bindsym $mod+e exec $HOME/.local/bin/bemoji --type
+bindsym $mod+Shift+e exec $HOME/.local/bin/bemoji --clip
 
 # bindsym $mod+Shift+Return exec rofi -modi 'Chrome Profile':$HOME/.local/bin/rofi-chrome-profile-launcher.sh -show 'Chrome Profile'
 
