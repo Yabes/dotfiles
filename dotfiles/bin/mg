@@ -437,7 +437,7 @@ get_status_header() {
     onlinePart=""
   fi
 
-  echo "Repo,Branch,Describe,State,${onlinePart},Dirty?"
+  color_echo "${YELLOW}" "Repo,Branch,Describe,State,${onlinePart},Dirty?"
 }
 
 get_online_status_header() {
@@ -485,15 +485,7 @@ show_status() {
   result="$(get_status_header)\n$(iterate_git_run get_repo_info)"
   erase_previous_line
 
-  case "$(uname)" in
-    Darwin)
-      echo -e "${result}" | column -t -s ','
-      ;;
-
-    *)
-      echo -e "${result}" | column -t -n -s ','
-      ;;
-  esac
+  echo -e "${result}" | column -t -s ','
 }
 # }}}
 
