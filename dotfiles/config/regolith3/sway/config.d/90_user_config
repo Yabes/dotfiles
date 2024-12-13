@@ -46,4 +46,6 @@ exec /usr/bin/chromium-browser --app-id=faolnafnngnfdaknnbpnkhgohbobgegn
 workspace 4
 exec /usr/bin/chromium-browser --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo --app-url=https://teams.microsoft.com/
 
+for_window [title="flameshot"] floating enable
+
 # vim: ft=swayconfig

@@ -43,4 +43,7 @@ for_window [title=".*Chat - Twitch.*"] floating enable sticky enable border none
 
 for_window [window_role="PictureInPicture"] floating enable sticky enable border none
 
+for_window [title="flameshot"] floating enable
+
+
 # vim: ft=i3config
