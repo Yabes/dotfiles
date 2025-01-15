@@ -90,9 +90,19 @@ fd() {
 }
 
 cdv() {
-  local DIR
-  DIR=$(find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null | sed "s@${1:-${HOME}/dev}@@" | fzf) &&
-    cd "${1:-${HOME}/dev}$DIR"
+  local DIR GIT_DIRS PACKAGE_DIRS ALL_DIRS
+
+  GIT_DIRS=$(find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null)
+
+  PACKAGE_DIRS=""
+  for DIR in "${GIT_DIRS}"; do
+    NEW_DIRS=$(git -C $DIR ls-files -- '*/package.json' | xargs -n 1 dirname | xargs -I {} echo "${DIR}/{}")
+    PACKAGE_DIRS="${PACKAGE_DIRS}${NEW_DIRS}"
+  done
+
+  ALL_DIRS=$(cat <(echo "${GIT_DIRS}") <(echo "${PACKAGE_DIRS}"))
+
+  DIR=$(echo "${ALL_DIRS}" | sed "s@${1:-${HOME}/dev}@@" | fzf) && cd "${1:-${HOME}/dev}$DIR"
 }
 
 # fda - including hidden directories
@@ -140,9 +150,9 @@ fshow() {
     FZF_DEFAULT_COMMAND="$GIT_CMD $@" \
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
       --track \
-      --header "ctrl-a: show all branches, ctrl-o: show current branch, ctrl-d: print diff, enter: return selected sha(s)" \
+      --header "^a: all branches, ^o: current branch, ^d: diff, enter: return selected sha(s)" \
       --bind "ctrl-a:reload($GIT_CMD --all $@)" \
-      --bind "ctrl-o:reload($GIT_CMD $@)" \
+      --bind "ctrl-o:reload($GIT_CMD develop.. $@)" \
       --bind "?:toggle-preview" \
       --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
       --print-query --expect=ctrl-d,enter
