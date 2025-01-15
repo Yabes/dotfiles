@@ -31,7 +31,7 @@ local on_attach = function(client, bufnr)
     end, { desc = "Toggle [L]SP Inlay [H]int" })
   end
 
-  local external_formatter = { "vtsls", "jsonls", "lua_ls" }
+  local external_formatter = { "ts_ls", "vtsls", "jsonls", "lua_ls" }
   if has_value(external_formatter, client.name) then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
@@ -60,7 +60,7 @@ local function lsp_config()
   local mason_lspconfig = require("mason-lspconfig")
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-  local overrides = { "bashls", "jsonls", "lua_ls", "marksman", "vtsls", "yamlls" }
+  local overrides = { "bashls", "jsonls", "lua_ls", "marksman", "vtsls", "ts_ls", "yamlls" }
 
   for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
     local lsp_opts = {

@@ -18,17 +18,20 @@ local function setup()
       end
     end,
     sources = {
-      require("none-ls.code_actions.eslint_d"),
+      -- require("none-ls.code_actions.eslint_d"),
+      -- require("none-ls.code_actions.eslint"),
 
       builtins.diagnostics.zsh,
       builtins.diagnostics.stylelint,
-      require("none-ls.diagnostics.eslint_d"),
+      -- require("none-ls.diagnostics.eslint_d"),
+      -- require("none-ls.diagnostics.eslint"),
 
       builtins.formatting.stylua,
       builtins.formatting.prettierd,
       builtins.formatting.shfmt,
       builtins.formatting.stylelint,
-      require("none-ls.formatting.eslint_d"),
+      -- require("none-ls.formatting.eslint_d"),
+      -- require("none-ls.formatting.eslint"),
     },
   })
 end

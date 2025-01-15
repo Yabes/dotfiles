@@ -12,7 +12,8 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-        "vtsls",
+        -- "vtsls",
+        "ts_ls",
         "bashls",
         "dockerls",
         "jsonls",
@@ -21,6 +22,7 @@ return {
         "rust_analyzer",
         "cssls",
         "css_variables",
+        "eslint",
       },
     },
   },
@@ -33,7 +35,8 @@ return {
         "stylua",
         "jq",
         "prettierd",
-        "eslint_d",
+        -- "eslint_d",
+        -- "eslint",
         "stylelint-lsp",
       },
       automatic_installation = true,
