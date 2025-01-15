@@ -18,6 +18,32 @@ return {
       },
     },
     opts = {
+      defaults = {
+        mappings = {
+          i = {
+            -- map actions.which_key to <C-h> (default: <C-/>)
+            -- actions.which_key shows the mappings for your picker,
+            -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+            ["<C-h>"] = "which_key",
+            ["<Esc>"] = "close",
+            ["<C-x>"] = "select_horizontal",
+            ["<C-v>"] = "select_vertical",
+            ["<C-f>"] = function(prompt_bufnr)
+              -- @NOTE: https://github.com/nvim-telescope/telescope.nvim/issues/2016
+              -- @TODO: configure it only for project_files, allow to toggle use_git_root
+              local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+              local opts = {
+                use_git_root = true,
+                show_untracked = true,
+                default_text = current_picker:_get_prompt(),
+              }
+
+              require("telescope.actions").close(prompt_bufnr)
+              require("utils.telescope").project_files(opts)
+            end,
+          },
+        },
+      },
       extensions = {
         fzf = {
           fuzzy = true,
