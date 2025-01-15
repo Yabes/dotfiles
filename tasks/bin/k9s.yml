@@ -39,7 +39,7 @@
           loop: '{{ latest_version.json.assets }}'
           loop_control:
             label: '{{ item.name }}'
-          when: 'filename|string in item.name'
+          when: 'filename == item.name'
           unarchive:
             remote_src: yes
             src: '{{ item.browser_download_url }}'
