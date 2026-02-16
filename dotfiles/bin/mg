@@ -37,7 +37,7 @@ GLOB=""
 
 # Usage {{{
 usage() {
-  cat << EOF 
+  cat <<EOF
 usage: $(color_echo ${MAGENTA} "$(basename $0)") [$(color_echo ${YELLOW} "options")] <$(color_echo ${GREEN} "command")> [<$(color_echo ${BLUE} "args")>]
 
 options:
@@ -107,20 +107,20 @@ color_echo_n() {
   echo -en "${1}${2}${NC}"
 }
 
-not_ignored () {
+not_ignored() {
   ! grep -qs "${1}" ./.ignore-repo
 }
 
-match_glob () {
-  test "${GLOB}" == "" \
-    || [[ "${1}" =~ "${GLOB}" ]]
+match_glob() {
+  test "${GLOB}" == "" ||
+    [[ "${1}" =~ "${GLOB}" ]]
 }
 
 match_git_ref() {
   local project=$1
-  test "${ONLY_REF}" == "" \
-    || [[ "$(git -C "${project}" symbolic-ref --short HEAD)" =~ "${ONLY_REF}" ]]\
-    || [[ "$(git -C "${project}" describe --tags --abbrev=0)"  =~ "${ONLY_REF}" ]]
+  test "${ONLY_REF}" == "" ||
+    [[ "$(git -C "${project}" symbolic-ref --short HEAD)" =~ "${ONLY_REF}" ]] ||
+    [[ "$(git -C "${project}" describe --tags --abbrev=0)" =~ "${ONLY_REF}" ]]
 }
 
 display_repo_name() {
@@ -138,7 +138,8 @@ iterate_git_run() {
 _iterate_git_run() {
   local fn=$1
   local parent_folder=$2
-  shift; shift
+  shift
+  shift
 
   for folder in $(find . -mindepth 1 -maxdepth 1 -type d | sort); do
     local full_path=$(echo "$parent_folder/$folder" | sed 's@/\.@@g')
@@ -183,7 +184,7 @@ is_command_available() {
 # Gitlab command {{{1
 # Gitlab usage {{{2
 gitlab_usage() {
-  cat << EOF
+  cat <<EOF
 usage: $(color_echo ${MAGENTA} "$(basename $0) gitlab") [$(color_echo ${YELLOW} "--uri") <$(color_echo ${BLUE} "uri")> | $(color_echo ${YELLOW} "--guess")]
                  [$(color_echo ${YELLOW} "--token") <$(color_echo ${BLUE} "token")>]
                  <$(color_echo ${GREEN} "command")> [<$(color_echo ${BLUE} "args")>]
@@ -243,19 +244,19 @@ gitlab_clone_group() {
   local GITLAB_REQUEST_PARAM="?order_by=name"
   local PRESERVE_TREE_STRUCTURE=false
 
-  while test $# -gt 0 ; do
+  while test $# -gt 0; do
     case $1 in
-      --include-subgroups)
-        GITLAB_REQUEST_PARAM="${GITLAB_REQUEST_PARAM}&include_subgroups=true"
-        ;;
+    --include-subgroups)
+      GITLAB_REQUEST_PARAM="${GITLAB_REQUEST_PARAM}&include_subgroups=true"
+      ;;
 
-      --preserve-tree-structure)
-        PRESERVE_TREE_STRUCTURE=true
-        ;;
+    --preserve-tree-structure)
+      PRESERVE_TREE_STRUCTURE=true
+      ;;
 
-      *)
-        break
-        ;;
+    *)
+      break
+      ;;
     esac
     shift
   done
@@ -292,7 +293,7 @@ save_gitlab_token() {
 
   color_echo_n $YELLOW "Paste yout access token: "
   read GITLAB_TOKEN
-  echo "GITLAB_TOKEN_${GITLAB_URI} ${GITLAB_TOKEN}" > ${MG_CONFIG}
+  echo "GITLAB_TOKEN_${GITLAB_URI} ${GITLAB_TOKEN}" >${MG_CONFIG}
 }
 
 load_gitlab_token() {
@@ -330,30 +331,30 @@ gitlab() {
     exit 1
   fi
 
-  while : ; do
+  while :; do
     case $1 in
-      --uri)
-        shift
-        GITLAB_URI=$1
-        ;;
+    --uri)
+      shift
+      GITLAB_URI=$1
+      ;;
 
-      --token)
-        shift
-        GITLAB_TOKEN=$1
-        ;;
+    --token)
+      shift
+      GITLAB_TOKEN=$1
+      ;;
 
-      --guess)
-        guess_gitlab_uri
-        ;;
+    --guess)
+      guess_gitlab_uri
+      ;;
 
-      -h|--help|help)
-        gitlab_usage
-        exit 0
-        ;;
+    -h | --help | help)
+      gitlab_usage
+      exit 0
+      ;;
 
-      *)
-        break
-        ;;
+    *)
+      break
+      ;;
     esac
     shift
   done
@@ -375,17 +376,16 @@ gitlab() {
     exit 1
   fi
 
-
   case ${GITLAB_COMMAND} in
-    clone-group)
-      gitlab_clone_group $@
-      ;;
+  clone-group)
+    gitlab_clone_group $@
+    ;;
 
-    *)
-      color_echo $RED "Unknown command: $GITLAB_COMMAND"
-      usage
-      exit 1
-      ;;
+  *)
+    color_echo $RED "Unknown command: $GITLAB_COMMAND"
+    usage
+    exit 1
+    ;;
   esac
 }
 # }}}1
@@ -394,9 +394,9 @@ gitlab() {
 # Status utils {{{
 
 rev_list_to_arrows() {
-	local left=${1:-0} right=${2:-0}
-	[ $right -gt 0 ] && printf ⇣ || true
-	[ $left -gt 0 ] && printf ⇡ || true
+  local left=${1:-0} right=${2:-0}
+  [ $right -gt 0 ] && printf ⇣ || true
+  [ $left -gt 0 ] && printf ⇡ || true
 }
 
 get_repo_info() {
@@ -460,18 +460,17 @@ show_status() {
   FETCH=false
 
   # Parse status args
-  while test $# -gt 0
-  do
+  while test $# -gt 0; do
     case $1 in
-      --fetch)
-        FETCH=true
-        ;;
+    --fetch)
+      FETCH=true
+      ;;
 
-      *)
-        color_echo $RED "Unknown parameter: $1"
-        usage
-        exit 1
-        ;;
+    *)
+      color_echo $RED "Unknown parameter: $1"
+      usage
+      exit 1
+      ;;
     esac
     shift
   done
@@ -534,22 +533,21 @@ switch() {
   PULL=false
   TARGET=""
 
-  while test $# -gt 0
-  do
+  while test $# -gt 0; do
     case $1 in
-      --pull)
-        PULL=true
-        ;;
+    --pull)
+      PULL=true
+      ;;
 
-      -*)
-        color_echo $RED "Unknown switch option: ${1}"
-        usage
-        exit 1
-        ;;
+    -*)
+      color_echo $RED "Unknown switch option: ${1}"
+      usage
+      exit 1
+      ;;
 
-      *)
-        TARGET=$1
-        ;;
+    *)
+      TARGET=$1
+      ;;
     esac
     shift
   done
@@ -612,26 +610,25 @@ bump() {
   OVERWRITE=false
   TAG=""
 
-  while test $# -gt 0
-  do
+  while test $# -gt 0; do
     case $1 in
-      --always)
-        ALWAYS=true
-        ;;
+    --always)
+      ALWAYS=true
+      ;;
 
-      --overwrite)
-        OVERWRITE=true
-        ;;
+    --overwrite)
+      OVERWRITE=true
+      ;;
 
-      -*)
-        color_echo $RED "Unknown bump option: ${1}"
-        usage
-        exit 1
-        ;;
+    -*)
+      color_echo $RED "Unknown bump option: ${1}"
+      usage
+      exit 1
+      ;;
 
-      *)
-        TAG=$1
-        ;;
+    *)
+      TAG=$1
+      ;;
     esac
     shift
   done
@@ -658,12 +655,11 @@ changelog() {
   # Changelog constant
   TAG=""
 
-  while test $# -gt 0
-  do
+  while test $# -gt 0; do
     case $1 in
-      *)
-        TAG=$1
-        ;;
+    *)
+      TAG=$1
+      ;;
     esac
     shift
   done
@@ -674,33 +670,33 @@ changelog() {
 
 # Look for global options
 # {{{ Global option
-while : ; do
+while :; do
   case $1 in
-    --debug)
-      set -x
-      ;;
+  --debug)
+    set -x
+    ;;
 
-    --dry)
-      DRY=true
-      ;;
+  --dry)
+    DRY=true
+    ;;
 
-    --only-ref)
-      shift
-      ONLY_REF=$1
-      ;;
+  --only-ref)
+    shift
+    ONLY_REF=$1
+    ;;
 
-    --glob)
-      shift
-      GLOB=$1
-      ;;
+  --glob)
+    shift
+    GLOB=$1
+    ;;
 
-    --recursive)
-      RECURSIVE=true
-      ;;
+  --recursive)
+    RECURSIVE=true
+    ;;
 
-    *)
-      break
-      ;;
+  *)
+    break
+    ;;
   esac
   shift
 done
@@ -718,45 +714,45 @@ fi
 set -eu
 
 case ${COMMAND} in
-  status)
-    show_status $@
-    ;;
+status)
+  show_status $@
+  ;;
 
-  diff)
-    show_diff $@
-    ;;
+diff)
+  show_diff $@
+  ;;
 
-  bump)
-    bump $@
-    ;;
+bump)
+  bump $@
+  ;;
 
-  switch)
-    switch $@
-    ;;
+switch)
+  switch $@
+  ;;
 
-  exec)
-    exec_command $@
-    ;;
+exec)
+  exec_command $@
+  ;;
 
-  changelog)
-    changelog $@
-    ;;
+changelog)
+  changelog $@
+  ;;
 
-  gitlab)
-    is_command_available jq
-    is_command_available curl
-    gitlab $@
-    ;;
+gitlab)
+  is_command_available jq
+  is_command_available curl
+  gitlab $@
+  ;;
 
-  -h|--help|help)
-    usage
-    ;;
+-h | --help | help)
+  usage
+  ;;
 
-  *)
-    color_echo $RED "Unknown command: ${COMMAND}"
-    usage
-    exit 1
-    ;;
+*)
+  color_echo $RED "Unknown command: ${COMMAND}"
+  usage
+  exit 1
+  ;;
 esac
 # }}}
 
