@@ -1,6 +1,5 @@
 # ls
 
-
 if command -v eza >/dev/null 2>&1; then
   alias ll="eza -l --group-directories-first"
   alias ls="eza"
@@ -21,7 +20,7 @@ fi
 alias la="ls -a"
 alias l.='ls -d .*'
 
-if command -z bat >/dev/null 2>&1; then
+if command -v bat >/dev/null 2>&1; then
   alias cat="bat"
 fi
 
@@ -56,4 +55,3 @@ alias gvim="gvim 2>/dev/null"
 
 alias tmux='tmux-select'
 alias fg='\fg %$(jobs | grep -v pwd | sort -r | fzf --exit-0 --select-1 | cut -d [ -f2 | cut -d  ] -f1)'
-

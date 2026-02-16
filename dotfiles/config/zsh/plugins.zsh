@@ -1,5 +1,12 @@
 source "${HOME}/.zgenom/zgenom.zsh"
 
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+  forward-char
+  end-of-line
+  vi-forward-char
+)
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+
 # Check for plugin and zgenom updates every 7 days
 # This does not increase the startup time.
 zgenom autoupdate
@@ -14,14 +21,10 @@ if ! zgenom saved; then
   zgenom load zsh-users/zsh-autosuggestions
   zgenom load zsh-users/zsh-completions src
 
-  # zgenom load chrissicool/zsh-256color
-
-  # zgenom load sindresorhus/pure . main
-
   zgenom save
+  zgenom compile "$HOME/.zshrc"
 fi
 
 eval "$(starship init zsh)"
 
 bindkey '^y' autosuggest-accept
-export ZSH_AUTOSUGGEST_USE_ASYNC=true

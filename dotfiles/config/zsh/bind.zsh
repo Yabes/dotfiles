@@ -17,8 +17,8 @@ fzf-git-add() {
   return $ret
 }
 
-zle -N fzf-git-add
-bindkey '^G' fzf-git-add
+# zle -N fzf-git-add
+# bindkey '^G' fzf-git-add
 
 fzf-select-modified-since-ref() {
   local REF=${1:-develop}

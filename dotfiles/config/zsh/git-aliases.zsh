@@ -58,3 +58,8 @@ alias gpoat='git push origin --all && git push origin --tags'
 compdef _git gpoat=git-push
 alias gpu='git push upstream'
 alias gpv='git push -v'
+
+function gpf() {
+  echo "gp -u origin --force-with-lease $(git branch --show-current)"
+  gp -u origin --force-with-lease $(git branch --show-current)
+}

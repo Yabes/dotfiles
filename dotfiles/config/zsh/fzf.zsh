@@ -2,6 +2,16 @@
 
 source <(fzf --zsh)
 
+if [[ $(gsettings get org.gnome.desktop.interface color-scheme) == "'prefer-light'" ]]; then
+  BAT_THEME="Monokai Extended Light"
+
+  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+    --color=fg:#4d4d4c,bg:#eeeeee,hl:#d7005f
+    --color=fg+:#4d4d4c,bg+:#e8e8e8,hl+:#d7005f
+    --color=info:#4271ae,prompt:#8959a8,pointer:#d7005f
+    --color=marker:#4271ae,spinner:#4271ae,header:#4271ae'
+fi
+
 _fzf_complete_lxc() {
   _fzf_complete "-m --header-lines=1" "$@" < <(lxc list | grep "^| ")
 }
@@ -95,14 +105,47 @@ cdv() {
   GIT_DIRS=$(find ${1:-${HOME}/dev} -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null)
 
   PACKAGE_DIRS=""
-  for DIR in "${GIT_DIRS}"; do
-    NEW_DIRS=$(git -C $DIR ls-files -- '*/package.json' | xargs -n 1 dirname | xargs -I {} echo "${DIR}/{}")
-    PACKAGE_DIRS="${PACKAGE_DIRS}${NEW_DIRS}"
+  for DIR in $(echo "${GIT_DIRS}"); do
+    PACKAGE_FILES=$(git -C $DIR ls-files -- '*/package.json')
+
+    if [ ! "${PACKAGE_FILES}" = "" ]; then
+      NEW_DIRS=$(echo "${PACKAGE_FILES}" | xargs -n 1 dirname | xargs -I {} echo "${DIR}/{}")
+      PACKAGE_DIRS="${PACKAGE_DIRS}${NEW_DIRS}"
+    fi
   done
 
   ALL_DIRS=$(cat <(echo "${GIT_DIRS}") <(echo "${PACKAGE_DIRS}"))
 
   DIR=$(echo "${ALL_DIRS}" | sed "s@${1:-${HOME}/dev}@@" | fzf) && cd "${1:-${HOME}/dev}$DIR"
+}
+
+repo() {
+  local BASE_DIR="${1:-${HOME}/dev}"
+  local CURRENT_REPO="$(git rev-parse --show-toplevel 2>/dev/null | sed "s@${BASE_DIR}@@")"
+
+  # Navigate to repo
+  if [ -z "${CURRENT_REPO}" ]; then
+    GIT_REPOS=$(find "${BASE_DIR}" -maxdepth 3 -path '*/\.*' -prune -o -name 'node_modules' -prune -o -type d -exec test -e '{}/.git' ';' -print -prune 2>/dev/null | sed "s@${BASE_DIR}@@")
+
+    CURRENT_REPO=$(echo "${GIT_REPOS}" | sed "s@${BASE_DIR}@@" | fzf --ghost "Select a repo" --list-border --scheme=path)
+
+    if [ -z "${CURRENT_REPO}" ]; then
+      return
+    fi
+
+    cd "${BASE_DIR}${CURRENT_REPO}"
+  fi
+
+  # Navigate within the repo
+  PACKAGE_FILES=$(git ls-files -- ':/**package.json')
+
+  SUB_DIR=$(echo "${PACKAGE_FILES}" | sed "s@/\?package.json@@" | grep -v "^$" | fzf --tiebreak=pathname,length --header "${CURRENT_REPO}" --ghost "Select a subdir" --list-border --select-1 --exit-0 --tac)
+
+  if [ -z "${SUB_DIR}" ]; then
+    return
+  fi
+
+  cd "${SUB_DIR}"
 }
 
 # fda - including hidden directories
@@ -145,16 +188,16 @@ fshow() {
   # TODO fzf in files of previous cmd
   # TODO save previous cmd std to file
 
-  local GIT_CMD="git log --decorate --graph --color=always --format='%C(auto)%h%d %s %C(black)%C(bold)%cn %cr'"
+  local GIT_CMD="git log --decorate --graph --color=always --format='%C(auto)%h%d %s %C(blue)%C(bold)%cn %C(dim)%cr'"
   while out=$(
     FZF_DEFAULT_COMMAND="$GIT_CMD $@" \
       fzf --ansi --multi --no-sort --reverse --query="$q" --tiebreak=index \
       --track \
       --header "^a: all branches, ^o: current branch, ^d: diff, enter: return selected sha(s)" \
       --bind "ctrl-a:reload($GIT_CMD --all $@)" \
-      --bind "ctrl-o:reload($GIT_CMD develop.. $@)" \
+      --bind "ctrl-o:reload($GIT_CMD --first-parent develop.. $@)" \
       --bind "?:toggle-preview" \
-      --preview-window wrap --preview 'local sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
+      --preview-window wrap --preview 'sha1=$(echo {} | sed -n "s|[*| ]*\([a-z0-9]\{7\}\).*|\1|p"); [ -n "$sha1" ] && git show --color -m $sha1 '"$@" \
       --print-query --expect=ctrl-d,enter
   ); do
     q=$(head -1 <<<"$out")

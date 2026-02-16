@@ -48,8 +48,10 @@ export LD_LIBRARY_PATH=/usr/local/lib
 . ~/.config/zsh/completion.zsh
 . ~/.config/zsh/bind.zsh
 . ~/.config/zsh/fzf.zsh
+. ~/.config/zsh/fzf-git.sh
 . ~/.config/zsh/git-aliases.zsh
 . ~/.config/zsh/plugins.zsh
+. ~/.config/zsh/git-worktree.zsh
 
 export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
