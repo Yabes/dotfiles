@@ -1,19 +1,20 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     event = "VeryLazy",
     opts = {
       ui = { border = "rounded" },
     },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     event = "VeryLazy",
     opts = {
+      automatic_enable = false,
       ensure_installed = {
         "lua_ls",
         -- "vtsls",
-        "ts_ls",
+        -- "ts_ls",
         "bashls",
         "dockerls",
         "jsonls",
@@ -23,7 +24,13 @@ return {
         "cssls",
         "css_variables",
         "eslint",
+        "somesass_ls",
+        "biome",
+        "helm_ls",
       },
+    },
+    dependencies = {
+      "neovim/nvim-lspconfig",
     },
   },
   {
@@ -32,14 +39,14 @@ return {
     event = "VeryLazy",
     opts = {
       ensure_installed = {
-        "stylua",
+        -- "stylua",
         "jq",
         "prettierd",
         -- "eslint_d",
         -- "eslint",
         "stylelint-lsp",
+        "kube-linter",
       },
-      automatic_installation = true,
       automatic_setup = true,
     },
   },

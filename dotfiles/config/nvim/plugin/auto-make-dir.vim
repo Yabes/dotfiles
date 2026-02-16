@@ -14,4 +14,4 @@ fun! <SID>AutoMakeDirectory()
   endif
 
 endfun
-autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+" autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()

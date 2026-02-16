@@ -12,26 +12,42 @@ ls.add_snippets("typescriptreact", {
     "rfc",
     fmt(
       [[
-import {{ FC }} from 'react';
+type Props = {{ {} }};
 
-type {}Props = {{ {} }};
-
-export const {}: FC<{}Props> = ({{ {} }}) => {{
+export const {}: React.FC<Props> = ({{ {} }}) => {{
   return <div>{}</div>;
 }};
 ]],
       {
-        dl(1, l.TM_FILENAME_BASE, {}),
         i(2),
-        f(function(args)
-          return args[1][1]
-        end, { 1 }),
-        f(function(args)
-          return args[1][1]
-        end, { 1 }),
-
+        dl(1, l.TM_FILENAME_BASE, {}),
         i(3),
         i(4),
+      }
+    )
+  ),
+})
+
+ls.add_snippets("typescript", {
+  s(
+    "vitest",
+    fmt(
+      [[
+import {{ describe, test, expect }} from 'vitest';
+
+describe('{}', () => {{
+  test('{}', () => {{
+    const result = '';
+    const expected = '';
+
+    expect(result).toEqual(expected);
+  }});
+}});
+ 
+]],
+      {
+        dl(1, l.TM_FILENAME_BASE, {}),
+        i(2),
       }
     )
   ),

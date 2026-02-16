@@ -1,5 +1,10 @@
 local has_value = require("utils.table").has_value
 
+-- Si un jour je veux virer mason-lspconfig et passer par la solution native
+-- https://gpanders.com/blog/whats-new-in-neovim-0-11/
+-- https://neovim.io/doc/user/lsp.html#vim.lsp.enable()
+-- https://github.com/mason-org/mason-lspconfig.nvim
+
 local on_attach = function(client, bufnr)
   vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
   -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -10,6 +15,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+  vim.keymap.set("n", "gu", vim.lsp.buf.incoming_calls, opts)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
   vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
   vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
@@ -37,11 +43,11 @@ local on_attach = function(client, bufnr)
     client.server_capabilities.documentRangeFormattingProvider = false
   end
 
-  if client.server_capabilities.documentFormattingProvider then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
-  end
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ timeout_ms = 5000 })")
+  -- end
 
-  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]])
+  -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ async = true, timeout_ms = 5000 })' ]])
 
   -- NOTE: Format on save autocommand
   -- if client.server_capabilities.documentFormattingProvider then
@@ -56,13 +62,29 @@ local on_attach = function(client, bufnr)
 end
 
 local function lsp_config()
-  local lspconfig = require("lspconfig")
   local mason_lspconfig = require("mason-lspconfig")
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-  local overrides = { "bashls", "jsonls", "lua_ls", "marksman", "vtsls", "ts_ls", "yamlls" }
+  local overrides = { "bashls", "jsonls", "lua_ls", "marksman", "vtsls", "ts_ls", "yamlls", "eslint" }
 
-  for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
+  local servers = mason_lspconfig.get_installed_servers()
+
+  local project_config = require("core.project").get_project_config()
+
+  for _, server in ipairs(servers) do
+    -- Configure any LSP server except rust_analyzer
+    if server == "rust_analyzer" then
+      goto continue
+    end
+
+    if server == "eslint" and project_config.linter.js_ts == "biome" then
+      goto continue
+    end
+
+    if server == "biome" and project_config.linter.js_ts == "eslint" then
+      goto continue
+    end
+
     local lsp_opts = {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -74,10 +96,9 @@ local function lsp_config()
       lsp_opts = vim.tbl_deep_extend("force", extra_opts, lsp_opts)
     end
 
-    -- Configure any LSP server except rust_analyzer
-    if server ~= "rust_analyzer" then
-      lspconfig[server].setup(lsp_opts)
-    end
+
+    vim.lsp.config(server, lsp_opts);
+    vim.lsp.enable(server);
 
     -- Might not be usefull with rustaceanvim
     -- lspconfig.rust_analyzer.setup({
@@ -94,11 +115,8 @@ local function lsp_config()
     --     },
     --   },
     -- })
+    ::continue::
   end
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
 end
 
 return {

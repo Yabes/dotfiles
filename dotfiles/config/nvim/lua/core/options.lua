@@ -21,6 +21,12 @@ vim.opt.matchtime = 2
 -- Remove extra commant marker when joining lines
 vim.opt.formatoptions:append({ "j" })
 
+-- Recognise numbered list when formating text
+vim.opt.formatoptions:append({ "n" })
+
+-- Don't aut-wrap text
+vim.opt.formatoptions:remove({ "t" })
+
 -- don't give |ins-completion-menu| messages.
 vim.opt.shortmess:append({ c = true })
 
@@ -132,9 +138,9 @@ if vim.fn.has("gui_running") == 1 then
   vim.opt.guioptions = ""
 end
 
--- Show relative number
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- hide line numbers
+vim.opt.number = false
+vim.opt.relativenumber = false
 
 -- Hide mode, showed in custom status bar
 vim.opt.showmode = false
@@ -177,6 +183,9 @@ vim.opt.splitkeep = "screen"
 -- Preview :s results in a split
 vim.opt.inccommand = "split"
 
+-- Show rounded border on floating windows
+vim.o.winborder = "rounded"
+
 -- -----------------------------------------------------------------------------
 -- Files, backups and undo {{{1
 -- -----------------------------------------------------------------------------
@@ -212,7 +221,7 @@ if vim.fn.has("unix") == 1 then
   end
 end
 
-vim.opt.background = "dark"
+-- vim.opt.background = "dark"
 
 -- True color support
 if vim.fn.exists("+termguicolors") == 1 then

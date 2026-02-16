@@ -26,8 +26,8 @@ local function setup()
       -- require("none-ls.diagnostics.eslint_d"),
       -- require("none-ls.diagnostics.eslint"),
 
-      builtins.formatting.stylua,
-      builtins.formatting.prettierd,
+      -- builtins.formatting.stylua,
+      -- builtins.formatting.prettierd,
       builtins.formatting.shfmt,
       builtins.formatting.stylelint,
       -- require("none-ls.formatting.eslint_d"),

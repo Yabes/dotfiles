@@ -6,7 +6,7 @@
 
 - name: Download latest release
   ansible.builtin.get_url:
-    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
     dest: '{{ temp_dir.path }}'
   register: archive
 
@@ -20,7 +20,7 @@
   become: true
   ansible.builtin.copy:
     remote_src: true
-    src: '{{ temp_dir.path }}/nvim-linux64/'
+    src: '{{ temp_dir.path }}/nvim-linux-x86_64/'
     dest: '/usr/local/'
     owner: root
     group: root

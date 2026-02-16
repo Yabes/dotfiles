@@ -38,7 +38,11 @@ keymap("n", "[q", ":cn<CR>", opts)
 
 keymap("n", "]q", ":cp<CR>", opts)
 
-keymap("n", "<leader>e", ":e! ~/.config/nvim/init.lua<CR>", opts)
+keymap("n", "<leader>e", function()
+  vim.cmd.edit("~/.config/nvim/init.lua")
+  vim.cmd.cd("~/.config/nvim")
+end, opts)
+
 keymap("n", "<leader>p", ":Oil ~/.config/nvim/lua/plugins/<CR>", opts)
 
 keymap("n", "<F5>", ":UndotreeToggle<CR>", opts)
@@ -72,3 +76,9 @@ keymap("n", "<C-Left>", "<C-w>h", opts)
 keymap("n", "<C-Right>", "<C-w>l", opts)
 keymap("n", "<C-Up>", "<C-w>k", opts)
 keymap("n", "<C-Down>", "<C-w>j", opts)
+
+-- Cutting to blackhole register
+-- local ops = { "c", "x", "d" }
+-- for _, op in pairs(ops) do
+--   keymap({ "n", "v" }, "<leader>" .. op, '"_' .. op)
+-- end

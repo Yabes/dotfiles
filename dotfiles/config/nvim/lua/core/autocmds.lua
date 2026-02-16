@@ -17,3 +17,16 @@ vim.cmd([[
     \   exe "normal! g`\"" |
     \ endif
 ]])
+
+--- https://github.com/sainnhe/everforest
+--- https://github.com/vimpostor/vim-prism
+aucmd({ "OptionSet" }, {
+  pattern = "background",
+  callback = function()
+    if vim.o.background == "dark" then
+      vim.cmd.colorscheme("kanagawa")
+    else
+      vim.cmd.colorscheme("everforest")
+    end
+  end,
+})

@@ -1,3 +1,4 @@
+require("core.abbr")
 require("core.options")
 require("core.filetype")
 require("core.autocmds")

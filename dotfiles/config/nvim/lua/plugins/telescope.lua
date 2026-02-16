@@ -6,9 +6,16 @@ return {
     keys = {
       { "<C-f>", "<CMD>lua require'utils.telescope'.project_files()<CR>", noremap = true },
       { "<C-g>", ":Telescope git_status<CR>", noremap = true },
-      { "<leader>f", ":Telescope file_browser<CR>", noremap = true },
       { "<C-b>", ":Telescope buffers<CR>", noremap = true },
       { "<leader>rg", ":Telescope grep_string<CR>", noremap = true },
+      {
+        "<leader>rg",
+        function()
+          require("utils.telescope").grep_string_visual()
+        end,
+        noremap = true,
+        mode = "v",
+      },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -32,6 +39,7 @@ return {
               -- @NOTE: https://github.com/nvim-telescope/telescope.nvim/issues/2016
               -- @TODO: configure it only for project_files, allow to toggle use_git_root
               local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+
               local opts = {
                 use_git_root = true,
                 show_untracked = true,

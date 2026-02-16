@@ -2,12 +2,18 @@ local filter = require("utils.table").filter
 
 local function filterReactDTS(value)
   return string.match(value.uri or value.targetUri, "react/index.d.ts") == nil
+    and string.match(value.uri or value.targetUri, "zipfs://") == nil
 end
 
 return {
   init_options = {
     preferences = {
-      importModuleSpecifierPreference = "relative",
+      importModuleSpecifierPreference = "non-relative",
+      importModuleSpecifierEnding = "js",
+      -- preferTypeOnlyAutoImports = true,
+      updateImportsOnFileMove = {
+        enabled = "always",
+      },
     },
   },
   handlers = {
