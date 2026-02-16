@@ -55,7 +55,7 @@
   cmd = "nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\""
   trustExitCode = true
 [push]
-    default = matching
+    ; default = matching
 [pull]
     rebase = true
 [grep]
