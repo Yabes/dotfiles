@@ -3,7 +3,6 @@
   become: false
   vars:
     global_packages:
-      - eslint_d
       - neovim
       - '@fsouza/prettierd'
       - '@go-task/cli'

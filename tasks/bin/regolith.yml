@@ -26,7 +26,7 @@
     - name: Add regolith repository
       become: true
       ansible.builtin.apt_repository:
-        repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/release-3_2-ubuntu-noble-amd64 noble main'
+        repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/release-3_2-ubuntu-jammy-amd64 jammy main'
         state: present
         update_cache: yes
 

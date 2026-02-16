@@ -7,8 +7,8 @@
       ansible.builtin.apt_repository:
         repo: ppa:phoerious/keepassxc
         state: present
+        update_cache: true
     - name: Install packages with apt
-      update_cache: true
       become: true
       ansible.builtin.apt:
         name:

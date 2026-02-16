@@ -23,7 +23,6 @@
           - yamllint
           - pynvim
         state: present
-        extra_args: --break-system-packages
 
     - name: Change shell
       become: true

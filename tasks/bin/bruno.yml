@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install bruno key
+      become: true
+      ansible.builtin.get_url:
+        url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xe598552e09c999055fefa7159fa6017ecabe0266
+        dest: /etc/apt/keyrings/bruno-archive-keyring.gpg
+
+    - name: Add bruno repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: 'deb [signed-by=/etc/apt/keyrings/bruno.gpg] http://debian.usebruno.com/ bruno stable'
+        state: present
+        update_cache: yes
+
+    - name: Install bruno
+      become: true
+      ansible.builtin.package:
+        name: bruno
+        state: present
